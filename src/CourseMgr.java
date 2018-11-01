@@ -10,6 +10,7 @@ public class CourseMgr {
      * Call and create a new CourseDB
      */
     static CourseDB courseDB;
+    static CourseComponentWeight weightage;
 
     public CourseMgr() {
         courseDB = new CourseDB();
@@ -21,7 +22,7 @@ public class CourseMgr {
     public void addCourse(int courseCode, String Cname, int profId /*int[] tutorialCapacity, int[] labCapacity*/) {
 
         // Create a new course object
-        Course newCourse = new Course(courseCode, Cname, profId);
+        Course newCourse = new Course( courseCode, Cname, profId );
 
         /* Adding Tutorials and Laboratory work to newly created Course;
         newCourse.addTutorials( tutorialCapacity );
@@ -31,17 +32,18 @@ public class CourseMgr {
         courseDB.addCourse( newCourse );
 
     }
+
     /*
      * Print out Course List
      */
     public void printCourseList() {
 
         List<Course> courseList = courseDB.getCourseList();
-        System.out.printf("%s\t%20s\t%s\n", "Course Code", "Course Name", "Professor ID");
+        System.out.printf( "%s\t%20s\t%s\n", "Course Code", "Course Name", "Professor ID" );
 
         for (int i = 0; i < courseList.size(); i++) {
-            System.out.printf("%11d\t%20s\t%11d\n",
-                    courseList.get(i).getCourseCode(), courseList.get(i).getCourseName(), courseList.get(i).getProfId());
+            System.out.printf( "%11d\t%20s\t%11d\n",
+                    courseList.get( i ).getCourseCode(), courseList.get( i ).getCourseName(), courseList.get( i ).getProfId() );
         }
     }
 
@@ -100,35 +102,47 @@ public class CourseMgr {
     }
 
     /*
-     * Obtain Exam weightage and Coursework weight of Course
-     * Obtain number of Coursework of a Course
-     * By Course Code / Name
+     * Get Exam weightage by Course code
      */
     public double getExamWeightByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return course.getExamWeight();
+        return weightage.getExamWeight();
     }
 
+    /*
+     * Get Exam weightage by Course name
+     */
     public double getExamWeightByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
-        return course.getExamWeight();
+        return weightage.getExamWeight();
     }
-
+    /*
+     * Get Course work weightage by Course code
+     */
     public double[] getCourseworkWeightByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return course.getCourseWorkWeight();
+        return weightage.getCourseWorkWeight();
     }
 
+    /*
+     * Get Course work weightage by Course name
+     */
     public double[] getCourseworkWeightByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
-        return course.getCourseWorkWeight();
+        return weightage.getCourseWorkWeight();
     }
 
+    /*
+     * Get number of Course work by Course code
+     */
     public int getNumOfCourseworkInCourseByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return course.getNumberOfCourseWork();
+        return weightage.getNumberOfCourseWork();
     }
 
+    /*
+     * Get number of Course work by Course name
+     */
     public int getNumOfCourseWorkInCourseByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
         return course.getNumberOfCourseWork();
@@ -174,19 +188,6 @@ public class CourseMgr {
         } else {
             return false;
         }
-    }
-
-    public static void main(String[] args){
-
-        CourseDB CourseDBTest = new CourseDB();
-        CourseMgr CourseTest = new CourseMgr();
-
-        CourseTest.addCourse(2002, "OODP", 1001);
-        CourseTest.addCourse( 2001, "Algorithm", 1002);
-//        CourseTest.setCourseWeightageByCode(2002, 70, );
-        CourseTest.printCourseList();
-
-
     }
 
 }

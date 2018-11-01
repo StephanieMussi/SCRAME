@@ -4,8 +4,10 @@ import java.util.ArrayList;
 /***
  * Course class (Model)
  * Stores and Retrieves Course Information - Adding Lectures, Tutorials and Lab into a Course
+ * Manages Course assessments and enrolled students to Course
  */
 public class Course implements Serializable {
+    static Weightage weight;
     /*
      * Course code: CZ2002 --> 2002
      */
@@ -21,19 +23,7 @@ public class Course implements Serializable {
     /*
      * Total capacity of created Course
      */
-    private int capacityOfCourse;
-    /*
-     * Exam weightage of Course
-     */
-    private double examWeight;
-    /*
-     * Coursework weightage of Course
-     */
-    private double[] courseWorkWeight;
-    /*
-     * Number of Coursework in the course
-     */
-    private int numberOfCourseWork;
+    private int maxCapacity;
     // private List<IndexCourse> indexList;     // new ArrayList<indexList>(  );
     /*
      * Lecture session of a course; there can only be one lecture per course
@@ -49,6 +39,10 @@ public class Course implements Serializable {
      * i.e Index lab group SS1(Index 1101), SS2(Index 1102)
      */
     private ArrayList<CourseIndex> laboratoryGrps;
+    /*
+     * Students registered into the Course
+     */
+    private ArrayList<StudentInfo> registeredStudents;
 
     /***
      * @param courseCode
@@ -59,6 +53,7 @@ public class Course implements Serializable {
         this.courseCode = courseCode;
         this.Cname = Cname;
         this.profId = profId;
+        registeredStudents = new ArrayList<StudentInfo>();
         Lecture = null;
         tutorialGrps = new ArrayList<CourseIndex>();
         laboratoryGrps = new ArrayList<CourseIndex>();
@@ -83,8 +78,9 @@ public class Course implements Serializable {
     /*
      * Get total capacity of Course
      */
-    public int getCapacityOfCourse() {
-        return capacityOfCourse;
+    public int getCapacity() {
+
+        return maxCapacity;
     }
 
     /*
@@ -93,30 +89,6 @@ public class Course implements Serializable {
     public int getProfId() {
 
         return profId;
-    }
-
-    /*
-     * Get Exam weightage of Course
-     */
-    public double getExamWeight() {
-
-        return examWeight;
-    }
-
-    /*
-     * Get Coursework weightage of Course
-     */
-    public double[] getCourseWorkWeight() {
-
-        return courseWorkWeight;
-    }
-
-    /*
-     * Get number of Coursework of Course
-     */
-    public int getNumberOfCourseWork() {
-
-        return numberOfCourseWork;
     }
 
     /*
@@ -142,20 +114,30 @@ public class Course implements Serializable {
     }
 
     /*
-     * Set total weightage of Course
-     * Based on Exam weightage and Coursework weightage
+     * Get list of registered student for the Course
      */
-    public void setWeightage(double examWeight, double[] courseWorkWeight) {
-        this.examWeight = examWeight;
-        this.courseWorkWeight = courseWorkWeight;
-        this.numberOfCourseWork = courseWorkWeight.length;
+    public ArrayList<StudentInfo> getRegisteredStudents() {
+        return registeredStudents;
+    }
 
+    /*
+     * Set registered student into the course
+     */
+    public void setRegisteredStudents(StudentInfo student) {
+        if (registeredStudents.size() == 0) {
+            return;
+        } else if (registeredStudents.size() < maxCapacity) {
+            if (!isStudentRegistered( student )) {
+                registeredStudents.add( student );
+            }
+        }
     }
 
     /*
      * Add a Lecture into a Course
      */
     public void addLectures(CourseIndex lecture) {
+
         this.Lecture = lecture;
     }
 
@@ -226,11 +208,20 @@ public class Course implements Serializable {
         laboratoryGrps.get( index ).setVacancy();
     }
 
+
     /*
-     * Course verifiers
+     * Check if student is registered into the Course
+     */
+    public boolean isStudentRegistered(StudentInfo student) {
+        return registeredStudents.contains( student );
+    }
+
+    /*
+     * Check if Course is valid
+     * ;if total weightage of Exam + Course work + total number of course work is != 0
      */
     public boolean isCourseValidatable() {
-        if (examWeight != 0 && courseWorkWeight != null && numberOfCourseWork >= 0) {
+        if (weight.getExamWeight() != 0 && weight.getCourseWorkWeight() != null && weight.getNumberOfCourseWork() >= 0) {
             return true;
         } else {
             return false;
