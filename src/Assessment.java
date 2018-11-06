@@ -47,10 +47,9 @@ public class Assessment {
      * Sets weightage of type of assessment
      */
     public void setTotalWeightage(double totalWeightage) {
-        if(totalWeightage < 0 || totalWeightage == 0){
+        if (totalWeightage < 0 || totalWeightage == 0) {
             totalWeightage = 0; // Min weightage of an assessment
-        }
-        else if(totalWeightage > 100){
+        } else if (totalWeightage > 100) {
             totalWeightage = 100; // Max weightage of an assessment
         }
         this.totalWeightage = totalWeightage;

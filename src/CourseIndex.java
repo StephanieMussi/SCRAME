@@ -26,12 +26,22 @@ public class CourseIndex {
     protected String name;
     // Create a list for enrolled students to index?
 
+    /***
+     * Constructor class for CourseIndex
+     * @param index
+     * @param capacity
+     */
     public CourseIndex(int index, int capacity) {
         this.index = index;
         this.capacity = capacity;
         this.vacancy = capacity;
         this.course = null;
     }
+
+    /***
+     * Getters for Instances
+     * @return
+     */
 
     /*
      * Get index of Course
@@ -66,6 +76,18 @@ public class CourseIndex {
     }
 
     /*
+     * Get student enrolled into this Index
+     */
+    public String getName() {
+
+        return name;
+    }
+
+    /***
+     * Setters for instances
+     */
+
+    /*
      * Set Max capacity of current index
      */
     public void setCapacity() {
@@ -77,12 +99,18 @@ public class CourseIndex {
     }
 
     /*
-     * Get student enrolled into this Index
+     * Set Vacancy of Course
+     * Whenever set, vacancy minus by 1
      */
-    public String getName() {
-        return name;
+    public void setVacancy() {
+
+        vacancy--;
     }
 
+    /***
+     * Verifiers
+     * @return
+     */
     /*
      * Check for Vacancy of Course
      */
@@ -91,13 +119,5 @@ public class CourseIndex {
             return true;
         else
             return false;
-    }
-
-    /*
-     * Set Vacancy of Course
-     * Whenever set, vacancy minus by 1
-     */
-    public void setVacancy() {
-        vacancy--;
     }
 }

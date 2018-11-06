@@ -9,7 +9,7 @@ public class CourseDB {
     /*
      * Create an ArrayList for Course
      */
-    private List<Course> courseList = new ArrayList<Course>( );
+    private List<Course> courseList = new ArrayList<Course>();
 
 /*    public CourseDB() {
         initialize();
@@ -27,12 +27,25 @@ public class CourseDB {
         courseList = SerializeDB.readSerializedObject( "course.rtf" );
     }
 */
+
     /*
-     * Returns Course List in database
+     * Parse a new "course" into the database
+     */
+    public void addCourse(Course newCourse) {
+
+        courseList.add( newCourse );
+    }
+
+    /***
+     * Getters for Course
+     */
+
+    /*
+     * Get Course list
      */
     public List<Course> getCourseList() {
 
-        return courseList;
+        return this.courseList;
     }
 
     /*
@@ -50,29 +63,21 @@ public class CourseDB {
         }
         return null;
     }
+
     /*
      * Obtain a Object by courseName - Course
      */
-    public Course getCourseByName(String courseName){
-        if(courseList.size() == 0){
+    public Course getCourseByName(String courseName) {
+        if (courseList.size() == 0) {
             return null;
-        }
-        else{
-            for(int i = 0; i < courseList.size(); i++){
-                if(courseList.get( i ).getCourseName() == courseName){
+        } else {
+            for (int i = 0; i < courseList.size(); i++) {
+                if (courseList.get( i ).getCourseName() == courseName) {
                     return courseList.get( i );
                 }
             }
         }
         return null;
-    }
-
-    /*
-     * Parse a new "course" into the database
-     */
-    public void addCourse(Course newCourse) {
-
-        courseList.add( newCourse );
     }
 /*
     public void saveCourseList() {

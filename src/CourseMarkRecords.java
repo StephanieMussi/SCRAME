@@ -4,7 +4,7 @@ import java.util.HashMap;
  * Record class
  * Stores and retrieves marks of Course
  */
-public class GradingRecords {
+public class CourseMarkRecords {
     /*
      * Store the marks record of each assessment in Course
      * Using Hashmap?
@@ -16,9 +16,9 @@ public class GradingRecords {
     private boolean graded = false;
 
     /***
-     * GradingRecords - Constructor
+     * CourseMarkRecords - Constructor
      */
-    public GradingRecords() {
+    public CourseMarkRecords() {
         this.componentMarks = new HashMap<Assessment, Double>();
     }
 
@@ -49,4 +49,3 @@ public class GradingRecords {
         return graded;
     }
 }
-

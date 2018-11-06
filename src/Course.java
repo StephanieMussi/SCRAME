@@ -4,229 +4,268 @@ import java.util.ArrayList;
 /***
  * Course class (Model)
  * Stores and Retrieves Course Information - Adding Lectures, Tutorials and Lab into a Course
- * Manages Course assessments and enrolled students to Course
+ * Manages Course assessments and enrolled students
  */
 public class Course implements Serializable {
-    static Weightage weight;
+
     /*
-     * Course code: CZ2002 --> 2002
+     * Call CourseComponentWeight class
+     */
+    static CourseWeight weightage;
+    /*
+     * Professor ID in charged of Course
+     */
+    private int professorId;
+    /*
+     * Course code: CZ2002 -> 2002
      */
     private int courseCode;
     /*
      * Course name: Objected Oriented Design Programming
      */
-    private String Cname;
+    private String courseName;
     /*
-     * Professor ID in charged of Course
+     * Course Credits: AUs
      */
-    private int profId;
+    private int courseAU;
     /*
      * Total capacity of created Course
      */
     private int maxCapacity;
-    // private List<IndexCourse> indexList;     // new ArrayList<indexList>(  );
     /*
-     * Lecture session of a course; there can only be one lecture per course
+     * Lecture session of Course
+     * There can only be one lecture per course
      */
-    private CourseIndex Lecture;
+    private CourseIndex lecture;
     /*
      * Tutorial session of a course; number of tutorial is based on Indexes of Course
      * i.e Index Tutorial group SS1(Index 1101), SS2(Index 1102)
      */
-    private ArrayList<CourseIndex> tutorialGrps;
+    private ArrayList<CourseIndex> tutorialIndexes;
     /*
      * Lab session of a course; number of lab is based on Indexes of Course
      * i.e Index lab group SS1(Index 1101), SS2(Index 1102)
      */
-    private ArrayList<CourseIndex> laboratoryGrps;
+    private ArrayList<CourseIndex> laboratoryIndexes;
     /*
-     * Students registered into the Course
+     * Registered students of Course
      */
     private ArrayList<StudentInfo> registeredStudents;
+    /*
+     * Weightages of Course's Components
+     */
+    private CourseWeight courseWeightage;
 
     /***
+     * Constructor for Course
+     * @param professorId
      * @param courseCode
-     * @param Cname
-     * @param profId
+     * @param courseName
+     * @param maxCapacity
      */
-    public Course(int courseCode, String Cname, int profId) {
+    public Course(int professorId, int courseCode, String courseName, int maxCapacity, int courseAU) {
+        this.professorId = professorId;
         this.courseCode = courseCode;
-        this.Cname = Cname;
-        this.profId = profId;
-        registeredStudents = new ArrayList<StudentInfo>();
-        Lecture = null;
-        tutorialGrps = new ArrayList<CourseIndex>();
-        laboratoryGrps = new ArrayList<CourseIndex>();
+        this.courseName = courseName;
+        this.courseAU = courseAU;
+        this.maxCapacity = maxCapacity;
+        this.lecture = null;
+        this.tutorialIndexes = new ArrayList<CourseIndex>();
+        this.laboratoryIndexes = new ArrayList<CourseIndex>();
+        this.registeredStudents = new ArrayList<StudentInfo>();
+        this.courseWeightage = new CourseWeight();
+    }
+
+    /**
+     * Get methods for Instances
+     */
+
+    /*
+     * get Professor ID in charged of Course
+     */
+    public int getProfessorId() {
+        return professorId;
     }
 
     /*
-     * Get Course code
+     * Get Course code; CZ2002 -> 2002
      */
     public int getCourseCode() {
-
         return courseCode;
     }
 
     /*
-     * Get Course name
+     * Get Course Name; Object Oriented and Design Programming
      */
     public String getCourseName() {
-
-        return Cname;
+        return courseName;
     }
 
     /*
-     * Get total capacity of Course
+     * Get Max capacity of Course
      */
-    public int getCapacity() {
-
+    public int getMaxCapacity() {
         return maxCapacity;
     }
 
     /*
-     * Get Professor ID of Course
+     * Get Course AU
      */
-    public int getProfId() {
-
-        return profId;
+    public int getCourseAU() {
+        return courseAU;
     }
 
     /*
      * Get lecture from Course
      */
     public CourseIndex getLecture() {
-        return Lecture;
+        return lecture;
     }
 
     /*
-     * Get tutorial groups from a Course
+     * Get tutorial groups(index) of Course
      */
-    public ArrayList<CourseIndex> getTutorialGrps() {
-        return tutorialGrps;
+    public ArrayList<CourseIndex> getTutorialIndexes() {
+        return tutorialIndexes;
     }
 
     /*
-     * Get lab groups from a Course
+     * Get lab groups(index) of Course
      */
-    public ArrayList<CourseIndex> getLaboratoryGrps() {
+    public ArrayList<CourseIndex> getLaboratoryIndexes() {
 
-        return laboratoryGrps;
+        return laboratoryIndexes;
     }
 
     /*
-     * Get list of registered student for the Course
+     * Get list of registered student of Course
      */
     public ArrayList<StudentInfo> getRegisteredStudents() {
+
         return registeredStudents;
     }
 
     /*
-     * Set registered student into the course
+     * Get Component weightages of Course
      */
-    public void setRegisteredStudents(StudentInfo student) {
-        if (registeredStudents.size() == 0) {
-            return;
-        } else if (registeredStudents.size() < maxCapacity) {
-            if (!isStudentRegistered( student )) {
-                registeredStudents.add( student );
-            }
+    public CourseWeight getCourseWeightage() {
+        return courseWeightage;
+    }
+
+    /**
+     * Set methods for Instances
+     */
+
+    /*
+     * Set Professor ID of Course
+     */
+    public void setProfessorId(int professorId) {
+        this.professorId = professorId;
+    }
+
+    /*
+     * Set Course code
+     */
+    public void setCourseCode(int courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    /*
+     * Set Course name
+     */
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+
+    /*
+     * Set max capacity of Course
+     */
+    public void setMaxCapacity(int maxCapacity) {
+        if (maxCapacity < 0 || maxCapacity == 0) {
+            maxCapacity = 0;
+        } else {
+            this.maxCapacity = maxCapacity;
         }
     }
 
     /*
-     * Add a Lecture into a Course
+     * Set Course AU
      */
-    public void addLectures(CourseIndex lecture) {
-
-        this.Lecture = lecture;
-    }
-
-    /*
-     * Add tutorial groups (Indexes) into a Course
-     */
-    public void addTutorials(int[] capacity) {
-        int i = 0;
-        /*
-         * Traverse through capacity array of Student's assigned tutorial index
-         * Proceeds to add into the tutorial with the tagged index of Course
-         */
-        while (i < capacity.length) {
-            Tutorial newTut = new Tutorial( i, capacity[i] );
-            i++;
-        }
-    }
-
-    /*
-     * Add lab  groups (Indexes) into a Course
-     */
-    public void addLab(int[] capacity) {
-        int i = 0;
-        /*
-         * Traverse through capacity array of Student's assigned Lab index
-         * Proceeds to add into the Lab with the tagged index of Course
-         */
-        while (i < capacity.length) {
-            Laboratory newLab = new Laboratory( i, capacity[i] );
-            i++;
-        }
+    public void setCourseAU(int courseAU) {
+        this.courseAU = courseAU;
     }
 
     /*
      * Set Lecture to Course
      */
-    public void setLecture(CourseIndex Lecture) {
-        this.Lecture = Lecture;
+    public void setLecture(CourseIndex lecture) {
+        this.lecture = lecture;
     }
 
     /*
-     * Set tutorial group to an INDEX of Course
+     * Set tutorial group to Course; assigned as an INDEX
      */
-    public void setTutGroup(ArrayList<CourseIndex> tutorialGrps) {
-        this.tutorialGrps = tutorialGrps;
+    public void setTutorialIndexes(ArrayList<CourseIndex> tutorialIndexes) {
+        this.tutorialIndexes = tutorialIndexes;
     }
 
     /*
-     * Set Tutorial vacancy
+     * Set tutorial group vacancy
      */
     public void setTutVacancy(int index) {
-
-        tutorialGrps.get( index ).setVacancy();
+        tutorialIndexes.get( index ).setVacancy();
     }
 
     /*
-     * Set lab group to an INDEX of Course
+     * Set lab group to Course; assigned an as INDEX
      */
-    public void setLabGroup(ArrayList<CourseIndex> laboratoryGrps) {
-        this.laboratoryGrps = laboratoryGrps;
+    public void setLaboratoryIndexes(ArrayList<CourseIndex> laboratoryIndexes) {
+        this.laboratoryIndexes = laboratoryIndexes;
     }
 
     /*
-     * Set Lab vacancy
+     * Set lab group vacancy
      */
-    public void setlabVacancy(int index) {
-
-        laboratoryGrps.get( index ).setVacancy();
+    public void setLabVacancy(int index) {
+        laboratoryIndexes.get( index ).setVacancy();
     }
 
+    /*
+     * Set registered students list of Course
+     */
+    public void setRegisteredStudents(ArrayList<StudentInfo> registeredStudents) {
+        this.registeredStudents = registeredStudents;
+    }
 
     /*
-     * Check if student is registered into the Course
+     * Set Course weightages of Course
      */
-    public boolean isStudentRegistered(StudentInfo student) {
+    public void setCourseWeightage(CourseWeight courseWeightage) {
+        this.courseWeightage = courseWeightage;
+    }
+
+    /***
+     * Checkers for Course class
+     */
+
+    /*
+     * Check if student is registered into Course
+     */
+    public boolean isStudentRegisteredInCourse(ArrayList<StudentInfo> student) {
         return registeredStudents.contains( student );
     }
 
     /*
      * Check if Course is valid
-     * ;if total weightage of Exam + Course work + total number of course work is != 0
+     * Course is valid iff total weightage of Exam + Couse work + total number if course work is not equals to 0
      */
     public boolean isCourseValidatable() {
-        if (weight.getExamWeight() != 0 && weight.getCourseWorkWeight() != null && weight.getNumberOfCourseWork() >= 0) {
+
+        if (weightage.getExamination() != null && weightage.getCourseWork() != null &&
+                weightage.getNumberOfCourseWork() >= 0) {
             return true;
         } else {
             return false;
         }
     }
-
-
 }

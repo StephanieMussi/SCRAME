@@ -1,75 +1,51 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 /***
- * Course Manager class (Controller)
- * Handles and manages the information of Course
+ * Course manager class (Controller)
+ * Handles and manages information of Course
  */
 public class CourseMgr {
+    /***
+     * Call
+     * Course class
+     * CourseDB class
+     * CourseWeight class
+     */
 
     /*
-     * Call and create a new CourseDB
+     * Initialise Course database; CourseDB
      */
-    static CourseDB courseDB;
-    static CourseComponentWeight weightage;
-
-    public CourseMgr() {
-        courseDB = new CourseDB();
-    }
+    private CourseDB courseDB = new CourseDB();
 
     /*
-     * Adding a new Course
+     * Adders
      */
-    public void addCourse(int courseCode, String Cname, int profId /*int[] tutorialCapacity, int[] labCapacity*/) {
-
-        // Create a new course object
-        Course newCourse = new Course( courseCode, Cname, profId );
-
-        /* Adding Tutorials and Laboratory work to newly created Course;
-        newCourse.addTutorials( tutorialCapacity );
-        newCourse.addLab( labCapacity );*/
-
-        // Adding newly created course into Course Database
+    public void addCourse(int profId, int courseCode, String courseName, int courseAU, int maxCapacity,
+                          CourseIndex lecture, ArrayList<CourseIndex> tutorialIndex, ArrayList<CourseIndex> labIndex,
+                          CourseWeight weightage,
+                          ArrayList<StudentInfo> registeredStudent) {
+        //Create a new Course Object
+        Course newCourse = new Course( profId, courseCode, courseName, maxCapacity, courseAU );
+        newCourse.setLecture( lecture );
+        newCourse.setTutorialIndexes( tutorialIndex );
+        newCourse.setLaboratoryIndexes( labIndex );
+        newCourse.setCourseWeightage( weightage );
+        newCourse.setRegisteredStudents( registeredStudent );
         courseDB.addCourse( newCourse );
-
     }
-
-    /*
-     * Print out Course List
+    
+    /***
+     * Getters
      */
-    public void printCourseList() {
-
-        List<Course> courseList = courseDB.getCourseList();
-        System.out.printf( "%s\t%20s\t%s\n", "Course Code", "Course Name", "Professor ID" );
-
-        for (int i = 0; i < courseList.size(); i++) {
-            System.out.printf( "%11d\t%20s\t%11d\n",
-                    courseList.get( i ).getCourseCode(), courseList.get( i ).getCourseName(), courseList.get( i ).getProfId() );
-        }
-    }
-
-    /*
-     *
-    public int[] checkVacancyByCourseCode(int courseCode, IndicesOfIndex indexNum) {
-        Course code = courseDB.getCourse( courseCode );
-
-    }
-
-    public void checkAvailableVacancyOfIndex(int courseCode) {
-        Course code = courseDB.getCourse( courseCode );
-
-        // check available solts from courseList.get(i), iterate indexNum, find the index, check vacancy
-        // print the result
-    }
-    *
-    */
 
     /*
      * Retrieves all course by their code i.e CZ2002 - Objected Oriented Design and Programming
      * Obtain 2002 from course list
      * Stores 2002 into an int array list
      */
-    public int[] getCoursesByCode() {
-
+    public int[] getCourseByCode() {
         List<Course> courseList = courseDB.getCourseList();
         int[] courseCodeList = new int[courseList.size()];
         if (courseList.size() == 0) {
@@ -78,8 +54,8 @@ public class CourseMgr {
             for (int i = 0; i < courseList.size(); i++) {
                 courseCodeList[i] = courseList.get( i ).getCourseCode();
             }
-            return courseCodeList;
         }
+        return courseCodeList;
     }
 
     /*
@@ -87,7 +63,7 @@ public class CourseMgr {
      * Obtain Objected Oriented Design and Programming from course list
      * Stores  Objected Oriented Design and Programming into an String array list
      */
-    public String[] getCoursesByName() {
+    public String[] getCourseByName() {
 
         List<Course> courseList = courseDB.getCourseList();
         String[] courseNameList = new String[courseList.size()];
@@ -101,35 +77,53 @@ public class CourseMgr {
         }
     }
 
+    /***
+     * Print Course list
+     */
+    public void printCourseList() {
+        List<Course> courseList = courseDB.getCourseList();
+
+        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Professor ID", "AU", "Course Code", "Course Name" );
+
+        for (int i = 0; i < courseList.size(); i++) {
+            System.out.printf( "%12d\t%2d\t%15d\t\t%-20s\n",
+                    courseList.get( i ).getProfessorId(),
+                    courseList.get( i ).getCourseAU(),
+                    courseList.get( i ).getCourseCode(),
+                    courseList.get( i ).getCourseName() );
+        }
+    }
+
     /*
      * Get Exam weightage by Course code
      */
-    public double getExamWeightByCode(int courseCode) {
+    public Assessment getExamWeightByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return weightage.getExamWeight();
+        return Course.weightage.getExamination();
     }
 
     /*
      * Get Exam weightage by Course name
      */
-    public double getExamWeightByName(String Cname) {
+    public Assessment getExamWeightByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
-        return weightage.getExamWeight();
+        return Course.weightage.getExamination();
     }
+
     /*
      * Get Course work weightage by Course code
      */
-    public double[] getCourseworkWeightByCode(int courseCode) {
+    public ArrayList<Assessment> getCourseworkWeightByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return weightage.getCourseWorkWeight();
+        return Course.weightage.getCourseWork();
     }
 
     /*
      * Get Course work weightage by Course name
      */
-    public double[] getCourseworkWeightByName(String Cname) {
+    public ArrayList<Assessment> getCourseworkWeightByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
-        return weightage.getCourseWorkWeight();
+        return Course.weightage.getCourseWork();
     }
 
     /*
@@ -137,7 +131,7 @@ public class CourseMgr {
      */
     public int getNumOfCourseworkInCourseByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return weightage.getNumberOfCourseWork();
+        return Course.weightage.getNumberOfCourseWork();
     }
 
     /*
@@ -145,26 +139,11 @@ public class CourseMgr {
      */
     public int getNumOfCourseWorkInCourseByName(String Cname) {
         Course course = courseDB.getCourseByName( Cname );
-        return course.getNumberOfCourseWork();
+        return Course.weightage.getNumberOfCourseWork();
     }
 
     /***
-     * Setters
-     */
-    // Sets weight-ages of assessment of a Course based on Course Code
-    public void setCourseWeightageByCode(int courseCode, double examWeight, double[] courseWorkWeight) {
-        Course course = courseDB.getCourse( courseCode );
-        course.setWeightage( examWeight, courseWorkWeight );
-    }
-
-    // Sets weight-ages of assessment of a Course based on Course Name
-    public void setCourseWeightageByName(String Cname, double examWeight, double[] courseWorkWeight) {
-        Course course = courseDB.getCourseByName( Cname );
-        course.setWeightage( examWeight, courseWorkWeight );
-    }
-
-    /*
-     * Checkers by course code (Verifiers)
+     * Verifier for Course
      */
     public boolean isCourseExistInDB(int courseCode) {
 
@@ -190,4 +169,9 @@ public class CourseMgr {
         }
     }
 
+    public static void main(String[] args) {
+        CourseMgr cmgr = new CourseMgr();
+        cmgr.printCourseList();
+    }
 }
+
