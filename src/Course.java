@@ -61,19 +61,41 @@ public class Course implements Serializable {
      * @param professorId
      * @param courseCode
      * @param courseName
-     * @param maxCapacity
      */
-    public Course(int professorId, int courseCode, String courseName, int maxCapacity, int courseAU) {
+    public Course(int professorId, int courseCode, String courseName, int courseAU) {
         this.professorId = professorId;
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseAU = courseAU;
-        this.maxCapacity = maxCapacity;
         this.lecture = null;
-        this.tutorialIndexes = new ArrayList<CourseIndex>();
-        this.laboratoryIndexes = new ArrayList<CourseIndex>();
-        this.registeredStudents = new ArrayList<StudentInfo>();
-        this.courseWeightage = new CourseWeight();
+    }
+
+    /***
+     * Adders
+     */
+
+    /*
+     * Adding tutorial indexes into Course
+     * capacity parameter stores total number of students in each group
+     */
+    public void addTutorialIndex(int[] capacity){
+        int i = 0;
+        for(i = 0; i < capacity.length; i++){
+            CourseIndex tutorialIndex = new CourseIndex( i, capacity[i] );
+            tutorialIndexes.add( tutorialIndex );
+        }
+    }
+
+    /*
+     * Adding lecture indexes into Course
+     * capacity parameter stores total number of students
+     */
+    public void addLabIndex(int[] capacity){
+        int i = 0;
+        for(i = 0; i < capacity.length; i++){
+            CourseIndex labIndex = new CourseIndex( i, capacity[i] );
+            laboratoryIndexes.add( labIndex );
+        }
     }
 
     /**

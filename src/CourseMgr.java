@@ -22,17 +22,11 @@ public class CourseMgr {
     /*
      * Adders
      */
-    public void addCourse(int profId, int courseCode, String courseName, int courseAU, int maxCapacity,
-                          CourseIndex lecture, ArrayList<CourseIndex> tutorialIndex, ArrayList<CourseIndex> labIndex,
-                          CourseWeight weightage,
-                          ArrayList<StudentInfo> registeredStudent) {
+    public void addCourse(int profId, int courseCode, String courseName, int courseAU/*,int[] tutorialCapacity, int[] labCapacity*/) {
         //Create a new Course Object
-        Course newCourse = new Course( profId, courseCode, courseName, maxCapacity, courseAU );
-        newCourse.setLecture( lecture );
-        newCourse.setTutorialIndexes( tutorialIndex );
-        newCourse.setLaboratoryIndexes( labIndex );
-        newCourse.setCourseWeightage( weightage );
-        newCourse.setRegisteredStudents( registeredStudent );
+        Course newCourse = new Course( profId, courseCode, courseName, courseAU );
+        //newCourse.addTutorialIndex(tutorialCapacity);
+        //newCourse.addLabIndex( labCapacity );
         courseDB.addCourse( newCourse );
     }
     
@@ -171,6 +165,11 @@ public class CourseMgr {
 
     public static void main(String[] args) {
         CourseMgr cmgr = new CourseMgr();
+        cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3);
+        cmgr.addCourse(02, 2001, "Algorithm", 3);
+        cmgr.addCourse( 03, 2005, "Operating System", 3 );
+        cmgr.addCourse( 04,2006,"Software Engineering", 3 );
+        cmgr.addCourse( 05, 2007, "Introduction to Database", 3 );
         cmgr.printCourseList();
     }
 }
