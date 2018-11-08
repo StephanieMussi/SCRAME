@@ -69,6 +69,7 @@ public class CourseIndex {
 
     /*
      * Get capacity of Index
+     * Assuming capacity of a lesson is 20
      */
     public int getCapacity() {
 
@@ -94,7 +95,7 @@ public class CourseIndex {
         if (capacity < 0) {
             capacity = 0;
         } else {
-            this.capacity = capacity;
+            this.capacity = 20;
         }
     }
 

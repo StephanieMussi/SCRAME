@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 /***
  * Course class (Model)
@@ -41,20 +42,18 @@ public class Course implements Serializable {
      * Tutorial session of a course; number of tutorial is based on Indexes of Course
      * i.e Index Tutorial group SS1(Index 1101), SS2(Index 1102)
      */
-    private ArrayList<CourseIndex> tutorialIndexes;
+    private ArrayList<CourseIndex> tutorial;
     /*
      * Lab session of a course; number of lab is based on Indexes of Course
      * i.e Index lab group SS1(Index 1101), SS2(Index 1102)
      */
-    private ArrayList<CourseIndex> laboratoryIndexes;
-    /*
-     * Registered students of Course
-     */
-    private ArrayList<StudentInfo> registeredStudents;
+    private ArrayList<CourseIndex> laboratory;
     /*
      * Weightages of Course's Components
      */
     private CourseWeight courseWeightage;
+
+    private List<CourseIndex> numOfIndex = new ArrayList<>();
 
     /***
      * Constructor for Course
@@ -78,11 +77,11 @@ public class Course implements Serializable {
      * Adding tutorial indexes into Course
      * capacity parameter stores total number of students in each group
      */
-    public void addTutorialIndex(int[] capacity){
+    public void addTutorial(int[] capacity) {
         int i = 0;
-        for(i = 0; i < capacity.length; i++){
-            CourseIndex tutorialIndex = new CourseIndex( i, capacity[i] );
-            tutorialIndexes.add( tutorialIndex );
+        for (i = 0; i < capacity.length; i++) {
+            CourseIndex index = new CourseIndex( i, capacity[i] );
+            tutorial.add( index );
         }
     }
 
@@ -90,11 +89,11 @@ public class Course implements Serializable {
      * Adding lecture indexes into Course
      * capacity parameter stores total number of students
      */
-    public void addLabIndex(int[] capacity){
+    public void addLab(int[] capacity) {
         int i = 0;
-        for(i = 0; i < capacity.length; i++){
-            CourseIndex labIndex = new CourseIndex( i, capacity[i] );
-            laboratoryIndexes.add( labIndex );
+        for (i = 0; i < capacity.length; i++) {
+            CourseIndex index = new CourseIndex( i, capacity[i] );
+            laboratory.add( index );
         }
     }
 
@@ -147,24 +146,16 @@ public class Course implements Serializable {
     /*
      * Get tutorial groups(index) of Course
      */
-    public ArrayList<CourseIndex> getTutorialIndexes() {
-        return tutorialIndexes;
+    public ArrayList<CourseIndex> getTutorialIndex() {
+        return tutorial;
     }
 
     /*
      * Get lab groups(index) of Course
      */
-    public ArrayList<CourseIndex> getLaboratoryIndexes() {
+    public ArrayList<CourseIndex> getLaboratoryIndex() {
 
-        return laboratoryIndexes;
-    }
-
-    /*
-     * Get list of registered student of Course
-     */
-    public ArrayList<StudentInfo> getRegisteredStudents() {
-
-        return registeredStudents;
+        return laboratory;
     }
 
     /*
@@ -228,35 +219,28 @@ public class Course implements Serializable {
      * Set tutorial group to Course; assigned as an INDEX
      */
     public void setTutorialIndexes(ArrayList<CourseIndex> tutorialIndexes) {
-        this.tutorialIndexes = tutorialIndexes;
+        this.tutorial = tutorialIndexes;
     }
 
     /*
      * Set tutorial group vacancy
      */
     public void setTutVacancy(int index) {
-        tutorialIndexes.get( index ).setVacancy();
+        tutorial.get( index ).setVacancy();
     }
 
     /*
      * Set lab group to Course; assigned an as INDEX
      */
     public void setLaboratoryIndexes(ArrayList<CourseIndex> laboratoryIndexes) {
-        this.laboratoryIndexes = laboratoryIndexes;
+        this.laboratory = laboratoryIndexes;
     }
 
     /*
      * Set lab group vacancy
      */
     public void setLabVacancy(int index) {
-        laboratoryIndexes.get( index ).setVacancy();
-    }
-
-    /*
-     * Set registered students list of Course
-     */
-    public void setRegisteredStudents(ArrayList<StudentInfo> registeredStudents) {
-        this.registeredStudents = registeredStudents;
+        laboratory.get( index ).setVacancy();
     }
 
     /*
@@ -269,13 +253,6 @@ public class Course implements Serializable {
     /***
      * Checkers for Course class
      */
-
-    /*
-     * Check if student is registered into Course
-     */
-    public boolean isStudentRegisteredInCourse(ArrayList<StudentInfo> student) {
-        return registeredStudents.contains( student );
-    }
 
     /*
      * Check if Course is valid

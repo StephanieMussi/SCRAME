@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +21,13 @@ public class CourseMgr {
     /*
      * Adders
      */
-    public void addCourse(int profId, int courseCode, String courseName, int courseAU/*,int[] tutorialCapacity, int[] labCapacity*/) {
+    public void addCourse(int profId, int courseCode, String courseName, int courseAU) {
         //Create a new Course Object
         Course newCourse = new Course( profId, courseCode, courseName, courseAU );
-        //newCourse.addTutorialIndex(tutorialCapacity);
-        //newCourse.addLabIndex( labCapacity );
         courseDB.addCourse( newCourse );
     }
-    
+
+
     /***
      * Getters
      */
@@ -51,7 +49,6 @@ public class CourseMgr {
         }
         return courseCodeList;
     }
-
 
 
     /*
@@ -90,39 +87,31 @@ public class CourseMgr {
         }
     }
 
-    public void printCourseCodeList(){
+    public void printCourseCodeList() {
         List<Course> courseCodeList = courseDB.getCourseList();
 
-        System.out.printf( "%s\t\t%s\n", "AU", "Course code");
-        for(int i = 0; i < courseCodeList.size(); i++){
+        System.out.printf( "%s\t\t%s\n", "AU", "Course code" );
+        for (int i = 0; i < courseCodeList.size(); i++) {
             System.out.printf( "%2d\t\t%-11d\n", courseCodeList.get( i ).getCourseAU(),
                     courseCodeList.get( i ).getCourseCode() );
         }
     }
 
-    public void printCourseNameList(){
+    public void printCourseNameList() {
         List<Course> courseNameList = courseDB.getCourseList();
 
-        System.out.printf( "%s\t\t%s\n", "AU", "Course name");
-        for(int i = 0; i < courseNameList.size(); i++){
+        System.out.printf( "%s\t\t%s\n", "AU", "Course name" );
+        for (int i = 0; i < courseNameList.size(); i++) {
             System.out.printf( "%2d\t\t%-20s\n", courseNameList.get( i ).getCourseAU(),
-                    courseNameList.get(i).getCourseName());
+                    courseNameList.get( i ).getCourseName() );
         }
     }
 
     /*
      * Get Exam weightage by Course code
      */
-    public Assessment getExamWeightByCode(int courseCode) {
+    public Assessment getExamWeight(int courseCode){
         Course course = courseDB.getCourse( courseCode );
-        return Course.weightage.getExamination();
-    }
-
-    /*
-     * Get Exam weightage by Course name
-     */
-    public Assessment getExamWeightByName(String Cname) {
-        Course course = courseDB.getCourseByName( Cname );
         return Course.weightage.getExamination();
     }
 
@@ -135,26 +124,10 @@ public class CourseMgr {
     }
 
     /*
-     * Get Course work weightage by Course name
-     */
-    public ArrayList<Assessment> getCourseworkWeightByName(String Cname) {
-        Course course = courseDB.getCourseByName( Cname );
-        return Course.weightage.getCourseWork();
-    }
-
-    /*
      * Get number of Course work by Course code
      */
     public int getNumOfCourseworkInCourseByCode(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return Course.weightage.getNumberOfCourseWork();
-    }
-
-    /*
-     * Get number of Course work by Course name
-     */
-    public int getNumOfCourseWorkInCourseByName(String Cname) {
-        Course course = courseDB.getCourseByName( Cname );
         return Course.weightage.getNumberOfCourseWork();
     }
 
@@ -187,10 +160,10 @@ public class CourseMgr {
 
     public static void main(String[] args) {
         CourseMgr cmgr = new CourseMgr();
-        cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3);
-        cmgr.addCourse(02, 2001, "Algorithm", 3);
+        cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3 );
+        cmgr.addCourse( 02, 2001, "Algorithm", 3 );
         cmgr.addCourse( 03, 2005, "Operating System", 3 );
-        cmgr.addCourse( 04,2006,"Software Engineering", 3 );
+        cmgr.addCourse( 04, 2006, "Software Engineering", 3 );
         cmgr.addCourse( 05, 2007, "Introduction to Database", 3 );
         cmgr.printCourseList();
         System.out.println();

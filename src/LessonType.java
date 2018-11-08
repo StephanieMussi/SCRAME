@@ -1,24 +1,24 @@
 /***
  * Enum class creation of the Indexes of a course
  */
-public enum IndicesOfIndex {
+public enum LessonType {
 
-    LECTURE {
+    lecture {
 
         public String toString() {
             return "Lecture";
         }
     },
-    TUTORIAL {
+    tutorial {
 
         public String toString() {
             return "Tutorial";
         }
     },
-    LABORATORY {
+    lab {
 
         public String toString() {
-            return "Lab";
+            return "Laboratory";
         }
     };
 
