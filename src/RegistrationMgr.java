@@ -17,33 +17,16 @@ public class RegistrationMgr {
         String studentName = "";
         StudentDB sdb = new StudentDB();
         StudentInfo student2 = new StudentInfo();
-        sdb.studentInfoLoad(); // need a method to find name by id, not the other way round.
-        //cause ppl have same names
-        List studentList = SerializeDB.readSerializedObject("student.dat");
-        for (int i = 0; i < studentList.size(); i++) {
-            student2 = (StudentInfo) studentList.get(i);
-            if (student2.getSid() == student)
-                studentName = student2.getSname();
-        }
+        student2 = sdb.findSbySid(student);
+        studentName = student2.getSname();
         registration = new Registration(course, student, index, studentName);
     }
 
-    public Course Test() {
+    /*public Course Test() {
         Course course = new Course();
-		/*this.professorId = professorId;
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.courseAU = courseAU;
-        this.maxCapacity = maxCapacity;
-        this.lecture = null;
-        this.tutorialIndexes = new ArrayList<CourseIndex>();
-        this.laboratoryIndexes = new ArrayList<CourseIndex>();
-        this.registeredStudents = new ArrayList<StudentInfo>();
-
-        this.courseWeightage = new CourseWeight();*/
         course.setCourseAU(1);
         course.setProfessorId(1);
-        course.setCourseCode(2005);
+        course.setCourseCode(2004);
         course.setCourseName("TAN KHENG WEE");
         course.setMaxCapacity(100);
 
@@ -66,14 +49,8 @@ public class RegistrationMgr {
         list2.add(s2);
         list2.add(s3);
         course.setRegisteredStudents(list2);
-		/*public CourseIndex(int index, int capacity) {
-	        this.index = index;
-	        this.capacity = capacity;
-	        this.vacancy = capacity;
-	        this.course = null;
-	    }*/
         return course;
-    }
+    }*/
 
     //Check for vacancy
     public int checkVacancy(String courseCode, int index) {
@@ -161,8 +138,8 @@ public class RegistrationMgr {
         RegistrationMgr rsc = new RegistrationMgr();
         while (choice < 3) {
             System.out.print("Choose:");
-            System.out.print("\n1. Add student");
-            System.out.print("\n2. Print student");
+            System.out.print("\n1. Register student");
+            System.out.print("\n2. Print registration list");
             System.out.println("\n3. Quit");
             choice = sc.nextInt();
             String coursecode = "";

@@ -32,6 +32,11 @@ public class AdminCtrl {
 
 
 
+        //Register students
+        RegistrationMgr rMgr = new RegistrationMgr();
+        rMgr.registrationMenu();
+
+
         //assign marks
 
 
