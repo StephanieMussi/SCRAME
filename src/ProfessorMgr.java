@@ -14,15 +14,18 @@ public class ProfessorMgr {
     }
 
 
-    public boolean findProfbyPname(String name) {
-        boolean exist = false;
+
+
+
+    public Professor findProfByPid(int id) {
+        Professor prof = null;
          for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)
                 break;
-            if (profList.get( i ).getName().compareTo( name ) == 0)
-                exist = true;
+            if (profList.get( i ).getPid() == id)
+                prof = profList.get(i);
         }
-        return exist;
+        return prof;
     }
 
 
@@ -30,7 +33,7 @@ public class ProfessorMgr {
         for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)
                 break;
-            else System.out.println(profList.get(i).getName());
+            else System.out.println(profList.get(i).getPid()+"\tname: "+profList.get(i).getName());
         }
     }
 

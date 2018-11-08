@@ -22,12 +22,12 @@ public class CreateDat {
         SerializeDB.writeSerializedObject( "student.dat", list );
 
         List<Professor> listp = new ArrayList<Professor> ();
-        Professor p1 = new Professor( "Tan wei", "Twei.ntu.edu.com", 91330111 );
-        //Professor p2 = new Professor( "Chen mi", "Cmi.ntu.edu.com", 91330222 );
-        //Professor p3 = new Professor( "Christ lin", "CHli.ntu.edu.com", 91330333);
+        Professor p1 = new Professor( 001,"Tan wei", "Twei.ntu.edu.com", 91330111 );
+        Professor p2 = new Professor( 002,"Chen mi", "Cmi.ntu.edu.com", 91330222 );
+        Professor p3 = new Professor( 003,"Christ lin", "CHli.ntu.edu.com", 91330333);
         listp.add( p1 );
-        //list.add( s2 );
-        //list.add( s3 );
+        listp.add( p2 );
+        listp.add( p3 );
         SerializeDB.writeSerializedObject( "prof.dat", listp );
 
 
