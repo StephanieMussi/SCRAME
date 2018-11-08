@@ -1,9 +1,11 @@
+import java.io.Serializable;
+
 /***
  * Class tagged index to Courses
  * Each Index consist of a Lecture, Tutorial, Lab
  * Handles information regarding Lectures, Tutorials and Lab works
  */
-public class CourseIndex {
+public class CourseIndex implements Serializable {
     /*
      * Index of Course
      */
@@ -36,6 +38,10 @@ public class CourseIndex {
         this.capacity = capacity;
         this.vacancy = capacity;
         this.course = null;
+    }
+
+    public CourseIndex() {
+
     }
 
     /***

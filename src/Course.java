@@ -69,6 +69,10 @@ public class Course implements Serializable {
         this.lecture = null;
     }
 
+    public Course() {
+
+    }
+    
     /***
      * Adders
      */

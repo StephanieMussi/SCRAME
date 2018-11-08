@@ -14,7 +14,7 @@ public class StudentMgr {
      * constructor
      * instantiate new StudentDB()
      */
-    public StudentMgr() {
+    StudentMgr() {
         studentDB = new StudentDB();
         //do some initialization here
     }
@@ -68,6 +68,12 @@ public class StudentMgr {
     public StudentInfo findSbySname(String name) {
         return studentDB.findSbySname( name );
     }
+
+
+    public StudentInfo findSbySid(int id) {
+        return studentDB.findSbySid( id );
+    }
+
 
 
     /*

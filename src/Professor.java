@@ -1,21 +1,28 @@
 import java.io.Serializable;
 
 public class Professor implements Serializable {
+	private int pid;
 	private String name ;
 	private String email ;
 	private int contact ;
 
-	public Professor(String n, String e, int c)  {
+	public Professor(int id,String n, String e, int c)  {
+		pid = id;
 		name = n ;
 		email = e ;
 		contact = c ;
 	}
+
+	public int getPid(){return pid;}
+
 	public String getName() {
 		return name ;
 	}
+
 	public int getContact() {
 		return contact ;
 	}
+
 	public String getEmail() {
 		return email ;
 	}
@@ -27,4 +34,5 @@ public class Professor implements Serializable {
 		}
 		return false;
 	}
+
 }

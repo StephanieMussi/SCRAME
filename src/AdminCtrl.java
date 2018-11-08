@@ -6,6 +6,8 @@ public class AdminCtrl {
     {
         Scanner sc = new Scanner(System.in);
 
+
+
         //load and add students
         System.out.println("load students from data file");
         StudentMgr sMgr = new StudentMgr();
@@ -26,10 +28,21 @@ public class AdminCtrl {
             pMgr.printAll();
 
 
-
         //load and add courses
         //define all attributes related to courses
+        CourseMgr cMgr = new CourseMgr();
+        cMgr.addCourse();
 
+
+        //register students to courses
+
+
+
+
+
+        //Register students
+        RegistrationMgr rMgr = new RegistrationMgr();
+        rMgr.registrationMenu();
 
 
         //assign marks
