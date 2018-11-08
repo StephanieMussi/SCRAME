@@ -4,13 +4,14 @@ import java.io.Serializable;
 //Need something to call the IndexCourse entity.
 public class Registration implements Serializable {
     private int student, index;
-    private String course;
+    private String course, studentName;
 
     //Constructor
-    public Registration(String course, int student, int index) {
+    public Registration(String course, int student, int index, String studentName) {
         this.course = course;
         this.student = student;
         this.index = index;
+        this.studentName = studentName;
     }
 
     public void setStudent(int student) {
@@ -35,5 +36,13 @@ public class Registration implements Serializable {
 
     public int getIndex() {
         return index;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 }
