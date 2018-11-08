@@ -52,6 +52,8 @@ public class CourseMgr {
         return courseCodeList;
     }
 
+
+
     /*
      * Retrieves all course by their Name i.e CZ2002 - Objected Oriented Design and Programming
      * Obtain Objected Oriented Design and Programming from course list
@@ -85,6 +87,26 @@ public class CourseMgr {
                     courseList.get( i ).getCourseAU(),
                     courseList.get( i ).getCourseCode(),
                     courseList.get( i ).getCourseName() );
+        }
+    }
+
+    public void printCourseCodeList(){
+        List<Course> courseCodeList = courseDB.getCourseList();
+
+        System.out.printf( "%s\t\t%s\n", "AU", "Course code");
+        for(int i = 0; i < courseCodeList.size(); i++){
+            System.out.printf( "%2d\t\t%-11d\n", courseCodeList.get( i ).getCourseAU(),
+                    courseCodeList.get( i ).getCourseCode() );
+        }
+    }
+
+    public void printCourseNameList(){
+        List<Course> courseNameList = courseDB.getCourseList();
+
+        System.out.printf( "%s\t\t%s\n", "AU", "Course name");
+        for(int i = 0; i < courseNameList.size(); i++){
+            System.out.printf( "%2d\t\t%-20s\n", courseNameList.get( i ).getCourseAU(),
+                    courseNameList.get(i).getCourseName());
         }
     }
 
@@ -171,6 +193,12 @@ public class CourseMgr {
         cmgr.addCourse( 04,2006,"Software Engineering", 3 );
         cmgr.addCourse( 05, 2007, "Introduction to Database", 3 );
         cmgr.printCourseList();
+        System.out.println();
+        cmgr.getCourseByCode();
+        cmgr.printCourseCodeList();
+        System.out.println();
+        cmgr.getCourseByName();
+        cmgr.printCourseNameList();
     }
 }
 
