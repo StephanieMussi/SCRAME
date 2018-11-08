@@ -14,12 +14,23 @@ public class CreateDat {
         List<StudentInfo> list = new ArrayList<StudentInfo>();
         // TODO Auto-generated method stub
         StudentInfo s1 = new StudentInfo( 0001, "ZOE" );
-        StudentInfo s2 = new StudentInfo( 0002, "ZOZO" );
-        StudentInfo s3 = new StudentInfo( 0003, "BOBO" );
+        //StudentInfo s2 = new StudentInfo( 0002, "ZOZO" );
+        //StudentInfo s3 = new StudentInfo( 0003, "BOBO" );
         list.add( s1 );
-        list.add( s2 );
-        list.add( s3 );
-        SerializeDB.writeSerializedObject( "student.txt", list );
+        //list.add( s2 );
+        //list.add( s3 );
+        SerializeDB.writeSerializedObject( "student.dat", list );
+
+        List<Professor> listp = new ArrayList<Professor> ();
+        Professor p1 = new Professor( "Tan wei", "Twei.ntu.edu.com", 91330111 );
+        //Professor p2 = new Professor( "Chen mi", "Cmi.ntu.edu.com", 91330222 );
+        //Professor p3 = new Professor( "Christ lin", "CHli.ntu.edu.com", 91330333);
+        listp.add( p1 );
+        //list.add( s2 );
+        //list.add( s3 );
+        SerializeDB.writeSerializedObject( "prof.dat", listp );
+
+
 
     }
 

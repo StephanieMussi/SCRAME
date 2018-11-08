@@ -7,18 +7,12 @@ public class StudentDB {
      * loading and adding students info between programs and file
      * don't contain other reference
      */
-    private List<StudentInfo> studentList = new ArrayList<StudentInfo>();
+    private static List<StudentInfo> studentList = new ArrayList<StudentInfo>();
     SerializeDB serialize;
 
 
+    //load student.dat
     public StudentDB() {
-        studentInfoLoad();
-    }
-
-
-    //load and save between external files and programs, currently cannot work!!!!!!!!!!!
-    @SuppressWarnings("unchecked")
-    public void studentInfoLoad() {
         studentList = SerializeDB.readSerializedObject( "student.dat" );
     }
 
@@ -79,7 +73,7 @@ public class StudentDB {
      * using List method add()
      * required functionality
      */
-    public void addStudent(int sid, String sname) {
+    public static void addStudent(int sid, String sname) {
         StudentInfo newStudent = new StudentInfo( sid, sname );
         studentList.add( newStudent );
     }
@@ -91,6 +85,7 @@ public class StudentDB {
     public void printAll() {
         // TODO Auto-generated method stub
         for (int i = 0; i < studentList.size(); i++) {
+            //hereby i is object index, not sid
             if (studentList.get( i ) == null)
                 break;
             else

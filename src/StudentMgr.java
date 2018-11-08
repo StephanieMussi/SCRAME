@@ -8,7 +8,7 @@ public class StudentMgr {
      */
 
     Scanner scan = new Scanner( System.in );
-    static StudentDB studentDB;
+    private static StudentDB studentDB;
 
     /*
      * constructor
