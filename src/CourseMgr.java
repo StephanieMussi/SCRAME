@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /***
  * Course manager class (Controller)
@@ -16,16 +15,12 @@ public class CourseMgr {
     /*
      * Initialise Course database; CourseDB
      */
+    Scanner scan = new Scanner(System.in);
     private CourseDB courseDB = new CourseDB();
 
     /*
      * Adders
      */
-    public void addCourse(int profId, int courseCode, String courseName, int courseAU) {
-        //Create a new Course Object
-        Course newCourse = new Course( profId, courseCode, courseName, courseAU );
-        courseDB.addCourse( newCourse );
-    }
 
 
     /***
@@ -158,9 +153,76 @@ public class CourseMgr {
         }
     }
 
+    public void addCourse() {
+        int courseCode;
+        String courseName;
+        int professorId, courseAU;
+        //enter sid, loop avoid collision
+        do {
+            System.out.println( "pls enter course code u want to add (it should be unique):" );
+            courseCode = scan.nextInt();
+            if (isCourseExistInDB(courseCode))
+                break;
+            else {
+                System.out.print( "course ID alr exists, please enter another one" );
+                continue;
+            }
+        } while (true);
+
+        //enter courseInfo
+        System.out.println( "adding course "+courseCode+", please enter following information:" );
+        System.out.println( "enter course name:" );
+        courseName = scan.next();
+        System.out.println( "enter Professor ID:" );
+        professorId = scan.nextInt();
+        System.out.println( "enter Course AU:" );
+        courseAU = scan.nextInt();
+        Course newCourse = new Course(professorId, courseCode, courseName, courseAU);
+        courseDB.addCourse(newCourse);
+
+        // add sessions for this course
+        int capLec, num;
+        int [] capacity;
+        System.out.println("What type of lessons does this course have?");
+        System.out.println("1: only lectures\n 2:lecture and tutorials\n3:lecture and tutorials and labs");
+        int courseType = scan.nextInt();
+
+        switch (courseType){
+            case 1:
+                System.out.println("Enter the capacity for the lecture:");
+                capLec = scan.nextInt();
+                newCourse.addLecture(capLec);
+                break;
+            case 2:
+                System.out.println("Enter the number of tutorial sessions");
+                num = scan.nextInt();
+                System.out.println("Enter the capacity of each session:");
+                int cap = scan.nextInt();
+                capacity= new int[num];
+                for(int i = 0; i<num; i++)
+                    capacity[i] = cap;
+                newCourse.addLecture(cap*num);
+                newCourse.addTutorial(capacity);
+                break;
+            case 3:
+                System.out.println("Enter the number of tutorial/lab sessions");
+                num = scan.nextInt();
+                System.out.println("Enter the capacity of each session:");
+                int cap2 = scan.nextInt();
+                capacity= new int[num];
+                for(int i = 0; i<num; i++)
+                    capacity[i] = cap2;
+                newCourse.addLecture(cap2*num);
+                newCourse.addTutorial(capacity);
+                newCourse.addLab(capacity);
+                break;
+        }
+
+    }
+
     public static void main(String[] args) {
         CourseMgr cmgr = new CourseMgr();
-        cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3 );
+        /*cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3 );
         cmgr.addCourse( 02, 2001, "Algorithm", 3 );
         cmgr.addCourse( 03, 2005, "Operating System", 3 );
         cmgr.addCourse( 04, 2006, "Software Engineering", 3 );
@@ -171,7 +233,8 @@ public class CourseMgr {
         cmgr.printCourseCodeList();
         System.out.println();
         cmgr.getCourseByName();
-        cmgr.printCourseNameList();
+        cmgr.printCourseNameList();*/
+        cmgr.addCourse();
     }
 }
 

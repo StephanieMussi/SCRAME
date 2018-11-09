@@ -32,9 +32,9 @@ public class CourseDB {
      * Parse a new "course" into the database
      */
     public void addCourse(Course newCourse) {
-
         courseList.add( newCourse );
     }
+
 
     /***
      * Getters for Course

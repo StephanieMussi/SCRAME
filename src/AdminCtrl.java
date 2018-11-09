@@ -30,6 +30,7 @@ public class AdminCtrl {
 
         //load and add courses
         //define all attributes related to courses
+        System.out.println("load courses from data file...");
         CourseMgr cMgr = new CourseMgr();
         cMgr.addCourse();
 

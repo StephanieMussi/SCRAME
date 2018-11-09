@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /***
  * Course class (Model)
@@ -52,8 +51,10 @@ public class Course implements Serializable {
      * Weightages of Course's Components
      */
     private CourseWeight courseWeightage;
+    /*
+    1 for lecture, 2 for lec/tut 3 for lec/tut/lab
+     */
 
-    private List<CourseIndex> numOfIndex = new ArrayList<>();
 
     /***
      * Constructor for Course
@@ -66,13 +67,9 @@ public class Course implements Serializable {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseAU = courseAU;
-        this.lecture = null;
     }
 
-    public Course() {
 
-    }
-    
     /***
      * Adders
      */
@@ -81,6 +78,10 @@ public class Course implements Serializable {
      * Adding tutorial indexes into Course
      * capacity parameter stores total number of students in each group
      */
+    public void addLecture(int capacity){
+        lecture = new CourseIndex(capacity);
+    }
+
     public void addTutorial(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {

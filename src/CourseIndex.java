@@ -33,6 +33,7 @@ public class CourseIndex implements Serializable {
      * @param index
      * @param capacity
      */
+    // for tutorial/lab
     public CourseIndex(int index, int capacity) {
         this.index = index;
         this.capacity = capacity;
@@ -40,7 +41,8 @@ public class CourseIndex implements Serializable {
         this.course = null;
     }
 
-    public CourseIndex() {
+    // for lecture
+    public CourseIndex(int capacity) {
 
     }
 
