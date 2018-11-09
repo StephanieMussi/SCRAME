@@ -20,11 +20,7 @@ public class CourseWeight {
      * List of Coursework for the Course
      */
     private ArrayList<Assessment> courseWork;
-    /*
-     * HashMap
-     * Tagged each student to his/her marks of Course
-     */
-    private HashMap<StudentInfo, CourseMarkRecords> studentMarkRecords;
+
     /*
      * Number of Course work in Course
      */
@@ -36,7 +32,6 @@ public class CourseWeight {
     public CourseWeight() {
         this.examination = null;
         this.courseWork = new ArrayList<Assessment>();
-        this.studentMarkRecords = new HashMap<StudentInfo, CourseMarkRecords>();
         this.numberOfCourseWork = numberOfCourseWork;
     }
 
@@ -61,11 +56,6 @@ public class CourseWeight {
     /*
      * Get particular student's mark records of his/her registered Course
      */
-    public CourseMarkRecords getStudentMarkRecords(StudentInfo studentname) {
-        studentMarkRecords.putIfAbsent( studentname, new CourseMarkRecords() );
-        return studentMarkRecords.get( studentname );
-
-    }
 
     /*
      * Get number of Coursework of Course
@@ -96,7 +86,7 @@ public class CourseWeight {
      * Set coursework marks into student's record
      */
     public void setStudentMarkRecords(StudentInfo student, Assessment components, double mark) {
-        CourseMarkRecords records = getStudentMarkRecords( student );
+        MarkRecord records = getStudentMarkRecords( student );
         records.setComponentMarks( components, mark );
     }
 

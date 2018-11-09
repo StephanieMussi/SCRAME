@@ -47,8 +47,8 @@ public class AdminCtrl {
 
 
         //assign marks
-
-
+        MarkRecordMgr mMgr = new MarkRecordMgr();
+        mMgr.assignMarks();
 
 
         //printout student script
