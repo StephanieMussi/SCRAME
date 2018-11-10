@@ -265,7 +265,7 @@ public class Course implements Serializable {
         double examWeight = courseWeightage.getExamination().getTotalWeightage();
         ArrayList<Assessment> courseworkWeight = courseWeightage.getCourseWork();
         double totalCourseWorkW = 0;
-        for(int i =0; i< courseWeightage.getNumberOfCourseWork(); i++){
+        for(int i =0; i< courseworkWeight.size(); i++){
             totalCourseWorkW += courseworkWeight.get(i).getTotalWeightage();
         }
         if( (examWeight == 100 && totalCourseWorkW == 0) || totalCourseWorkW == 100 )
