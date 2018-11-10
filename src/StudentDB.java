@@ -13,6 +13,14 @@ public class StudentDB {
 
     //load student.dat
     public StudentDB() {
+        List<StudentInfo> list = new ArrayList<StudentInfo>();
+        StudentInfo s1 = new StudentInfo( 0001, "Lin" );
+        StudentInfo s2 = new StudentInfo( 0002, "Bella" );
+        StudentInfo s3 = new StudentInfo( 0003, "Mike" );
+        list.add( s1 );
+        list.add( s2 );
+        list.add( s3 );
+        SerializeDB.writeSerializedObject( "student.dat", list );
         studentList = SerializeDB.readSerializedObject( "student.dat" );
     }
 
@@ -83,7 +91,6 @@ public class StudentDB {
      * method for testing
      */
     public void printAll() {
-        // TODO Auto-generated method stub
         for (int i = 0; i < studentList.size(); i++) {
             //hereby i is object index, not sid
             if (studentList.get( i ) == null)
