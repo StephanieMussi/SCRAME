@@ -1,32 +1,38 @@
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class RegistrationDB implements Serializable {
-    private List<Registration> registration;
+    private static ArrayList<Registration> registrations;
 
     public RegistrationDB() {
+        registrations = new ArrayList<Registration>();
+    }
+
+    //get reg via sid and courseCode
+    public static Registration getRegViaSidCourseCode(int sid, int courseCode){
+        for(int i = 0; i< registrations.size(); i++){
+            Registration thisReg = registrations.get(i);
+            if(thisReg.getCourse() == courseCode && thisReg.getStudent() == sid)
+                return thisReg;
+        }
+        return null;
     }
 
     //Insert entry to database
     public void registerStudentForCourse(Registration x) throws IOException {
         fileChecker();
         List list = new ArrayList();
-        if (SerializeDB.readSerializedObject("registration.dat") != null)
-            list = (ArrayList) SerializeDB.readSerializedObject("registration.dat");
+        if (SerializeDB.readSerializedObject("registrations.dat") != null)
+            list = (ArrayList) SerializeDB.readSerializedObject("registrations.dat");
         list.add(x);
-        SerializeDB.writeSerializedObject("registration.dat", list);
+        SerializeDB.writeSerializedObject("registrations.dat", list);
     }
 
 
@@ -34,7 +40,7 @@ public class RegistrationDB implements Serializable {
     public ArrayList<Registration> returnStudentList() {
 
         try {
-            ArrayList<Registration> list = (ArrayList) SerializeDB.readSerializedObject("registration.dat");
+            ArrayList<Registration> list = (ArrayList) SerializeDB.readSerializedObject("registrations.dat");
             return list;
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,11 +50,11 @@ public class RegistrationDB implements Serializable {
     }
 
 
-    //Function to check if registration.txt is inside the folder if not will have ioException
+    //Function to check if registrations.txt is inside the folder if not will have ioException
     public static void fileChecker() throws IOException {
         int x;
 
-        String fileName = "registration.dat";
+        String fileName = "registrations.dat";
         File file = new File(fileName);
         if (!file.exists()) {
             CreateFile(fileName);
@@ -59,7 +65,7 @@ public class RegistrationDB implements Serializable {
     //Create any file
     public static void CreateFile(String file) throws IOException {
         try {
-            FileOutputStream fileOut = new FileOutputStream("registration.dat");
+            FileOutputStream fileOut = new FileOutputStream("registrations.dat");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block

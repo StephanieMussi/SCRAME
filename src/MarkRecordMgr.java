@@ -4,15 +4,23 @@ public class MarkRecordMgr {
     private MarkRecordDB markRecordDB = new MarkRecordDB();
 
     public void assignMarks(){
-        RegistrationDB registrationDB = new RegistrationDB();
-        Registration registration;
+        //Registration registration;
         MarkRecord thisRecord;
-
-        System.out.println("Please enter the student ID:");
-        int sid = scan.nextInt();
-        System.out.println("Please enter the course code:");
-        int courseCode = scan.nextInt();
-        thisRecord = markRecordDB.getRecord(sid,courseCode);
+        Registration reg;
+        int courseCode, sid;
+        do{
+            System.out.println("Please enter the student ID:");
+            sid = scan.nextInt();
+            System.out.println("Please enter the course code:");
+            courseCode = scan.nextInt();
+            thisRecord = markRecordDB.getRecord(sid,courseCode);
+            reg = RegistrationDB.getRegViaSidCourseCode(sid, courseCode);
+        }while (reg == null);
+        // if the record haven't been initialized
+        if(thisRecord == null){
+            thisRecord = new MarkRecord(reg);
+            markRecordDB.addRecord(thisRecord);
+        }
         System.out.println("choose: 1: enter exam mark 2:enter coursework marks");
         int ch = scan.nextInt();
 

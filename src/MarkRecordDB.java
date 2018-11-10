@@ -4,7 +4,11 @@ public class MarkRecordDB {
     private static ArrayList<MarkRecord> markRecords;
 
     public  MarkRecordDB(){
-        initialize();
+        markRecords = new ArrayList<MarkRecord>();
+    }
+
+    public void addRecord(MarkRecord record){
+        markRecords.add(record);
     }
 
     public boolean checkCARecordExsits(int sid, int courseCode, int courseWorkNo){
@@ -30,20 +34,6 @@ public class MarkRecordDB {
                 return thisRecord;
         }
         return null;
-    }
-
-
-
-    // for every registration in DB, create a MarkRecord
-    private void initialize(){
-        ArrayList<Registration> regList;
-        MarkRecord thisRecord;
-        RegistrationDB regDB = new RegistrationDB();
-        regList = regDB.returnStudentList();
-        for(int i = 0; i<regList.size(); i++){
-            thisRecord = new MarkRecord(regList.get(i));
-            markRecords.add(thisRecord);
-        }
     }
 
 
