@@ -13,11 +13,11 @@ public class RegistrationMgr {
     RegistrationDB db;
 
     //Create registration object
-    public void getInfo(String course, int student, int index) {
+    public void getInfo(int course, int student, int index) {
         String studentName = "";
         StudentDB sdb = new StudentDB();
         StudentInfo student2 = new StudentInfo();
-        student2 = sdb.findSbySid(student);
+        student2 = sdb.getSbySid(student);
         studentName = student2.getSname();
         registration = new Registration(course, student, index, studentName);
     }
@@ -53,12 +53,12 @@ public class RegistrationMgr {
     }*/
 
     //Check for vacancy
-    public int checkVacancy(String courseCode, int index) {
+    public int checkVacancy(int courseCode, int index) {
         int vacancy = 0;
         CourseIndex d = new CourseIndex();
         CourseDB cdb = new CourseDB();
-        Course course = cdb.getCourse(Integer.parseInt(courseCode));
-        List b = course.getTutorialIndexes();
+        Course course = cdb.getCourse(courseCode);
+        List b = course.getTutorialIndex();
         for (int y = 0; y < b.size(); y++) {
             d = (CourseIndex) b.get(y);
             if (d.getIndex() == index) {
@@ -93,7 +93,7 @@ public class RegistrationMgr {
 
 
         else {
-            System.out.println("Course: " + registration.getCourse() + ", Index: " + registration.getIndex() + " is full");
+            System.out.println("Course: " + registration.getCourse() + ", Index: " + registration.getIndex() + " is full.");
             return 1;
         }
     }
@@ -142,7 +142,7 @@ public class RegistrationMgr {
             System.out.print("\n2. Print registration list");
             System.out.println("\n3. Quit");
             choice = sc.nextInt();
-            String coursecode = "";
+            int coursecode = 0;
             switch (choice) {
                 case 1:
                     int x = 0, y = 1, z = 0;
@@ -154,22 +154,22 @@ public class RegistrationMgr {
                             case 1:
                                 System.out.println("\n1. Enter Course Code: ");
                                 sc.nextLine();//buffer
-                                coursecode = sc.nextLine(); //don't enter the break;
+                                coursecode = sc.nextInt(); //don't enter the break;
                             case 2:
                                 System.out.println("\n1. Enter Class Index: ");
-                                index = sc.nextInt();//
+                                index = sc.nextInt();
                                 rsc.getInfo(coursecode, studentid, index);
                                 z = rsc.insertToRegistration();
                                 break;
                             case 3:
                                 x = 3;
                         }
-                        //
+
                         if (z == 0) {
-                            System.out.println("\n1. Add another course? \n 2. Quit");
+                            System.out.println("\n1. Add another course? \n2. Quit");
                             x = sc.nextInt();
                             y = 1;
-                        } else//wait ah
+                        } else
                         {
                             System.out.println("1. Choose another Course\n2. Choose another Index\n3. Quit");
                             y = sc.nextInt();
@@ -179,7 +179,7 @@ public class RegistrationMgr {
                 case 2:
                     int a = 0;
                     while (a < 3) {
-                        System.out.println("\n1. Choose by Class Index\n2.Choose by Student\n3.Quit");
+                        System.out.println("\n1. Choose by Class Index\n2. Choose by Student\n3.Quit");
                         a = sc.nextInt();
                         switch (a) {
                             case 1:
@@ -188,7 +188,7 @@ public class RegistrationMgr {
                                 rsc.print(index);
                                 break;
                             case 2:
-                                System.out.println("\n1. Enter Student Index: ");
+                                System.out.println("\n1. Enter Student ID: ");
                                 index = sc.nextInt();
                                 rsc.printClass(index);
                                 break;
