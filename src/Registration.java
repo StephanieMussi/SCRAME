@@ -6,6 +6,7 @@ public class Registration implements Serializable {
     private int student, index;
     private String course, studentName;
 
+
     //Constructor
     public Registration(String course, int student, int index, String studentName) {
         this.course = course;
