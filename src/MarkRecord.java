@@ -20,8 +20,9 @@ public class MarkRecord implements Serializable {
 
     private void initialize(){
         markExam = 0;
-        Course thisCourse = registration.getCourse();
-        ArrayList<Assessment> courseWorkList= thisCourse.getCourseWeightage().getCourseWork();
+        int cid = registration.getCourse();
+        Course course = CourseDB.getCourse(cid);
+        ArrayList<Assessment> courseWorkList= course.getCourseWeightage().getCourseWork();
         marksCA = new double[courseWorkList.size()];
     }
 

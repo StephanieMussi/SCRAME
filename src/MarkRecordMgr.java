@@ -37,12 +37,13 @@ public class MarkRecordMgr {
         int sid = scan.nextInt();
         // get list of markrecords for the student
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByStudent(sid);
-        StudentInfo student = records.get(0).getRegistration().getStudent();
+        StudentInfo student = StudentDB.getSbySid(sid);
         System.out.println("Student name: " + student.getSname());
         for(int i = 0; i<records.size(); i++){
 
             MarkRecord thisRecord = records.get(i);
-            Course iCourse = thisRecord.getRegistration().getCourse();
+            int cid = thisRecord.getRegistration().getCourse();
+            Course iCourse = CourseDB.getCourse(cid);
             double examGrades = thisRecord.getMarkExam();
             Assessment examWeightage = iCourse.getCourseWeightage().getExamination();
             double [] courseWorkGrades = thisRecord.getMarksCA();

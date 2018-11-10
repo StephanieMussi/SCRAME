@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class MarkRecordDB {
-    private ArrayList<MarkRecord> markRecords;
+    private static ArrayList<MarkRecord> markRecords;
 
-    public MarkRecordDB(){
+    public  MarkRecordDB(){
         initialize();
     }
 
@@ -11,38 +11,28 @@ public class MarkRecordDB {
         // check if the particular record exists, return true
         MarkRecord thisRecord = getRecord(sid, courseCode);
         double [] marksCA = thisRecord.getMarksCA();
+        return true;
     }
 
     // check for exam
     public boolean checkExamRecordExsits(MarkRecord thisRecord){
         // check if the particular record exists, return true
-
+        return true;
     }
+
+
 
     public MarkRecord getRecord(int sid, int courseCode){
         for(int i = 0; i<markRecords.size(); i++){
             MarkRecord thisRecord = markRecords.get(i);
             Registration reg = thisRecord.getRegistration();
-            Course course = reg.getCourse();
-            StudentInfo student = reg.getStudent();
-            if(course.getCourseCode() == courseCode && student.getSid() == sid)
+            if(reg.getCourse()==courseCode && reg.getStudent()==sid)
                 return thisRecord;
         }
         return null;
     }
 
-    public ArrayList<MarkRecord> getRecordListByStudent(int sid){
-        ArrayList<MarkRecord> records = new ArrayList<>();
-        for(int i = 0; i<markRecords.size(); i++){
-            MarkRecord thisRecord = markRecords.get(i);
-            Registration reg = thisRecord.getRegistration();
-            Course course = reg.getCourse();
-            StudentInfo student = reg.getStudent();
-            if(student.getSid() == sid)
-               records.add(thisRecord);
-        }
-        return records;
-    }
+
 
     // for every registration in DB, create a MarkRecord
     private void initialize(){
@@ -56,4 +46,32 @@ public class MarkRecordDB {
         }
     }
 
+
+    public ArrayList<MarkRecord> getRecordListByStudent(int sid) {
+        ArrayList<MarkRecord> recordOneStudent = new ArrayList<MarkRecord>();
+        Registration oneReg;
+        for(int i = 0; i<markRecords.size(); i++)
+        {
+            oneReg=markRecords.get(i).getRegistration();
+            if( oneReg.getStudent()==sid)
+            {
+                recordOneStudent.add(markRecords.get(i));
+            }
+        }
+        return recordOneStudent;
+    }
+
+    public static ArrayList<MarkRecord> getRecordListByCourse(int courseCode) {
+        ArrayList<MarkRecord> recordOneCourse = new ArrayList<MarkRecord>();
+        Registration oneReg;
+        for(int i = 0; i<markRecords.size(); i++)
+        {
+            oneReg=markRecords.get(i).getRegistration();
+            if( oneReg.getCourse()==courseCode)
+            {
+                recordOneCourse.add(markRecords.get(i));
+            }
+        }
+        return recordOneCourse;
+    }
 }

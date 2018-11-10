@@ -3,12 +3,12 @@ import java.io.Serializable;
 //Assuming you know the student ID and the course & index he/she wants to enroll
 //Need something to call the IndexCourse entity.
 public class Registration implements Serializable {
-    private int student, index;
-    private String course, studentName;
+    private int student, index, course;
+    private String studentName;
 
 
     //Constructor
-    public Registration(String course, int student, int index, String studentName) {
+    public Registration(int course, int student, int index, String studentName) {
         this.course = course;
         this.student = student;
         this.index = index;
@@ -23,11 +23,11 @@ public class Registration implements Serializable {
         return student;
     }
 
-    public void setCourse(String course) {
+    public void setCourse(int course) {
         this.course = course;
     }
 
-    public String getCourse() {
+    public int getCourse() {
         return course;
     }
 

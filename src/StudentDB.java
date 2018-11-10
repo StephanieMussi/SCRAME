@@ -30,8 +30,7 @@ public class StudentDB {
      * @return sid
      * @param name
      */
-    public int findSidbySname(String name) {
-        // TODO Auto-generated method stub
+    public static int getSidbySname(String name) {
         int sid = -1;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get( i ) == null)
@@ -48,7 +47,7 @@ public class StudentDB {
      * @param name
      * can also check for double entering
      */
-    public StudentInfo findSbySname(String name) {
+    public static StudentInfo getSbySname(String name) {
         StudentInfo sinfo = null;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get( i ) == null)
@@ -64,7 +63,7 @@ public class StudentDB {
      * @return StudentInfo
      * @param sid
      */
-    public StudentInfo findSbySid(int sid) {
+    public static StudentInfo getSbySid(int sid) {
         StudentInfo sinfo = null;
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get( i ) == null)

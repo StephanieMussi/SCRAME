@@ -9,7 +9,7 @@ public class CourseDB {
     /*
      * Create an ArrayList for Course
      */
-    private List<Course> courseList = new ArrayList<Course>();
+    private static List<Course> courseList = new ArrayList<Course>();
 
 /*    public CourseDB() {
         initialize();
@@ -51,7 +51,7 @@ public class CourseDB {
     /*
      * Obtain a Object by courseCode - Course
      */
-    public Course getCourse(int courseCode) {
+    public static Course getCourse(int courseCode) {
         if (courseList.size() == 0) { //Return null if course list is empty
             return null;
         } else {
@@ -67,7 +67,7 @@ public class CourseDB {
     /*
      * Obtain a Object by courseName - Course
      */
-    public Course getCourseByName(String courseName) {
+    public static Course getCourseByName(String courseName) {
         if (courseList.size() == 0) {
             return null;
         } else {
