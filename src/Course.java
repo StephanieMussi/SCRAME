@@ -11,7 +11,7 @@ public class Course implements Serializable {
     /*
      * Call CourseComponentWeight class
      */
-    static CourseWeight weightage;
+   // static CourseWeight weightage;
     /*
      * Professor ID in charged of Course
      */
@@ -51,9 +51,7 @@ public class Course implements Serializable {
      * Weightages of Course's Components
      */
     private CourseWeight courseWeightage;
-    /*
-    1 for lecture, 2 for lec/tut 3 for lec/tut/lab
-     */
+
 
 
     /***
@@ -264,12 +262,14 @@ public class Course implements Serializable {
      * Course is valid iff total weightage of Exam + Couse work + total number if course work is not equals to 0
      */
     public boolean isCourseValidatable() {
-
-        if (weightage.getExamination() != null && weightage.getCourseWork() != null &&
-                weightage.getNumberOfCourseWork() >= 0) {
-            return true;
-        } else {
-            return false;
+        double examWeight = courseWeightage.getExamination().getTotalWeightage();
+        ArrayList<Assessment> courseworkWeight = courseWeightage.getCourseWork();
+        double totalCourseWorkW = 0;
+        for(int i =0; i< courseWeightage.getNumberOfCourseWork(); i++){
+            totalCourseWorkW += courseworkWeight.get(i).getTotalWeightage();
         }
+        if( (examWeight == 100 && totalCourseWorkW == 0) || totalCourseWorkW == 100 )
+            return true;
+        else return false;
     }
 }

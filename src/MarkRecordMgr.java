@@ -31,4 +31,8 @@ public class MarkRecordMgr {
         }
 
     }
+
+    public void printStudentMarks(int sid){
+
+    }
 }

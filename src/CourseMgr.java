@@ -18,9 +18,6 @@ public class CourseMgr {
     Scanner scan = new Scanner(System.in);
     private CourseDB courseDB = new CourseDB();
 
-    /*
-     * Adders
-     */
 
 
     /***
@@ -65,9 +62,25 @@ public class CourseMgr {
         }
     }
 
+
     /***
      * Print Course list
      */
+    /// working on it...
+    public void printCourseStatistics(int courseCode){
+        Assessment exam = getExamWeight(courseCode);
+        ArrayList<Assessment> courseWork = getCourseworkWeight(courseCode);
+        Course thisCourse = courseDB.getCourse(courseCode);
+
+        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Professor ID", "AU", "Course Code", "Course Name" );
+        System.out.printf( "%12d\t%2d\t%15d\t\t%-20s\n",
+                thisCourse.getProfessorId(),
+                thisCourse.getCourseAU(),
+                thisCourse.getCourseCode(),
+                thisCourse.getCourseName() );
+        System.out
+    }
+
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
 
@@ -102,33 +115,23 @@ public class CourseMgr {
         }
     }
 
-    /*
-     * Get Exam weightage by Course code
-     */
+     // Get Exam weightage by Course code
+
     public Assessment getExamWeight(int courseCode){
         Course course = courseDB.getCourse( courseCode );
-        return Course.weightage.getExamination();
+        return course.getCourseWeightage().getExamination();
     }
 
-    /*
-     * Get Course work weightage by Course code
-     */
-    public ArrayList<Assessment> getCourseworkWeightByCode(int courseCode) {
+
+      //Get Course work weightage by Course code
+    public ArrayList<Assessment> getCourseworkWeight(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
-        return Course.weightage.getCourseWork();
+        return course.getCourseWeightage().getCourseWork();
     }
 
-    /*
-     * Get number of Course work by Course code
-     */
-    public int getNumOfCourseworkInCourseByCode(int courseCode) {
-        Course course = courseDB.getCourse( courseCode );
-        return Course.weightage.getNumberOfCourseWork();
-    }
 
-    /***
-     * Verifier for Course
-     */
+
+
     public boolean isCourseExistInDB(int courseCode) {
 
         Course course = courseDB.getCourse( courseCode );
@@ -217,8 +220,36 @@ public class CourseMgr {
                 newCourse.addLab(capacity);
                 break;
         }
+        setAssessment(courseCode);
 
     }
+
+    public void setAssessment(int courseCode){
+        Assessment exam;
+        ArrayList<Assessment> coursework = new ArrayList<>();
+        Course thisCourse = courseDB.getCourse(courseCode);
+        CourseWeight thisCourseW;
+        int num;
+        do{
+            System.out.println("Setting course assessment...");
+            System.out.println("Please enter exam weightage(%):");
+            double examWeight = scan.nextDouble();
+            exam = new Assessment("exam", examWeight);
+            if(examWeight != 100){
+                System.out.println("Enter number of CAs:");
+                num = scan.nextInt();
+                for(int i =0; i<num; i++){
+                    System.out.println("Please enter coursework description(%):");
+                    String descrip = scan.next();
+                    System.out.println("Please enter coursework weightage(%):");
+                    double cwWeight = scan.nextDouble();
+                    coursework.add(new Assessment(descrip,cwWeight));
+                }
+            }
+            thisCourse.setCourseWeightage(new CourseWeight(exam,coursework));
+        }while(!thisCourse.isCourseValidatable());
+    }
+
 
     public static void main(String[] args) {
         CourseMgr cmgr = new CourseMgr();

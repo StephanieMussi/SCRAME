@@ -21,18 +21,13 @@ public class CourseWeight {
      */
     private ArrayList<Assessment> courseWork;
 
-    /*
-     * Number of Course work in Course
-     */
-    private int numberOfCourseWork;
 
     /***
      * Constructor for CourseWeight
      */
-    public CourseWeight() {
-        this.examination = null;
-        this.courseWork = new ArrayList<Assessment>();
-        this.numberOfCourseWork = numberOfCourseWork;
+    public CourseWeight(Assessment exam, ArrayList<Assessment> courseWork) {
+        this.examination = exam;
+        this.courseWork = courseWork;
     }
 
     /***
@@ -57,12 +52,7 @@ public class CourseWeight {
      * Get particular student's mark records of his/her registered Course
      */
 
-    /*
-     * Get number of Coursework of Course
-     */
-    public int getNumberOfCourseWork() {
-        return numberOfCourseWork;
-    }
+
 
     /***
      * Setters for Instances
@@ -82,21 +72,6 @@ public class CourseWeight {
         this.courseWork = courseWork;
     }
 
-    /*
-     * Set coursework marks into student's record
-     */
-    public void setStudentMarkRecords(StudentInfo student, Assessment components, double mark) {
-        MarkRecord records = getStudentMarkRecords( student );
-        records.setComponentMarks( components, mark );
-    }
-
-    /*
-     * Set number of coursework in Course
-     */
-    public void setNumberOfCourseWork(int numberOfCourseWork) {
-
-        this.numberOfCourseWork = numberOfCourseWork;
-    }
 
     /***
      * Add methods
