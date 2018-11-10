@@ -63,23 +63,7 @@ public class CourseMgr {
     }
 
 
-    /***
-     * Print Course list
-     */
-    /// working on it...
-    public void printCourseStatistics(int courseCode){
-        Assessment exam = getExamWeight(courseCode);
-        ArrayList<Assessment> courseWork = getCourseworkWeight(courseCode);
-        Course thisCourse = courseDB.getCourse(courseCode);
 
-        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Professor ID", "AU", "Course Code", "Course Name" );
-        System.out.printf( "%12d\t%2d\t%15d\t\t%-20s\n",
-                thisCourse.getProfessorId(),
-                thisCourse.getCourseAU(),
-                thisCourse.getCourseCode(),
-                thisCourse.getCourseName() );
-        System.out
-    }
 
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();

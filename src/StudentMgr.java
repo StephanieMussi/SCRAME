@@ -7,7 +7,7 @@ public class StudentMgr {
      * don't support delete student
      */
 
-    Scanner scan = new Scanner( System.in );
+    Scanner sc = new Scanner( System.in );
     private static StudentDB studentDB;
 
     /*
@@ -26,33 +26,37 @@ public class StudentMgr {
      * studentDB.addStudent(sid, sname);
      */
     public void addStudent() {
-        String sname;
-        int sid;
-        //enter sid, loop avoid collision
-        do {
-            System.out.println( "pls enter student id u want to add" );
-            sid = scan.nextInt();
-            if (studentDB.findSbySid( sid ) == null)
-                break;
-            else {
-                System.out.print( "student ID alr exists, please enter another one" );
-                continue;
-            }
-        } while (true);
+        System.out.println("how many students do you want to add");
+        int noOfStu = sc.nextInt();
+        System.out.println("please enter following information to add a student");
+        for(int i= 0; i<noOfStu; i++) {
+            String sname;
+            int sid;
+            //enter sid, loop avoid collision
+            do {
+                System.out.println("pls enter student id u want to add");
+                sid = sc.nextInt();
+                if (studentDB.getSbySid(sid) == null)
+                    break;
+                else {
+                    System.out.print("student ID alr exists, please enter another one");
+                    continue;
+                }
+            } while (true);
 
-        //enter sname, loop avoid collision
-        do {
-            System.out.println( "pls enter student name u want to add" );
-            sname = scan.next();
-            if (studentDB.findSbySname( sname ) == null)
-                break;
-            else {
-                System.out.print( "student name alr exists, please enter another one" );
-                continue;
-            }
-        } while (true);
-
-        studentDB.addStudent( sid, sname );
+            //enter sname, loop avoid collision
+            do {
+                System.out.println("pls enter student name u want to add");
+                sname = sc.next();
+                if (studentDB.getSbySname(sname) == null)
+                    break;
+                else {
+                    System.out.print("student name alr exists, please enter another one");
+                    continue;
+                }
+            } while (true);
+            studentDB.addStudent( sid, sname );
+        }
     }
 
 
@@ -62,16 +66,16 @@ public class StudentMgr {
      * StudentInfo findSbySname(String name): get object StudentInfo
      */
     public int findSidbySname(String name) {
-        return studentDB.findSidbySname( name );
+        return studentDB.getSidbySname( name );
     }
 
     public StudentInfo findSbySname(String name) {
-        return studentDB.findSbySname( name );
+        return studentDB.getSbySname( name );
     }
 
 
     public StudentInfo findSbySid(int id) {
-        return studentDB.findSbySid( id );
+        return studentDB.getSbySid( id );
     }
 
 
@@ -85,15 +89,7 @@ public class StudentMgr {
     }
 
 
-    /*
-     * main for testing
-     */
-    public static void main(String[] args) {
-        StudentMgr sm = new StudentMgr();
-        sm.addStudent();
-        sm.addStudent();
-        sm.printAll();
-    }
+
 
 
 }

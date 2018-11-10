@@ -65,4 +65,50 @@ public class MarkRecordMgr {
             System.out.println("Overall Grade for this course: "+ mark);
         }
     }
+
+
+    public void printCourseStat()
+    {
+        System.out.println("Please enter the courseCode (int) :");
+        int cid = scan.nextInt();
+        Course c = CourseDB.getCourse(cid);
+        CourseWeight weight = c.getCourseWeightage();
+        //all records related to that course
+        ArrayList<MarkRecord> records = markRecordDB.getRecordListByCourse(cid);
+
+        System.out.println("Course info: "+c.getCourseCode()+ " " + c.getCourseName());
+
+        //exam assessment
+        Assessment exam = weight.getExamination();
+        System.out.println("Exam weightage: " + exam.getTotalWeightage());
+        //coursework assessment
+        ArrayList<Assessment> ca = weight.getCourseWork();
+        for (int i = 0; i< ca.size(); i++)
+            System.out.println("Coursework [ "+ i+1 +" ] weightage: " + ca.get(i));
+
+        System.out.println("following are the overall performance:");
+
+        double sum = 0;
+        int cot =0;
+        for(int i= 0; i<records.size(); i++)
+        {
+            sum += records.get(i).getMarkExam();
+            cot++;
+        }
+        System.out.println("Exam overall: " + sum/cot);
+
+        for(int i = 0; i<ca.size(); i++)
+        {
+            double casum = 0;
+            int cacot =0;
+            for(int j =0; j<records.size();j++)
+            {
+                casum += records.get(j).getMarksCA()[j];
+                cacot++;
+            }
+            System.out.println("Coursework [ "+ i+1 +" ] overall: " + casum / cacot);
+        }
+
+    }
+
 }

@@ -55,7 +55,7 @@ public class RegistrationMgr {
     //Check for vacancy
     public int checkVacancy(int courseCode, int index) {
         int vacancy = 0;
-        CourseIndex d = new CourseIndex();
+        CourseIndex d;
         CourseDB cdb = new CourseDB();
         Course course = cdb.getCourse(courseCode);
         List b = course.getTutorialIndex();

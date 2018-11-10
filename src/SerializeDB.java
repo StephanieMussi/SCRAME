@@ -57,7 +57,7 @@ public class SerializeDB
 
             // write to serialized file - update/insert/delete
             // example - add one more professor
-            Professor p = new Professor("Joseph","jos@ntu.edu.sg",67909999);
+            Professor p = new Professor(001,"Joseph","jos@ntu.edu.sg",67909999);
             // add to list
             list.add(p);
             // list.remove(p);  // remove if p equals object in the list
