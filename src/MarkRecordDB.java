@@ -31,6 +31,18 @@ public class MarkRecordDB {
         return null;
     }
 
+    public ArrayList<MarkRecord> getRecordListByStudent(int sid){
+        ArrayList<MarkRecord> records = new ArrayList<>();
+        for(int i = 0; i<markRecords.size(); i++){
+            MarkRecord thisRecord = markRecords.get(i);
+            Registration reg = thisRecord.getRegistration();
+            Course course = reg.getCourse();
+            StudentInfo student = reg.getStudent();
+            if(student.getSid() == sid)
+               records.add(thisRecord);
+        }
+        return records;
+    }
 
     // for every registration in DB, create a MarkRecord
     private void initialize(){

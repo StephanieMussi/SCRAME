@@ -32,7 +32,36 @@ public class MarkRecordMgr {
 
     }
 
-    public void printStudentMarks(int sid){
+    public void printStudentTranscript(){
+        System.out.println("Please enter the student ID:");
+        int sid = scan.nextInt();
+        // get list of markrecords for the student
+        ArrayList<MarkRecord> records = markRecordDB.getRecordListByStudent(sid);
+        StudentInfo student = records.get(0).getRegistration().getStudent();
+        System.out.println("Student name: " + student.getSname());
+        for(int i = 0; i<records.size(); i++){
 
+            MarkRecord thisRecord = records.get(i);
+            Course iCourse = thisRecord.getRegistration().getCourse();
+            double examGrades = thisRecord.getMarkExam();
+            Assessment examWeightage = iCourse.getCourseWeightage().getExamination();
+            double [] courseWorkGrades = thisRecord.getMarksCA();
+            ArrayList<Assessment> courseWorkWeightage = iCourse.getCourseWeightage().getCourseWork();
+            double mark = 0;
+
+            System.out.println("Course info: "+iCourse.getCourseCode()+ " " + iCourse.getCourseName());
+            System.out.println("Exam mark: " + examGrades);
+            System.out.println("Exam weightage: " + examWeightage.getTotalWeightage());
+            mark += examGrades*examWeightage.getTotalWeightage();
+
+            for(int j=0; j<courseWorkWeightage.size(); j++){
+                double cw = courseWorkWeightage.get(j).getTotalWeightage();
+                System.out.println("Coursework "+j+" description: "+courseWorkWeightage.get(j).getType());
+                System.out.println("Coursework  "+j+" mark: " + courseWorkGrades[j]);
+                System.out.println("Coursework "+j+" weightage: " + cw);
+                mark += courseWorkGrades[j]*cw;
+            }
+            System.out.println("Overall Grade for this course: "+ mark);
+        }
     }
 }
