@@ -161,7 +161,7 @@ public class CourseMgr {
             } catch (isDuplicatesException eID) {
                 System.out.println( eID.getMessage() );
             } catch (InputMismatchException e){
-                System.out.println("Please enter interger only");
+                System.out.println("Please enter integer only");
                 scan.nextLine();
             }
         } while (!success);

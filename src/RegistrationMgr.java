@@ -79,6 +79,7 @@ public class RegistrationMgr {
             try {
                 db.registerStudentForCourse(registration);
                 System.out.println(registration.getStudentName() + ", Student ID: " + registration.getStudent() + " successfully registered for " + registration.getCourse() + ", Class Index: " + registration.getIndex() + ", Vacancy: " + x);
+                throw new IOException(  );
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

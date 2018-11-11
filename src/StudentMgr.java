@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class StudentMgr {
@@ -26,8 +27,14 @@ public class StudentMgr {
      * studentDB.addStudent(sid, sname);
      */
     public void addStudent() {
+        int noOfStu = -1;
         System.out.println( "How many students do you want to add" );
-        int noOfStu = sc.nextInt();
+        try{
+            noOfStu = sc.nextInt();
+        } catch (InputMismatchException e){
+            System.out.println("Please enter integers");
+            sc.nextLine();
+        }
         System.out.println( "Please enter following information to add a student" );
         for (int i = 0; i < noOfStu; i++) {
             String sname;
@@ -57,7 +64,7 @@ public class StudentMgr {
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
-            }while(!success);
+            } while (!success);
 
 
             /*
@@ -72,9 +79,8 @@ public class StudentMgr {
             } while (true);
             studentDB.addStudent( sid, sname );
             */
-                }
-            }
-
+        }
+    }
 
 
     /*
@@ -96,7 +102,6 @@ public class StudentMgr {
     }
 
 
-
     /*
      * method for testing
      * print all student info in student.dat
@@ -104,9 +109,6 @@ public class StudentMgr {
     public void printAll() {
         studentDB.printAll();
     }
-
-
-
 
 
 }

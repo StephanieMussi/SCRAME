@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.Scanner;
 
 public class AdminCtrl {
@@ -15,7 +14,7 @@ public class AdminCtrl {
 
         int sel;
         do {
-            System.out.println("manu:\n" +
+            System.out.println("Menu:\n" +
                     "1 --- add student to StudentDB\n" +
                     "2 --- add course to CourseDB, including set assessment weightage\n" +
                     "3 --- enter registration menu, including print student list\n" +
