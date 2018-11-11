@@ -139,7 +139,7 @@ public class MarkRecordMgr {
         //coursework assessment
         ArrayList<Assessment> ca = weight.getCourseWork();
         for (int i = 0; i < ca.size(); i++)
-            System.out.println( "Coursework [ " + i + 1 + " ] weightage: " + ca.get( i ) );
+            System.out.println( "Coursework [ " + i + 1 + " ] weightage: " + ca.get( i ).getTotalWeightage() );
 
         System.out.println( "following are the overall performance:" );
 

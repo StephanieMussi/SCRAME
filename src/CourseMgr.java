@@ -294,7 +294,8 @@ public class CourseMgr {
             System.out.println( "Please enter exam weightage(%):" );
             double examWeight = scan.nextDouble();
             exam = new Assessment( "exam", examWeight );
-            if (examWeight != 100) {
+            if (examWeight != 100)
+            {
                 System.out.println( "Enter number of CAs:" );
                 num = scan.nextInt();
                 for (int i = 0; i < num; i++) {
@@ -308,24 +309,6 @@ public class CourseMgr {
             thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
         } while (!thisCourse.isCourseValidatable());
         System.out.println("assessment is settled");
-    }
-
-
-    public static void main(String[] args) {
-        CourseMgr cmgr = new CourseMgr();
-        /*cmgr.addCourse( 01, 2002, "Object Oriented Design and Programming", 3 );
-        cmgr.addCourse( 02, 2001, "Algorithm", 3 );
-        cmgr.addCourse( 03, 2005, "Operating System", 3 );
-        cmgr.addCourse( 04, 2006, "Software Engineering", 3 );
-        cmgr.addCourse( 05, 2007, "Introduction to Database", 3 );
-        cmgr.printCourseList();
-        System.out.println();
-        cmgr.getCourseByCode();
-        cmgr.printCourseCodeList();
-        System.out.println();
-        cmgr.getCourseByName();
-        cmgr.printCourseNameList();*/
-        cmgr.addCourse();
     }
 }
 

@@ -35,6 +35,7 @@ public class CourseDB {
         s3.addLecture(100);
         s3.setCourseWeightage(cw3);
 
+
         courseList.add( s1 );
         courseList.add( s2 );
         courseList.add( s3 );
