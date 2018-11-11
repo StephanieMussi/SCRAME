@@ -9,8 +9,8 @@ public class MarkRecordMgr {
         int courseCode = -1, sid = -1;
         double examMark = -1, courseMark = -1;
         boolean success = false;
-        MarkRecord thisRecord;
-        Registration reg;
+        MarkRecord thisRecord = null;
+        Registration reg = null;
         do {
             System.out.println( "Please enter the student ID:" );
             try {
