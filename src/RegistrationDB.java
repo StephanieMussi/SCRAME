@@ -68,6 +68,37 @@ public class RegistrationDB {
     }
 
 
+    //print student registration list
+    public void printAllReg() {
+
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+
+    }
+
+    public void printRegByIndex(int indexNum) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            if(r.getIndex()==indexNum)
+                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+    }
+
+    public void printByS(int studentId) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            if(r.getStudent()==studentId)
+                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+    }
+
+
+
     //Function to check if registrations.txt is inside the folder if not will have ioException
     /*
     public static void fileChecker() throws IOException {

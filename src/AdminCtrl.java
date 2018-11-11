@@ -23,6 +23,7 @@ public class AdminCtrl {
                     "6 --- print student transcript\n" +
                     "7 --- print all students in DB\n" +
                     "8 --- print all courses in DB\n" +
+                    "9 --- print all registration in DB\n" +
                     "0 --- exit program...");
 
             System.out.println("please enter your choice:");
@@ -52,6 +53,8 @@ public class AdminCtrl {
                 case 8:
                     cMgr.printCourseList();
                     continue;
+                case 9:
+                    rMgr.printAllReg();
                 case 0:
                     System.out.println("program exit...");
                     break;

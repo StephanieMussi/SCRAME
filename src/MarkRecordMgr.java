@@ -46,7 +46,7 @@ public class MarkRecordMgr {
             } catch (isInvalidInputException e) {
                 System.out.println( "Please enter only '1' or '2'." );
             } catch (InputMismatchException e) {
-                System.out.println( "Please enter intergers only." );
+                System.out.println( "Please enter integers only." );
                 scan.nextLine();
             }
         } while (!success);
@@ -68,7 +68,7 @@ public class MarkRecordMgr {
             thisRecord.setMarkExam( examMark );
         } else if (choice == 2) {
             double[] marksCA = thisRecord.getMarksCA();
-            System.out.println( "Mark for which coursework?(0-" + (marksCA.length - 1) );
+            System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1) );
             int index = scan.nextInt();
             System.out.println( "Enter coursework mark(100 marks based):" );
             try {
