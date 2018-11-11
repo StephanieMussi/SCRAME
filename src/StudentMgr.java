@@ -29,21 +29,37 @@ public class StudentMgr {
     public void addStudent() {
         int noOfStu = -1;
         System.out.println( "How many students do you want to add" );
-        try{
+        try {
             noOfStu = sc.nextInt();
-        } catch (InputMismatchException e){
-            System.out.println("Please enter integers");
+        } catch (InputMismatchException e) {
+            System.out.println( "Please enter integers" );
             sc.nextLine();
         }
         System.out.println( "Please enter following information to add a student" );
         for (int i = 0; i < noOfStu; i++) {
             String sname;
             int sid;
-            boolean success = false;
-            //enter sid, loop avoid collision
+            boolean success = false, success2 = false;
             do {
-                System.out.println( "Please enter student id u want to add" );
-                sid = sc.nextInt();
+                try {
+                    System.out.println( "Please enter student ID u want to add" );
+                    sid = sc.nextInt();
+                    if (findSbySid( sid ).equals( sid )) {
+                        throw new isDuplicatesException( "Student ID" );
+                    }
+                    success = true;
+                } catch (isDuplicatesException e) {
+                    System.out.println( e.getMessage() );
+                } catch (InputMismatchException e) {
+                    System.out.println( "Please enter integer values only" );
+                    sc.nextLine();
+                }
+            } while (!success);
+            success = false;
+            //enter sid, loop avoid collision
+            /*
+            do {
+
                 if (studentDB.getSbySid( sid ) == null)
                     break;
                 else {
@@ -51,21 +67,26 @@ public class StudentMgr {
                     continue;
                 }
             } while (true);
-
+            */
             //enter sname, loop avoid collision
             System.out.println( "Please enter student name to be added" );
             do {
                 try {
                     sname = sc.next();
+                    if (findSbySname( sname ).equals( sname )) {
+                        throw new isDuplicatesException( "Student Name" );
+                    }
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
                         throw new isInvalidInputException( "Alphabets only for Student Name!" );
                     }
-                    success = true;
+                    success2 = true;
+                } catch (isDuplicatesException eName) {
+                    System.out.println( eName.getMessage() );
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
-            } while (!success);
-
+            } while (!success2);
+            success2 = false;
 
             /*
             do {
