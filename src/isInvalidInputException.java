@@ -1,5 +1,5 @@
 /***
- * Exception class for incorrect input values
+ * Exception class for incorrect input (String) values
  */
 public class isInvalidInputException extends Exception {
 
@@ -7,7 +7,7 @@ public class isInvalidInputException extends Exception {
         super("Input is invalid!!");
     }
 
-    public isInvalidInputException(String object) {
-        super("Input is invalid. Please enter " + object);
+    public isInvalidInputException(String Object) {
+        super("Input is invalid. Please enter " + Object);
     }
 }

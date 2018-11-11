@@ -26,27 +26,42 @@ public class StudentMgr {
      * studentDB.addStudent(sid, sname);
      */
     public void addStudent() {
-        System.out.println("how many students do you want to add");
+        System.out.println( "How many students do you want to add" );
         int noOfStu = sc.nextInt();
-        System.out.println("please enter following information to add a student");
-        for(int i= 0; i<noOfStu; i++) {
+        System.out.println( "Please enter following information to add a student" );
+        for (int i = 0; i < noOfStu; i++) {
             String sname;
             int sid;
+            boolean success = false;
             //enter sid, loop avoid collision
             do {
-                System.out.println("pls enter student id u want to add");
+                System.out.println( "Please enter student id u want to add" );
                 sid = sc.nextInt();
-                if (studentDB.getSbySid(sid) == null)
+                if (studentDB.getSbySid( sid ) == null)
                     break;
                 else {
-                    System.out.print("student ID alr exists, please enter another one");
+                    System.out.print( "Student ID alr exists, please enter another one" );
                     continue;
                 }
             } while (true);
 
             //enter sname, loop avoid collision
+            System.out.println( "Please enter student name to be added" );
             do {
-                System.out.println("pls enter student name u want to add");
+                try {
+                    sname = sc.next();
+                    if (!sname.matches( "([a-zA-Z ]+)" )) {
+                        throw new isInvalidInputException( "Alphabets only for Student Name!" );
+                    }
+                    success = true;
+                } catch (isInvalidInputException e) {
+                    System.out.println( e.getMessage() );
+                }
+            }while(!success);
+
+
+            /*
+            do {
                 sname = sc.next();
                 if (studentDB.getSbySname(sname) == null)
                     break;
@@ -56,8 +71,10 @@ public class StudentMgr {
                 }
             } while (true);
             studentDB.addStudent( sid, sname );
-        }
-    }
+            */
+                }
+            }
+
 
 
     /*

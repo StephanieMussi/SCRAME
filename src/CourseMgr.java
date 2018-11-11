@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -140,21 +141,31 @@ public class CourseMgr {
     public void addCourse() {
         int courseCode = -1, professorId = -1, courseAU = -1;
         String courseName = null;
-        boolean success = false, success2 = false, success3 = false, success4 = false;
+        boolean success = false, success2 = false;
+        boolean success3 = false, success4 = false;
         //enter sid, loop avoid collision
 
         System.out.println( "Please enter Course code to be added (It should be unique):" );
         do {
             try {
                 courseCode = scan.nextInt();
+                if (courseCode < 0) {
+                    throw new isInvalidInputException( "Course Code" );
+                }
                 if (isCourseExistInDB( courseCode )) {
-                    throw new isDuplicatesException( "Course" );
+                    throw new isDuplicatesException( "Course Code" );
                 }
                 success = true;
+            } catch (isInvalidInputException e) {
+                System.out.println( "Please enter a valid Course Code" );
             } catch (isDuplicatesException eID) {
                 System.out.println( eID.getMessage() );
+            } catch (InputMismatchException e){
+                System.out.println("Please enter interger only");
+                scan.nextLine();
             }
         } while (!success);
+        success = false;
         /*
             courseCode = scan.nextInt();
             if (isCourseExistInDB( courseCode ))
@@ -171,8 +182,8 @@ public class CourseMgr {
         do {
             try {
                 courseName = scan.next();
-                if (courseName.matches( (".*\\d+.*") )) {
-                    throw new isInvalidInputException( "Alphabets only !" );
+                if (!courseName.matches( "([a-zA-Z ]+)" )) {
+                    throw new isInvalidInputException( "Alphabets only for Course Name!" );
                 }
                 success2 = true;
             } catch (isInvalidInputException e) {
@@ -180,20 +191,63 @@ public class CourseMgr {
             }
         } while (!success2);
         success2 = false;
-
+        scan.nextLine();
         System.out.println( "Enter Professor ID:" );
-        professorId = scan.nextInt();
+        do {
+            try {
+                professorId = scan.nextInt();
+                if (professorId < 0) {
+                    throw new isInvalidInputException( "Professor ID" );
+                }
+                success = true;
+            } catch (isInvalidInputException e) {
+                System.out.println( "Please enter a valid Professor ID " );
+            } catch (InputMismatchException e) {
+                System.out.println(" Please enter interger only ");
+                scan.nextLine();
+            }
+        } while (!success);
+        success = false;
         System.out.println( "Enter Course AU:" );
-        courseAU = scan.nextInt();
+        do {
+            try {
+                courseAU = scan.nextInt();
+                if (courseAU < 0) {
+                    throw new isInvalidInputException( "Course AU" );
+                }
+                success2 = true;
+            } catch (isInvalidInputException e) {
+                System.out.println( "Please enter a valid AU number " );
+            } catch (InputMismatchException e){
+                System.out.println ("Please enter integer");
+                scan.nextLine();
+            }
+        } while (!success2);
+        success2 = false;
         Course newCourse = new Course( professorId, courseCode, courseName, courseAU );
         courseDB.addCourse( newCourse );
 
         // add sessions for this course
+        int courseType = -1;
         int capLec, num;
         int[] capacity;
         System.out.println( "What type of lessons does this course have?" );
         System.out.println( "1: Only Lectures\n2: Lecture and Tutorials\n3: Lecture and Tutorials and Labs" );
-        int courseType = scan.nextInt();
+        do {
+            try {
+                courseType = scan.nextInt();
+                if(courseType < 1 || courseType > 3){
+                    throw new isInvalidInputException( "Course Type" );
+                }
+                success3 = true;
+            } catch (isInvalidInputException e){
+                System.out.println("Please enter '1', '2' or '3' only");
+            } catch (InputMismatchException e){
+                System.out.println("Please enter integer only");
+                scan.nextLine();
+            }
+        }while(!success3);
+        success3 = false;
 
         switch (courseType) {
             case 1:
