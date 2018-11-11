@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /***
  * Course manager class (Controller)
@@ -15,9 +17,8 @@ public class CourseMgr {
     /*
      * Initialise Course database; CourseDB
      */
-    Scanner scan = new Scanner(System.in);
+    Scanner scan = new Scanner( System.in );
     private CourseDB courseDB = new CourseDB();
-
 
 
     /***
@@ -63,8 +64,6 @@ public class CourseMgr {
     }
 
 
-
-
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
 
@@ -99,21 +98,19 @@ public class CourseMgr {
         }
     }
 
-     // Get Exam weightage by Course code
+    // Get Exam weightage by Course code
 
-    public Assessment getExamWeight(int courseCode){
+    public Assessment getExamWeight(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
         return course.getCourseWeightage().getExamination();
     }
 
 
-      //Get Course work weightage by Course code
+    //Get Course work weightage by Course code
     public ArrayList<Assessment> getCourseworkWeight(int courseCode) {
         Course course = courseDB.getCourse( courseCode );
         return course.getCourseWeightage().getCourseWork();
     }
-
-
 
 
     public boolean isCourseExistInDB(int courseCode) {
@@ -141,97 +138,121 @@ public class CourseMgr {
     }
 
     public void addCourse() {
-        int courseCode;
-        String courseName;
-        int professorId, courseAU;
+        int courseCode = -1, professorId = -1, courseAU = -1;
+        String courseName = null;
+        boolean success = false, success2 = false, success3 = false, success4 = false;
         //enter sid, loop avoid collision
+
+        System.out.println( "Please enter Course code to be added (It should be unique):" );
         do {
-            System.out.println( "pls enter course code u want to add (it should be unique):" );
+            try {
+                courseCode = scan.nextInt();
+                if (isCourseExistInDB( courseCode )) {
+                    throw new isDuplicatesException( "Course" );
+                }
+                success = true;
+            } catch (isDuplicatesException eID) {
+                System.out.println( eID.getMessage() );
+            }
+        } while (!success);
+        /*
             courseCode = scan.nextInt();
-            if (isCourseExistInDB(courseCode))
+            if (isCourseExistInDB( courseCode ))
                 break;
             else {
                 System.out.print( "course ID alr exists, please enter another one" );
                 continue;
             }
-        } while (true);
+        } while (true);*/
 
         //enter courseInfo
-        System.out.println( "adding course "+courseCode+", please enter following information:" );
-        System.out.println( "enter course name:" );
-        courseName = scan.next();
-        System.out.println( "enter Professor ID:" );
+        System.out.println( "Adding Course " + courseCode + ", please enter following information:" );
+        System.out.println( "Enter Course name:" );
+        do {
+            try {
+                courseName = scan.next();
+                if (courseName.matches( (".*\\d+.*") )) {
+                    throw new isInvalidInputException( "Alphabets only !" );
+                }
+                success2 = true;
+            } catch (isInvalidInputException e) {
+                System.out.println( e.getMessage() );
+            }
+        } while (!success2);
+        success2 = false;
+
+        System.out.println( "Enter Professor ID:" );
         professorId = scan.nextInt();
-        System.out.println( "enter Course AU:" );
+        System.out.println( "Enter Course AU:" );
         courseAU = scan.nextInt();
-        Course newCourse = new Course(professorId, courseCode, courseName, courseAU);
-        courseDB.addCourse(newCourse);
+        Course newCourse = new Course( professorId, courseCode, courseName, courseAU );
+        courseDB.addCourse( newCourse );
 
         // add sessions for this course
         int capLec, num;
-        int [] capacity;
-        System.out.println("What type of lessons does this course have?");
-        System.out.println("1: only lectures\n 2:lecture and tutorials\n3:lecture and tutorials and labs");
+        int[] capacity;
+        System.out.println( "What type of lessons does this course have?" );
+        System.out.println( "1: Only Lectures\n2: Lecture and Tutorials\n3: Lecture and Tutorials and Labs" );
         int courseType = scan.nextInt();
 
-        switch (courseType){
+        switch (courseType) {
             case 1:
-                System.out.println("Enter the capacity for the lecture:");
+                System.out.println( "Enter the capacity for the lecture:" );
                 capLec = scan.nextInt();
-                newCourse.addLecture(capLec);
+                newCourse.addLecture( capLec );
                 break;
             case 2:
-                System.out.println("Enter the number of tutorial sessions");
+                System.out.println( "Enter the number of tutorial sessions" );
                 num = scan.nextInt();
-                System.out.println("Enter the capacity of each session:");
+                System.out.println( "Enter the capacity of each session:" );
                 int cap = scan.nextInt();
-                capacity= new int[num];
-                for(int i = 0; i<num; i++)
+                capacity = new int[num];
+                for (int i = 0; i < num; i++)
                     capacity[i] = cap;
-                newCourse.addLecture(cap*num);
-                newCourse.addTutorial(capacity);
+                newCourse.addLecture( cap * num );
+                newCourse.addTutorial( capacity );
                 break;
             case 3:
-                System.out.println("Enter the number of tutorial/lab sessions");
+                System.out.println( "Enter the number of tutorial/lab sessions" );
                 num = scan.nextInt();
-                System.out.println("Enter the capacity of each session:");
+                System.out.println( "Enter the capacity of each session:" );
                 int cap2 = scan.nextInt();
-                capacity= new int[num];
-                for(int i = 0; i<num; i++)
+                capacity = new int[num];
+                for (int i = 0; i < num; i++)
                     capacity[i] = cap2;
-                newCourse.addLecture(cap2*num);
-                newCourse.addTutorial(capacity);
-                newCourse.addLab(capacity);
+                newCourse.addLecture( cap2 * num );
+                newCourse.addTutorial( capacity );
+                newCourse.addLab( capacity );
                 break;
         }
-        setAssessment(courseCode);
+        setAssessment( courseCode );
 
     }
 
-    public void setAssessment(int courseCode){
+    public void setAssessment(int courseCode) {
         Assessment exam;
         ArrayList<Assessment> coursework = new ArrayList<>();
-        Course thisCourse = courseDB.getCourse(courseCode);
+        Course thisCourse = courseDB.getCourse( courseCode );
         CourseWeight thisCourseW;
         int num;
-        do{
-            System.out.println("Setting course assessment...");
-            System.out.println("Please enter exam weightage(%):");
+        do {
+            System.out.println( "Setting course assessment..." );
+            System.out.println( "Please enter exam weightage(%):" );
             double examWeight = scan.nextDouble();
-            exam = new Assessment("exam", examWeight);
-            if(examWeight != 100){
-                System.out.println("Enter number of CAs:");
+            exam = new Assessment( "exam", examWeight );
+            if (examWeight != 100) {
+                System.out.println( "Enter number of CAs:" );
                 num = scan.nextInt();
-                for(int i =0; i<num; i++){
-                    System.out.println("Please enter coursework description(%):");
+                for (int i = 0; i < num; i++) {
+                    System.out.println( "Please enter coursework description(%):" );
                     String descrip = scan.next();
-                    System.out.println("Please enter coursework weightage(%):");
+                    System.out.println( "Please enter coursework weightage(%):" );
                     double cwWeight = scan.nextDouble();
-                    coursework.add(new Assessment(descrip,cwWeight));
+                    coursework.add( new Assessment( descrip, cwWeight ) );
                 }
             }
-            thisCourse.setCourseWeightage(new CourseWeight(exam,coursework));
-        }while(!thisCourse.isCourseValidatable());
+            thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
+        } while (!thisCourse.isCourseValidatable());
     }
 
 
