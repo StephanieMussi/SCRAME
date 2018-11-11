@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /***
  * Course Assessment class
  * Handles Course components (Course work and Exam)
  */
-public class Assessment {
+public class Assessment implements Serializable {
     /*
      * Type of Assessment (Exam or Coursework)
      */

@@ -1,8 +1,4 @@
-import java.io.IOException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,8 +15,10 @@ public class SerializeDB
             in = new ObjectInputStream(fis);
             pDetails = (ArrayList) in.readObject();
             in.close();
+        } catch (FileNotFoundException ex) {
+            return null;
         } catch (IOException ex) {
-           return null;
+            ex.printStackTrace();
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }

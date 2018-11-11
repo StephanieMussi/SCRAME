@@ -5,21 +5,22 @@ public class MarkRecordDB {
 
     public  MarkRecordDB(){
         //load markRecords
-        markRecords = SerializeDB.readSerializedObject("markRecords.dat");
-        if(markRecords == null)
+        ArrayList<MarkRecord> listRead = SerializeDB.readSerializedObject("markRecords.dat");
+        if(listRead == null)
             initialize();
+        else markRecords = listRead;
     }
 
     private void initialize(){
         Registration r1 = new Registration(0001,0001,1,"Lin");
         Registration r2 = new Registration(0002,0002,1,"Bella");
         Registration r3 = new Registration(0003,0003,1,"Mike");
-        MarkRecord s1 = new MarkRecord(r1);
-        MarkRecord s2 = new MarkRecord(r2);
-        MarkRecord s3 = new MarkRecord(r3);
-        markRecords.add( s1 );
-        markRecords.add( s2 );
-        markRecords.add( s3 );
+        MarkRecord m1 = new MarkRecord(r1);
+        MarkRecord m2 = new MarkRecord(r2);
+        MarkRecord m3 = new MarkRecord(r3);
+        markRecords.add( m1 );
+        markRecords.add( m2 );
+        markRecords.add( m3 );
         SerializeDB.writeSerializedObject( "markRecords.dat", markRecords );
     }
 

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,7 +7,7 @@ import java.util.HashMap;
  * Handles and manages Course Components and Weightages
  * Tagged to student enrolled to Course
  */
-public class CourseWeight {
+public class CourseWeight implements Serializable {
 
     /*
      * Call Assessment class

@@ -13,15 +13,28 @@ public class CourseDB {
 
     public CourseDB(){
         // load course.dat
-        courseList = SerializeDB.readSerializedObject( "course.dat" );
-        if(courseList == null)
+        ArrayList<Course> listRead = SerializeDB.readSerializedObject( "course.dat" );
+        if(listRead == null)
             initialize();
+        else courseList = listRead;
     }
 
     private void initialize(){
         Course s1 = new Course( 001, 0001,"Engineers and Society", 3 );
+        CourseWeight cw1 = new CourseWeight(new Assessment("exam", 100),null);
+        s1.addLecture(100);
+        s1.setCourseWeightage(cw1);
+
         Course s2 = new Course( 002, 0002,"Algorithms", 3 );
+        CourseWeight cw2 = new CourseWeight(new Assessment("exam", 100),null);
+        s2.addLecture(100);
+        s2.setCourseWeightage(cw2);
+
         Course s3 = new Course( 003, 0003,"OODP", 3 );
+        CourseWeight cw3 = new CourseWeight(new Assessment("exam", 100),null);
+        s3.addLecture(100);
+        s3.setCourseWeightage(cw3);
+
         courseList.add( s1 );
         courseList.add( s2 );
         courseList.add( s3 );

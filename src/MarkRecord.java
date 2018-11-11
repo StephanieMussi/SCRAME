@@ -13,6 +13,12 @@ public class MarkRecord implements Serializable {
 
     private double markExam;
 
+
+    /*MarkRecord(Registration registration, double markExam){
+        this.registration = registration;
+        this.markExam = markExam;
+    }*/
+
     MarkRecord(Registration registration){
         this.registration = registration;
         initialize();
@@ -22,8 +28,9 @@ public class MarkRecord implements Serializable {
         markExam = 0;
         int cid = registration.getCourse();
         Course course = CourseDB.getCourse(cid);
-        ArrayList<Assessment> courseWorkList= course.getCourseWeightage().getCourseWork();
-        marksCA = new double[courseWorkList.size()];
+        ArrayList<Assessment> courseWorkList = course.getCourseWeightage().getCourseWork();
+        if(courseWorkList != null)
+            marksCA = new double[courseWorkList.size()];
     }
 
     // getters and setters

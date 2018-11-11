@@ -12,9 +12,10 @@ public class StudentDB {
 
     //load student.dat
     public StudentDB() {
-        studentList = SerializeDB.readSerializedObject( "student.dat" );
-        if(studentList == null)
+        ArrayList<StudentInfo> listRead = SerializeDB.readSerializedObject( "student.dat" );
+        if(listRead == null)
             initialize();
+        else studentList = listRead;
     }
 
     private void initialize(){

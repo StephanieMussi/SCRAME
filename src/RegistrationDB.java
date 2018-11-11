@@ -8,13 +8,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistrationDB implements Serializable {
+public class RegistrationDB {
     private static ArrayList<Registration> registrations = new ArrayList<Registration>();
 
     public RegistrationDB() {
         //load registration
-        registrations = SerializeDB.readSerializedObject("registrations.dat");
-        if(registrations == null)
+        ArrayList<Registration> listRead = SerializeDB.readSerializedObject("registrations.dat");
+        if(listRead == null)
             initialize();
     }
 
@@ -38,42 +38,34 @@ public class RegistrationDB implements Serializable {
         return null;
     }
 
+    //Insert entry to database
+
+    /*public void registerStudentForCourse(Registration x) throws IOException {
+        fileChecker();
+        List list = new ArrayList();
+        if (SerializeDB.readSerializedObject("registrations.dat") != null)
+            list = (ArrayList) SerializeDB.readSerializedObject("registrations.dat");
+        list.add(x);
+        SerializeDB.writeSerializedObject("registrations.dat", list);
+    }*/
 
     public void registerStudentForCourse(Registration x) {
         registrations.add(x);
     }
 
 
-    //print student registration list
-    public void printAllReg() {
+    //Return student list
+    public ArrayList<Registration> returnStudentList() {
 
-        for(int i = 0; i<registrations.size(); i++)
-        {
-            Registration r = registrations.get(i);
-            System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        try {
+            ArrayList<Registration> list = (ArrayList) SerializeDB.readSerializedObject("registrations.dat");
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
 
     }
-
-    public void printRegByIndex(int indexNum) {
-        for(int i = 0; i<registrations.size(); i++)
-        {
-            Registration r = registrations.get(i);
-            if(r.getIndex()==indexNum)
-                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
-        }
-    }
-
-    public void printByS(int studentId) {
-        for(int i = 0; i<registrations.size(); i++)
-        {
-            Registration r = registrations.get(i);
-            if(r.getStudent()==studentId)
-                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
-        }
-    }
-
-
 
 
     //Function to check if registrations.txt is inside the folder if not will have ioException
@@ -103,16 +95,4 @@ public class RegistrationDB implements Serializable {
         }
     }
     */
-
-
-    //Insert entry to database
-
-    /*public void registerStudentForCourse(Registration x) throws IOException {
-        fileChecker();
-        List list = new ArrayList();
-        if (SerializeDB.readSerializedObject("registrations.dat") != null)
-            list = (ArrayList) SerializeDB.readSerializedObject("registrations.dat");
-        list.add(x);
-        SerializeDB.writeSerializedObject("registrations.dat", list);
-    }*/
 }

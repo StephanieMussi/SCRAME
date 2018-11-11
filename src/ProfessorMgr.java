@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProfessorMgr {
     /*
@@ -10,9 +9,10 @@ public class ProfessorMgr {
     ProfessorMgr()
     {
         //load prof
-        profList = SerializeDB.readSerializedObject("prof.dat");
-        if(profList == null)
+        ArrayList<Professor> listRead = SerializeDB.readSerializedObject("prof.dat");
+        if( listRead == null)
             initialize();
+        else profList = listRead;
     }
 
     private void initialize(){
@@ -31,7 +31,7 @@ public class ProfessorMgr {
 
     public Professor findProfByPid(int id) {
         Professor prof = null;
-         for (int i = 0; i < profList.size(); i++) {
+        for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)
                 break;
             if (profList.get( i ).getPid() == id)

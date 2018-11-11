@@ -4,11 +4,11 @@ public class AdminCtrl {
     public static void main(String [] args)
     {
         Scanner sc = new Scanner(System.in);
-        MarkRecordMgr mMgr = new MarkRecordMgr();
-        StudentMgr sMgr = new StudentMgr();
         ProfessorMgr pMgr = new ProfessorMgr();
-        RegistrationMgr rMgr = new RegistrationMgr();
         CourseMgr cMgr = new CourseMgr();
+        StudentMgr sMgr = new StudentMgr();
+        RegistrationMgr rMgr = new RegistrationMgr();
+        MarkRecordMgr mMgr = new MarkRecordMgr();
 
 
 
@@ -23,7 +23,6 @@ public class AdminCtrl {
                     "6 --- print student transcript\n" +
                     "7 --- print all students in DB\n" +
                     "8 --- print all courses in DB\n" +
-                    "9 --- print all registration records in DB\n" +
                     "0 --- exit program...");
 
             System.out.println("please enter your choice:");
@@ -52,9 +51,6 @@ public class AdminCtrl {
                     continue;
                 case 8:
                     cMgr.printCourseList();
-                    continue;
-                case 9:
-                    rMgr.printAllReg();
                     continue;
                 case 0:
                     System.out.println("program exit...");
