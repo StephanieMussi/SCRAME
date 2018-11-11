@@ -44,7 +44,7 @@ public class StudentMgr {
                 try {
                     System.out.println( "Please enter student ID u want to add:" );
                     sid = sc.nextInt();
-                    if (findSbySid( sid )!=null) {
+                    if (findSbySid( sid ) != null) {
                         throw new isDuplicatesException( "Student ID" );
                     }
                     success = true;
@@ -73,7 +73,7 @@ public class StudentMgr {
                 try {
                     System.out.println( "Please enter student name to be added" );
                     sname = sc.next();
-                    if (findSbySname( sname )!=null) {
+                    if (findSbySname( sname ) != null) {
                         throw new isDuplicatesException( "Student Name" );
                     }
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
@@ -87,9 +87,10 @@ public class StudentMgr {
                 }
 
             } while (!success2);
-
-            System.out.println("student added successfully!");
             success2 = false;
+
+            System.out.println( "student added successfully!" );
+            sc.nextLine();
 
             /*
             do {

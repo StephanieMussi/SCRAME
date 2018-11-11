@@ -14,17 +14,17 @@ public class AdminCtrl {
 
         int sel;
         do {
-            System.out.println("Menu:\n" +
-                    "1 --- add student to StudentDB\n" +
-                    "2 --- add course to CourseDB, including set assessment weightage\n" +
-                    "3 --- enter registration menu, including print student list\n" +
-                    "4 --- enter mark, including coursework and exam mark\n" +
-                    "5 --- print course statistics\n" +
-                    "6 --- print student transcript\n" +
-                    "7 --- print all students in DB\n" +
-                    "8 --- print all courses in DB\n" +
-                    "9 --- print all registration in DB\n" +
-                    "0 --- exit program...");
+            System.out.println("|---------------------- Welcome to SCRAME ----------------------|\n" +
+                    "1 --- Add student to StudentDB\n" +
+                    "2 --- Add course to CourseDB, including set assessment weightage\n" +
+                    "3 --- Enter registration menu, including print student list\n" +
+                    "4 --- Enter mark, including coursework and exam mark\n" +
+                    "5 --- Print course statistics\n" +
+                    "6 --- Print student transcript\n" +
+                    "7 --- Print all students in DB\n" +
+                    "8 --- Print all courses in DB\n" +
+                    "9 --- Print all registration in DB\n" +
+                    "0 --- Exit program...");
 
             System.out.println("please enter your choice:");
             sel = sc.nextInt();
@@ -56,10 +56,10 @@ public class AdminCtrl {
                 case 9:
                     rMgr.printAllReg();
                 case 0:
-                    System.out.println("program exit...");
+                    System.out.println("Program exit...");
                     break;
                 default:
-                    System.out.println("wrong input selection, please enter again!");
+                    System.out.println("Wrong input selection, please enter again!");
             }
         }while(sel>=0 && sel<10);
 
