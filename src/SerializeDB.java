@@ -10,8 +10,8 @@ import java.util.ArrayList;
 // the Serialized file may fail.
 public class SerializeDB
 {
-    public static List readSerializedObject(String filename) {
-        List pDetails = null;
+    public static ArrayList readSerializedObject(String filename) {
+        ArrayList pDetails = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
         try {
@@ -20,7 +20,7 @@ public class SerializeDB
             pDetails = (ArrayList) in.readObject();
             in.close();
         } catch (IOException ex) {
-            ex.printStackTrace();
+           return null;
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class SerializeDB
         return pDetails;
     }
 
-    public static void writeSerializedObject(String filename, List list) {
+    public static void writeSerializedObject(String filename, ArrayList list) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
@@ -45,7 +45,7 @@ public class SerializeDB
     }
 
     public static void main(String[] args) {
-        List list;
+        ArrayList list;
         try	{
             // read from serialized file the list of professors
             list = (ArrayList)SerializeDB.readSerializedObject("professor.dat");

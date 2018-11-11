@@ -7,23 +7,25 @@ public class StudentDB {
      * loading and adding students info between programs and file
      * don't contain other reference
      */
-    private static List<StudentInfo> studentList = new ArrayList<StudentInfo>();
-    SerializeDB serialize;
+    private static ArrayList<StudentInfo> studentList = new ArrayList<StudentInfo>();
 
 
     //load student.dat
     public StudentDB() {
-        List<StudentInfo> list = new ArrayList<StudentInfo>();
+        studentList = SerializeDB.readSerializedObject( "student.dat" );
+        if(studentList == null)
+            initialize();
+    }
+
+    private void initialize(){
         StudentInfo s1 = new StudentInfo( 0001, "Lin" );
         StudentInfo s2 = new StudentInfo( 0002, "Bella" );
         StudentInfo s3 = new StudentInfo( 0003, "Mike" );
-        list.add( s1 );
-        list.add( s2 );
-        list.add( s3 );
-        SerializeDB.writeSerializedObject( "student.dat", list );
-        studentList = SerializeDB.readSerializedObject( "student.dat" );
+        studentList.add( s1 );
+        studentList.add( s2 );
+        studentList.add( s3 );
+        SerializeDB.writeSerializedObject( "student.dat", studentList );
     }
-
 
     /*
      * sub functionality

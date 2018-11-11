@@ -9,7 +9,24 @@ public class CourseDB {
     /*
      * Create an ArrayList for Course
      */
-    private static List<Course> courseList = new ArrayList<Course>();
+    private static ArrayList<Course> courseList = new ArrayList<Course>();
+
+    public CourseDB(){
+        // load course.dat
+        courseList = SerializeDB.readSerializedObject( "course.dat" );
+        if(courseList == null)
+            initialize();
+    }
+
+    private void initialize(){
+        Course s1 = new Course( 001, 0001,"Engineers and Society", 3 );
+        Course s2 = new Course( 002, 0002,"Algorithms", 3 );
+        Course s3 = new Course( 003, 0003,"OODP", 3 );
+        courseList.add( s1 );
+        courseList.add( s2 );
+        courseList.add( s3 );
+        SerializeDB.writeSerializedObject( "course.dat", courseList );
+    }
 
 /*    public CourseDB() {
         initialize();

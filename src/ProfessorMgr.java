@@ -5,20 +5,24 @@ public class ProfessorMgr {
     /*
     mix of professorDB and ProfMgr
      */
-    private static List<Professor> profList = new ArrayList<Professor>();
+    private static ArrayList<Professor> profList = new ArrayList<Professor>();
 
     ProfessorMgr()
     {
         //load prof
-        List<Professor> listp = new ArrayList<Professor> ();
+        profList = SerializeDB.readSerializedObject("prof.dat");
+        if(profList == null)
+            initialize();
+    }
+
+    private void initialize(){
         Professor p1 = new Professor( 001,"Tan wei", "Twei.ntu.edu.com", 91330111 );
         Professor p2 = new Professor( 002,"Chen mi", "Cmi.ntu.edu.com", 91330222 );
         Professor p3 = new Professor( 003,"Christ lin", "CHli.ntu.edu.com", 91330333);
-        listp.add( p1 );
-        listp.add( p2 );
-        listp.add( p3 );
-        SerializeDB.writeSerializedObject( "prof.dat", listp );
-        profList = SerializeDB.readSerializedObject( "prof.dat" );
+        profList.add( p1 );
+        profList.add( p2 );
+        profList.add( p3 );
+        SerializeDB.writeSerializedObject( "prof.dat", profList );
     }
 
 
