@@ -5,9 +5,12 @@ import java.util.Scanner;
 
 public class RegistrationMgr {
 
+
     RegistrationMgr() {
+        db = new RegistrationDB();
 
     }
+
 
     Registration registration;
     RegistrationDB db;
@@ -21,35 +24,13 @@ public class RegistrationMgr {
         registration = new Registration(course, student, index, studentName);
     }
 
-    /*public Course Test() {
-        Course course = new Course();
-        course.setCourseAU(1);
-        course.setProfessorId(1);
-        course.setCourseCode(2004);
-        course.setCourseName("TAN KHENG WEE");
-        course.setMaxCapacity(100);
+    public void printAllReg()
+    {
+        db.printAllReg();
+    }
 
-        CourseIndex ci = new CourseIndex(1001, 100);
-        CourseIndex ci2 = new CourseIndex(1002, 100);
-        CourseIndex ci3 = new CourseIndex(1003, 100);
-        ArrayList list = new <CourseIndex>ArrayList();
-        list.add(ci);
-        list.add(ci2);
-        list.add(ci3);
-        course.setLecture(ci);
-        course.setTutorialIndexes(list);
-        course.setLaboratoryIndexes(list);
-        ArrayList list2 = new ArrayList<StudentInfo>();
-        // TODO Auto-generated method stub
-        StudentInfo s1 = new StudentInfo(0001, "ZOE");
-        StudentInfo s2 = new StudentInfo(0002, "ZOZO");
-        StudentInfo s3 = new StudentInfo(0003, "BOBO");
-        list2.add(s1);
-        list2.add(s2);
-        list2.add(s3);
-        course.setRegisteredStudents(list2);
-        return course;
-    }*/
+
+
 
     //Check for vacancy
     public int checkVacancy(int courseCode, int index) {
@@ -97,44 +78,15 @@ public class RegistrationMgr {
         }
     }
 
-    //Print student name in the class
-    public void print(int indexNum) {
-        Registration r;
 
-        ArrayList<Registration> registrationList = new ArrayList<Registration>();
-        db = new RegistrationDB();
-        System.out.println("List of students in Index: " + indexNum);
-        registrationList = db.returnStudentList();
-        for (int i = 0; i < registrationList.size(); i++) {
-            r = registrationList.get(i);
-            if (r.getIndex() == indexNum) {
-                System.out.println("Name:  " + r.getStudent());
-            }
-        }
-    }
 
-    public void printClass(int studentId) {
-        Registration r;
 
-        ArrayList<Registration> registrationList = new ArrayList<Registration>();
-        db = new RegistrationDB();
-        registrationList = db.returnStudentList();
-        System.out.println("Student ID: " + studentId);
-        System.out.println("Course         Index");
-        for (int i = 0; i < registrationList.size(); i++) {
-            r = registrationList.get(i);
-            if (r.getStudent() == studentId) {
-                System.out.println(r.getCourse() + "           " + Integer.toString(r.getIndex()));
-            }
-        }
-    }
 
     public void registrationMenu() {
         Scanner sc = new Scanner(System.in);
         // TODO Auto-generated method stub
         int choice = 0;
         int index;
-        RegistrationMgr rsc = new RegistrationMgr();
         while (choice < 3) {
             System.out.print("Choose:");
             System.out.print("\n1. Register student");
@@ -157,9 +109,7 @@ public class RegistrationMgr {
                             case 2:
                                 System.out.println("\n1. Enter Class Index: ");
                                 index = sc.nextInt();
-                                rsc.getInfo(coursecode, studentid, index);
-                                z = rsc.insertToRegistration();
-                                break;
+                                db.printRegByIndex(index);
                             case 3:
                                 x = 3;
                         }
@@ -184,12 +134,12 @@ public class RegistrationMgr {
                             case 1:
                                 System.out.println("\n1. Enter Class Index: ");
                                 index = sc.nextInt();
-                                rsc.print(index);
+                                db.printRegByIndex(index);
                                 break;
                             case 2:
                                 System.out.println("\n1. Enter Student ID: ");
                                 index = sc.nextInt();
-                                rsc.printClass(index);
+                                db.printByS(index);
                                 break;
                             default:
                                 break;
@@ -204,6 +154,37 @@ public class RegistrationMgr {
         }
 
     }
+
+
+        /*public Course Test() {
+        Course course = new Course();
+        course.setCourseAU(1);
+        course.setProfessorId(1);
+        course.setCourseCode(2004);
+        course.setCourseName("TAN KHENG WEE");
+        course.setMaxCapacity(100);
+
+        CourseIndex ci = new CourseIndex(1001, 100);
+        CourseIndex ci2 = new CourseIndex(1002, 100);
+        CourseIndex ci3 = new CourseIndex(1003, 100);
+        ArrayList list = new <CourseIndex>ArrayList();
+        list.add(ci);
+        list.add(ci2);
+        list.add(ci3);
+        course.setLecture(ci);
+        course.setTutorialIndexes(list);
+        course.setLaboratoryIndexes(list);
+        ArrayList list2 = new ArrayList<StudentInfo>();
+        // TODO Auto-generated method stub
+        StudentInfo s1 = new StudentInfo(0001, "ZOE");
+        StudentInfo s2 = new StudentInfo(0002, "ZOZO");
+        StudentInfo s3 = new StudentInfo(0003, "BOBO");
+        list2.add(s1);
+        list2.add(s2);
+        list2.add(s3);
+        course.setRegisteredStudents(list2);
+        return course;
+    }*/
 
 
 }
