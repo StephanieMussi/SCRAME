@@ -15,9 +15,8 @@ public class RegistrationMgr {
     //Create registration object
     public void getInfo(int course, int student, int index) {
         String studentName = "";
-        StudentDB sdb = new StudentDB();
         StudentInfo student2 = new StudentInfo();
-        student2 = sdb.getSbySid(student);
+        student2 = StudentDB.getSbySid(student);
         studentName = student2.getSname();
         registration = new Registration(course, student, index, studentName);
     }
@@ -56,8 +55,7 @@ public class RegistrationMgr {
     public int checkVacancy(int courseCode, int index) {
         int vacancy = 0;
         CourseIndex d;
-        CourseDB cdb = new CourseDB();
-        Course course = cdb.getCourse(courseCode);
+        Course course = CourseDB.getCourse(courseCode);
         List b = course.getTutorialIndex();
         for (int y = 0; y < b.size(); y++) {
             d = (CourseIndex) b.get(y);

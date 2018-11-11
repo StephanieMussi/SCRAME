@@ -298,7 +298,7 @@ public class CourseMgr {
                 System.out.println( "Enter number of CAs:" );
                 num = scan.nextInt();
                 for (int i = 0; i < num; i++) {
-                    System.out.println( "Please enter coursework description(%):" );
+                    System.out.println( "Please enter coursework description for ca "+ (i+1) + "(string):" );
                     String descrip = scan.next();
                     System.out.println( "Please enter coursework weightage(%):" );
                     double cwWeight = scan.nextDouble();
@@ -307,6 +307,7 @@ public class CourseMgr {
             }
             thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
         } while (!thisCourse.isCourseValidatable());
+        System.out.println("assessment is settled");
     }
 
 

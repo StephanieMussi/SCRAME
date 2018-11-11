@@ -65,6 +65,8 @@ public class Course implements Serializable {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.courseAU = courseAU;
+        tutorial = new ArrayList<CourseIndex>();
+        laboratory = new ArrayList<CourseIndex>();
     }
 
 
@@ -268,8 +270,12 @@ public class Course implements Serializable {
         for(int i =0; i< courseworkWeight.size(); i++){
             totalCourseWorkW += courseworkWeight.get(i).getTotalWeightage();
         }
-        if( (examWeight == 100 && totalCourseWorkW == 0) || totalCourseWorkW == 100 )
+        if( totalCourseWorkW + examWeight - 100 < 0.000000001)
             return true;
-        else return false;
+        else
+        {
+            System.out.println("assessment weightage assignment encountered error, please enter again!");
+            return false;
+        }
     }
 }
