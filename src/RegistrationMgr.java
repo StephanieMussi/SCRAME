@@ -186,6 +186,19 @@ public class RegistrationMgr {
                 return true;
             }
         }
+        else if (course.getLaboratoryIndex()!= null)
+        {
+            CourseIndex lab =course.getLabinByIn(index);
+            CourseIndex tut =course.getTutinByIn(index);
+            vacancy = lab.getVacancy();
+            if(vacancy>0){
+                //if have lab, must have tut
+                lab.setVacancy();
+                tut.setVacancy();
+                db.registerStudentForCourse(r);
+                return true;
+            }
+        }
         else if (course.getTutorialIndex()!=null){
             CourseIndex tut =course.getTutinByIn(index);
             vacancy = tut.getVacancy();
@@ -195,16 +208,7 @@ public class RegistrationMgr {
                 return true;
             }
         }
-        else if (course.getLaboratoryIndex()!= null)
-        {
-            CourseIndex lab =course.getLabinByIn(index);
-            vacancy = lab.getVacancy();
-            if(vacancy>0){
-                lab.setVacancy();
-                db.registerStudentForCourse(r);
-                return true;
-            }
-        }
+
         System.out.println("added unsuccessfully! index: "+index+" is full!");
         return false;
     }
