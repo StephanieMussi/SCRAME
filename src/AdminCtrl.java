@@ -56,8 +56,10 @@ public class AdminCtrl {
                     continue;
                 case 9:
                     rMgr.printAllReg();
+                    continue;
                 case 10:
                     cMgr.printIndex();
+                    continue;
                 case 0:
                     System.out.println("Program exit...");
                     break;
