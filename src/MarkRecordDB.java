@@ -12,9 +12,9 @@ public class MarkRecordDB {
     }
 
     private void initialize(){
-        Registration r1 = new Registration(0001,0001,1,"Lin");
-        Registration r2 = new Registration(0002,0002,1,"Bella");
-        Registration r3 = new Registration(0003,0003,1,"Mike");
+        Registration r1 = new Registration(0001,0001,1);
+        Registration r2 = new Registration(0002,0002,1);
+        Registration r3 = new Registration(0003,0003,1);
         MarkRecord m1 = new MarkRecord(r1);
         MarkRecord m2 = new MarkRecord(r2);
         MarkRecord m3 = new MarkRecord(r3);

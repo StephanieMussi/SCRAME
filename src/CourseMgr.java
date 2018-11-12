@@ -306,6 +306,7 @@ public class CourseMgr {
                     coursework.add( new Assessment( descrip, cwWeight ) );
                 }
             }
+            else
             thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
         } while (!thisCourse.isCourseValidatable());
         System.out.println("assessment is settled");

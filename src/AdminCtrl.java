@@ -36,13 +36,7 @@ public class AdminCtrl {
                     cMgr.addCourse();
                     continue;
                 case 3://3. register students to course //4. check vacancy can be implemented here
-                    try {
-                        rMgr.registrationMenu();
-                    }
-                    catch(isRegisterationException e)
-                    {
-
-                    }
+                    rMgr.registrationMenu();
                     continue;
                 case 4://7. enter coursework mark //8. enter exam mark;
                     mMgr.assignMarks();

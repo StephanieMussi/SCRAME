@@ -150,27 +150,32 @@ import java.util.List;
 
 public class RegistrationDB {
     private static ArrayList<Registration> registrations = new ArrayList<Registration>();
-    ArrayList<Registration> listRead;
 
     public RegistrationDB() {
         //load registration
-        listRead = SerializeDB.readSerializedObject("registration.dat");
+        ArrayList<Registration> listRead = SerializeDB.readSerializedObject("registrations.dat");
         if(listRead == null)
             initialize();
-        else
-            registrations = listRead;
-
     }
 
+
     private void initialize(){
-        Registration r1 = new Registration(0001,0001,1,"Lin");
-        Registration r2 = new Registration(0002,0002,1,"Bella");
-        Registration r3 = new Registration(0003,0003,1,"Mike");
+        Registration r1 = new Registration(0001,0001,1);
+        Registration r2 = new Registration(0002,0002,3);
+        Registration r3 = new Registration(0003,0003,4);
         registrations.add(r1);
         registrations.add(r2);
         registrations.add(r3);
         SerializeDB.writeSerializedObject( "registration.dat", registrations );
     }
+
+
+
+
+    public void registerStudentForCourse(Registration x) {
+        registrations.add(x);
+    }
+
 
     //get reg via sid and courseCode
     public static Registration getRegViaSidCourseCode(int sid, int courseCode){
@@ -182,33 +187,51 @@ public class RegistrationDB {
         return null;
     }
 
-    //Insert entry to database
-
-    public void registerStudentForCourse(Registration x) throws IOException {
-
-        registrations.add(x);
-        SerializeDB.writeSerializedObject("registration.dat", registrations);
-    }
-
-    /*public void registerStudentForCourse(Registration x) {
-        registrations.add(x);
-    }*/
 
 
-    //Return student list
-    public ArrayList<Registration> returnStudentList() {
+    //print student registration list
+    public void printAllReg() {
 
-        try {
-            return registrations;
-        } catch (Exception e) {
-            e.printStackTrace();
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
         }
-        return null;
 
     }
 
+    public void printRegByIndex(int indexNum) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            if(r.getIndex()==indexNum)
+                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+    }
 
-    //Function to check if registrations.txt is inside the folder if not will have ioException
+    public void printByS(int studentId) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            if(r.getStudent()==studentId)
+                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+    }
+
+    public void printByC(int cid) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration r = registrations.get(i);
+            if(r.getStudent()==cid)
+                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+        }
+    }
+}
+
+
+
+
+//Function to check if registrations.txt is inside the folder if not will have ioException
     /*
     public static void fileChecker() throws IOException {
         int x;
@@ -235,4 +258,3 @@ public class RegistrationDB {
         }
     }
     */
-}
