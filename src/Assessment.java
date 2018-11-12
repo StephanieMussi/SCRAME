@@ -14,15 +14,16 @@ public class Assessment implements Serializable {
      */
     private double totalWeightage;
 
-    /***
+    /**
      * Constructor class
      * @param type
      * @param totalWeightage
      */
     public Assessment(String type, double totalWeightage) {
         this.type = type;
-        this.totalWeightage = 0; //Weightage is initialized to 0 first
+        this.totalWeightage = totalWeightage;
     }
+
 
     /*
      * Gets type of assessment

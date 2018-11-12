@@ -67,6 +67,7 @@ public class Course implements Serializable {
         this.courseAU = courseAU;
         tutorial = new ArrayList<CourseIndex>();
         laboratory = new ArrayList<CourseIndex>();
+
     }
 
 
@@ -255,7 +256,12 @@ public class Course implements Serializable {
      * Course is valid iff total weightage of Exam + Couse work + total number if course work is not equals to 0
      */
     public boolean isCourseValidatable() {
-        double examWeight = courseWeightage.getExamination().getTotalWeightage();
+        double examWeight;
+        try {
+            examWeight = courseWeightage.getExamination().getTotalWeightage();
+        }catch(NullPointerException e) {
+            return false;
+        }
         ArrayList<Assessment> courseworkWeight = courseWeightage.getCourseWork();
         double totalCourseWorkW = 0;
         for(int i =0; i< courseworkWeight.size(); i++){
