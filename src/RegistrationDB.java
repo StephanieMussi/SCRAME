@@ -161,8 +161,8 @@ public class RegistrationDB {
 
     private void initialize(){
         Registration r1 = new Registration(0001,0001,1);
-        Registration r2 = new Registration(0002,0002,3);
-        Registration r3 = new Registration(0003,0003,4);
+        Registration r2 = new Registration(0002,0002,2);
+        Registration r3 = new Registration(0003,0003,3);
         registrations.add(r1);
         registrations.add(r2);
         registrations.add(r3);
@@ -222,7 +222,7 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            if(r.getStudent()==cid)
+            if(r.getCourse()==cid)
                 System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
         }
     }
@@ -235,8 +235,9 @@ public class RegistrationDB {
                 System.out.println("cannot register one student to the same course again!");
                 return true;
             }
-            else if(r.equals(reginDB))
+            else if(r.getStudent()==reginDB.getStudent() && r.getIndex()==reginDB.getIndex())
             {
+                System.out.println("duplicate index!");
                 return true;
             }
         }

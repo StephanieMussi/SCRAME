@@ -24,6 +24,7 @@ public class AdminCtrl {
                     "7 --- Print all students in DB\n" +
                     "8 --- Print all courses in DB\n" +
                     "9 --- Print all registration in DB\n" +
+                    "10 --- Print index by a course\n" +
                     "0 --- Exit program...");
 
             System.out.println("Please enter your choice:");
@@ -55,13 +56,15 @@ public class AdminCtrl {
                     continue;
                 case 9:
                     rMgr.printAllReg();
+                case 10:
+                    cMgr.printIndex();
                 case 0:
                     System.out.println("Program exit...");
                     break;
                 default:
                     System.out.println("Wrong input selection, please enter again!");
             }
-        }while(sel>=0 && sel<10);
+        }while(sel>=0 && sel<11);
 
 
     }

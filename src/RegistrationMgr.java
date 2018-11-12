@@ -181,31 +181,6 @@ public class RegistrationMgr {
 
 
 
-    //Register students to their selected course
-    public int insertToRegistration(Registration registration) {
-        int x = checkVacancy(registration.getCourse(), registration.getIndex());
-        if (x != 0) {
-            try {
-                db.registerStudentForCourse(registration);
-                System.out.println(" Student ID: " + registration.getStudent() + " successfully registered for " + registration.getCourse() + ", Class Index: " + registration.getIndex() + ", Vacancy: " + x);
-                throw new IOException();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return 0;
-        }
-        //decrease course vacancy
-        //ic = new IndexCourse(registration.getIndex()); //need a controller for indexcourse
-        //ic.setVacancy(); //setVacancy() to decrement vacancy, should be in controller, not in entity
-
-
-        else {
-            System.out.println("Course: " + registration.getCourse() + ", Index: " + registration.getIndex() + " is full.");
-            return 1;
-        }
-    }
-
-
     //print all registration records
     public void printAllReg() {
         db.printAllReg();
@@ -229,6 +204,8 @@ public class RegistrationMgr {
     }
 
 
+
+    //MENU
     public void registrationMenu() {
         int sel = 0;
         int index = -1;
@@ -278,15 +255,14 @@ public class RegistrationMgr {
         if (c.getTutorialIndex() == null && c.getLaboratoryIndex() == null)
         {
             boolean exist = false;
-            Registration r = new Registration(cid, sid, -1);
+            Registration r = new Registration(cid, sid, c.getCourseCode());
             exist = checkExist(r);
             if (exist)
             {
                 System.out.println("registration already exist! added unsuccessfully!");
             }
             else {
-                db.registerStudentForCourse(r);
-                System.out.println("registration added successfully!");
+                insertToRegistration(r);
             }
         }
 
@@ -297,7 +273,7 @@ public class RegistrationMgr {
             do {
                 System.out.println("enter index:");
                 index = sc.nextInt();
-            } while (c.getTutorialIndex()==null);
+            } while (!c.checkInExist(index));
 
             boolean exist = false;
             Registration r = new Registration(cid, sid, index);
@@ -307,8 +283,7 @@ public class RegistrationMgr {
                 System.out.println("registration already exist! added unsuccessfully!");
             }
             else {
-                db.registerStudentForCourse(r);
-                System.out.println("registration added successfully!");
+                insertToRegistration(r);
             }
         }
 
@@ -319,6 +294,30 @@ public class RegistrationMgr {
     //used in registerS
     private boolean checkExist(Registration r) {
         return db.checkExist(r);
+    }
+
+    //Register students to their selected course
+    public int insertToRegistration(Registration registration) {
+        int x = checkVacancy(registration.getCourse(), registration.getIndex());
+        if (x != 0) {
+            try {
+                db.registerStudentForCourse(registration);
+                System.out.println(" Student ID: " + registration.getStudent() + " successfully registered for " + registration.getCourse() + ", Class Index: " + registration.getIndex() + ", Vacancy: " + x);
+                throw new IOException();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+        //decrease course vacancy
+        //ic = new IndexCourse(registration.getIndex()); //need a controller for indexcourse
+        //ic.setVacancy(); //setVacancy() to decrement vacancy, should be in controller, not in entity
+
+
+        else {
+            System.out.println("Course: " + registration.getCourse() + ", Index: " + registration.getIndex() + " is full.");
+            return 1;
+        }
     }
 
 
@@ -365,6 +364,11 @@ public class RegistrationMgr {
         int vacancy = 0;
         CourseIndex d;
         Course course = CourseDB.getCourse(courseCode);
+        if(courseCode==index)
+        {
+            course.getLecture().setVacancy();
+            return course.getLecture().getVacancy();
+        }
         List b = course.getTutorialIndex();
         for (int y = 0; y < b.size(); y++) {
             d = (CourseIndex) b.get(y);

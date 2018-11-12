@@ -78,14 +78,14 @@ public class Course implements Serializable {
      * Adding tutorial indexes into Course
      * capacity parameter stores total number of students in each group
      */
-    public void addLecture(int capacity){
-        lecture = new CourseIndex(capacity);
+    public void addLecture(int index, int capacity){
+        lecture = new CourseIndex(index, capacity);
     }
 
     public void addTutorial(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {
-            CourseIndex index = new CourseIndex( i, capacity[i] );
+            CourseIndex index = new CourseIndex( i+courseCode*1000, capacity[i] );
             tutorial.add( index );
         }
     }
@@ -97,7 +97,7 @@ public class Course implements Serializable {
     public void addLab(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {
-            CourseIndex index = new CourseIndex( i, capacity[i] );
+            CourseIndex index = new CourseIndex( i+courseCode*2000, capacity[i] );
             laboratory.add( index );
         }
     }
@@ -268,5 +268,18 @@ public class Course implements Serializable {
             System.out.println("assessment weightage assignment encountered error, please enter again!");
             return false;
         }
+    }
+
+    public boolean checkInExist(int index) {
+        for(int i = 0; i<tutorial.size(); i++)
+        {
+            CourseIndex in = tutorial.get(i);
+            if(in.getIndex()==index)
+                return true;
+        }
+        if(lecture.getIndex()==index)
+            return true;
+
+        return false;
     }
 }

@@ -77,6 +77,7 @@ public class CourseMgr {
                     courseList.get( i ).getCourseCode(),
                     courseList.get( i ).getCourseName() );
         }
+
     }
 
     public void printCourseCodeList() {
@@ -253,7 +254,7 @@ public class CourseMgr {
             case 1:
                 System.out.println( "Enter the capacity for the lecture:" );
                 capLec = scan.nextInt();
-                newCourse.addLecture( capLec );
+                newCourse.addLecture(newCourse.getCourseCode(), capLec );
                 break;
             case 2:
                 System.out.println( "Enter the number of tutorial sessions" );
@@ -263,7 +264,7 @@ public class CourseMgr {
                 capacity = new int[num];
                 for (int i = 0; i < num; i++)
                     capacity[i] = cap;
-                newCourse.addLecture( cap * num );
+                newCourse.addLecture(newCourse.getCourseCode(), cap * num );
                 newCourse.addTutorial( capacity );
                 break;
             case 3:
@@ -274,7 +275,7 @@ public class CourseMgr {
                 capacity = new int[num];
                 for (int i = 0; i < num; i++)
                     capacity[i] = cap2;
-                newCourse.addLecture( cap2 * num );
+                newCourse.addLecture(newCourse.getCourseCode(),cap2 * num );
                 newCourse.addTutorial( capacity );
                 newCourse.addLab( capacity );
                 break;
@@ -310,6 +311,18 @@ public class CourseMgr {
             thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
         } while (!thisCourse.isCourseValidatable());
         System.out.println("assessment is settled");
+    }
+
+
+    public void printIndex() {
+        int cid;
+        do {
+            System.out.println("enter course code to check for its index");
+            cid=scan.nextInt();
+        } while(CourseDB.getCourse(cid)==null);
+
+        courseDB.printAllIndex(cid);
+
     }
 }
 

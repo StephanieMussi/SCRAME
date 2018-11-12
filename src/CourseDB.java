@@ -166,20 +166,20 @@ public class CourseDB {
     private void initialize(){
         Course s1 = new Course( 001, 0001,"Engineers and Society", 3 );
         CourseWeight cw1 = new CourseWeight(new Assessment("exam", 100),null);
-        s1.addLecture(100);
+        s1.addLecture(s1.getCourseCode(),100);
         int[] x = new int[] {20,20,20,0};
         s1.addTutorial(x);
         s1.setCourseWeightage(cw1);
 
         Course s2 = new Course( 002, 0002,"Algorithms", 3 );
         CourseWeight cw2 = new CourseWeight(new Assessment("exam", 100),null);
-        s2.addLecture(100);
+        s2.addLecture(s2.getCourseCode(),100);
         s2.addTutorial(x);
         s2.setCourseWeightage(cw2);
 
         Course s3 = new Course( 003, 0003,"OODP", 3 );
         CourseWeight cw3 = new CourseWeight(new Assessment("exam", 100),null);
-        s3.addLecture(100);
+        s3.addLecture(s3.getCourseCode(),100);
         s3.addTutorial(x);
         s3.setCourseWeightage(cw3);
 
@@ -259,10 +259,28 @@ public class CourseDB {
         return null;
     }
 
-    public void saveCourseList(ArrayList<Course> course) {
-        courseList = course;
-        SerializeDB.writeSerializedObject( "course.dat", courseList );
-    }
 
+    public void printAllIndex(int cid) {
+        Course c = getCourse(cid);
+        if(c.getTutorialIndex()==null && c.getLaboratoryIndex()==null)
+            System.out.println("no tutorial and lab session for this course");
+        if(c.getTutorialIndex()!=null)
+        {
+            for (int i=0; i<c.getTutorialIndex().size(); i++)
+            {
+                CourseIndex in = c.getTutorialIndex().get(i);
+                System.out.print("\t"+ in.getIndex());
+            }
+        }
+        else if(c.getLaboratoryIndex()!=null)
+        {
+            for (int i=0; i<c.getLaboratoryIndex().size(); i++)
+            {
+                CourseIndex in = c.getLaboratoryIndex().get(i);
+                System.out.print("\t"+ in.getIndex());
+            }
+        }
+
+    }
 }
 
