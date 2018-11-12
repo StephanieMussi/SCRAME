@@ -26,7 +26,7 @@ public class AdminCtrl {
                     "9 --- Print all registration in DB\n" +
                     "0 --- Exit program...");
 
-            System.out.println("please enter your choice:");
+            System.out.println("Please enter your choice:");
             sel = sc.nextInt();
             switch (sel) {
                 case 1://1. add student

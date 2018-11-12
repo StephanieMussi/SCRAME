@@ -56,19 +56,7 @@ public class StudentMgr {
                 }
             } while (!success);
             success = false;
-            //enter sid, loop avoid collision
-            /*
-            do {
 
-                if (studentDB.getSbySid( sid ) == null)
-                    break;
-                else {
-                    System.out.print( "Student ID alr exists, please enter another one" );
-                    continue;
-                }
-            } while (true);
-            */
-            //enter sname, loop avoid collision
             do {
                 try {
                     System.out.println( "Please enter student name to be added" );
@@ -82,28 +70,16 @@ public class StudentMgr {
                     success2 = true;
                 } catch (isDuplicatesException eName) {
                     System.out.println( eName.getMessage() );
+                    sc.nextLine();
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
 
             } while (!success2);
             success2 = false;
-            studentDB.addStudent(sid,sname);
-            System.out.println( "student added successfully!" );
-            sc.nextLine();
-
-            /*
-            do {
-                sname = sc.next();
-                if (studentDB.getSbySname(sname) == null)
-                    break;
-                else {
-                    System.out.print("student name alr exists, please enter another one");
-                    continue;
-                }
-            } while (true);
+            System.out.println( "Student added successfully!" );
             studentDB.addStudent( sid, sname );
-            */
+            sc.nextLine();
         }
     }
 
