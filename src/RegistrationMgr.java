@@ -10,17 +10,10 @@ public class RegistrationMgr {
 
     }
 
-    Registration registration;
+
     RegistrationDB db;
 
-    //Create registration object
-    public void getInfo(int course, int student, int index) {
-        String studentName = "";
-        StudentInfo student2 = new StudentInfo();
-        student2 = StudentDB.getSbySid(student);
-        studentName = student2.getSname();
-        registration = new Registration(course, student, index, studentName);
-    }
+
 
 
     //Check for vacancy
@@ -44,7 +37,7 @@ public class RegistrationMgr {
     }
 
     //Register students to their selected course
-    public int insertToRegistration() {
+    public int insertToRegistration(Registration registration) {
         int x = checkVacancy(registration.getCourse(), registration.getIndex());
         if (x != 0) {
             try {
@@ -77,8 +70,6 @@ public class RegistrationMgr {
 
     //Print student name in the class
     public void printRegByIndex(int indexNum) {
-        Registration r;
-
         ArrayList<Registration> registrationList = new ArrayList<Registration>();
         System.out.println("List of students in Index: " + indexNum);
         db.printRegByIndex(indexNum);
@@ -86,32 +77,16 @@ public class RegistrationMgr {
 
 
     public void printByS(int studentId) {
-        Registration r;
         db.printByS(studentId);
     }
 
-    public void printClass(int studentId) {
-        Registration r;
 
-        ArrayList<Registration> registrationList = new ArrayList<Registration>();
-        db = new RegistrationDB();
-        registrationList = db.returnStudentList();
-        System.out.println("Student ID: " + studentId);
-        System.out.println("Course         Index");
-        for (int i = 0; i < registrationList.size(); i++) {
-            r = registrationList.get(i);
-            if (r.getStudent() == studentId) {
-                System.out.println(r.getCourse() + "           " + Integer.toString(r.getIndex()));
-            }
-        }
-    }
 
     public void registrationMenu() {
         Scanner sc = new Scanner(System.in);
         // TODO Auto-generated method stub
         int choice = 0;
         int index;
-        RegistrationMgr rsc = new RegistrationMgr();
         while (choice < 3) {
             System.out.print("Choose:");
             System.out.print("\n1. Register student");
@@ -134,8 +109,8 @@ public class RegistrationMgr {
                             case 2:
                                 System.out.println("\n1. Enter Class Index: ");
                                 index = sc.nextInt();
-                                rsc.getInfo(coursecode, studentid, index);
-                                z = rsc.insertToRegistration();
+                                Registration reg = new Registration(coursecode, studentid, index, StudentDB.getSnamebySid(studentid));
+                                z = insertToRegistration(reg);
                                 break;
                             case 3:
                                 x = 3;

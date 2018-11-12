@@ -18,6 +18,7 @@ public class StudentDB {
         else studentList = listRead;
     }
 
+
     private void initialize(){
         StudentInfo s1 = new StudentInfo( 0001, "Lin" );
         StudentInfo s2 = new StudentInfo( 0002, "Bella" );
@@ -86,6 +87,19 @@ public class StudentDB {
     public static void addStudent(int sid, String sname) {
         StudentInfo newStudent = new StudentInfo( sid, sname );
         studentList.add( newStudent );
+    }
+
+
+
+    public static String getSnamebySid(int sid) {
+        String sname = null;
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get( i ) == null)
+                break;
+            if (studentList.get( i ).getSid() == sid)
+                sname = studentList.get( i).getSname();
+        }
+        return sname;
     }
 
 
