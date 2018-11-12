@@ -226,6 +226,22 @@ public class RegistrationDB {
                 System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
         }
     }
+
+    public boolean checkExist(Registration r) {
+        for(int i = 0; i<registrations.size(); i++)
+        {
+            Registration reginDB = registrations.get(i);
+            if(r.getStudent()==reginDB.getStudent() && r.getCourse()==reginDB.getCourse()) {
+                System.out.println("cannot register one student to the same course again!");
+                return true;
+            }
+            else if(r.equals(reginDB))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

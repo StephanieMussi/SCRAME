@@ -250,7 +250,7 @@ public class RegistrationMgr {
     public void registrationMenu() {
         int sel = 0;
         int index = -1;
-        while (true) {
+        while (sel<3) {
             System.out.print("\nChoose:");
             System.out.print("\n1. Register student");
             System.out.print("\n2. Print registration list");
@@ -276,44 +276,65 @@ public class RegistrationMgr {
         int index = -1;
         int sid = -1;
         int cid = -1;
+        //check student exist
         do {
             System.out.println("enter student id:");
             sid = sc.nextInt();
         } while (StudentDB.getSbySid(sid) == null);
+
+        //check course exist
         do {
             System.out.println("enter course code:");
             cid = sc.nextInt();
         } while (CourseDB.getCourse(cid) == null);
 
+        //get course info
         Course c = CourseDB.getCourse(cid);
 
+        //if course only have lec
         if (c.getTutorialIndex() == null && c.getLaboratoryIndex() == null)
         {
-            regIntoDB(cid, sid);
+            boolean exist = false;
+            Registration r = new Registration(cid, sid, -1);
+            exist = checkExist(r);
+            if (exist)
+            {
+                System.out.println("registration already exist! added unsuccessfully!");
+            }
+            else {
+                db.registerStudentForCourse(r);
+                System.out.println("registration added successfully!");
+            }
         }
+
+        //course with lec and lab
         else
         {
+            //check index exist
             do {
                 System.out.println("enter index:");
                 index = sc.nextInt();
             } while (c.getTutorialIndex()==null);
-            regIntoDB(cid, sid, index);
+
+            boolean exist = false;
+            Registration r = new Registration(cid, sid, index);
+            exist = checkExist(r);
+            if (exist)
+            {
+                System.out.println("registration already exist! added unsuccessfully!");
+            }
+            else {
+                db.registerStudentForCourse(r);
+                System.out.println("registration added successfully!");
+            }
         }
 
     }
 
 
-
-    private void regIntoDB(int cid, int sid) {
-        Registration r = new Registration(cid, sid, -1);
-        db.registerStudentForCourse(r);
+    private boolean checkExist(Registration r) {
+        return db.checkExist(r);
     }
-
-    private void regIntoDB(int cid, int sid, int index) {
-        Registration r = new Registration(cid, sid, index);
-        db.registerStudentForCourse(r);
-    }
-
 
 
 
@@ -324,11 +345,10 @@ public class RegistrationMgr {
         int cid;
         int sid;
         do {
-            System.out.println("1. Choose by Class Index\n" +
+            System.out.println("\n1. Choose by Class Index\n" +
                     "2. Choose by lecture\n" +
                     "3. Choose by Student\n" +
-                    "4. keep on printing\n" +
-                    "");
+                    "4. exit printing\n");
             System.out.println("enter your choice:");
             sel = sc.nextInt();
             switch (sel) {
@@ -336,23 +356,20 @@ public class RegistrationMgr {
                     System.out.println("Enter Class Index (print by lab/ tut): ");
                     index = sc.nextInt();
                     printRegByIndex(index);
-                    break;
+                    continue;
                 case 2:
                     System.out.println("Enter course code (print by lec): ");
                     cid = sc.nextInt();
                     printByC(cid);
-                    break;
+                    continue;
                 case 3:
                     System.out.println("Enter Student ID: ");
                     sid = sc.nextInt();
                     printByS(sid);
-                    break;
-                case 4:
-                    System.out.println("keep on printing");
                     continue;
                 default:
                     break;
             }
-            }while (true) ;
+            }while (sel<4) ;
     }
 }
