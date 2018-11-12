@@ -180,25 +180,6 @@ public class RegistrationMgr {
     Scanner sc = new Scanner(System.in);
 
 
-    //Check for vacancy
-    public int checkVacancy(int courseCode, int index) {
-        int vacancy = 0;
-        CourseIndex d;
-        Course course = CourseDB.getCourse(courseCode);
-        List b = course.getTutorialIndex();
-        for (int y = 0; y < b.size(); y++) {
-            d = (CourseIndex) b.get(y);
-            if (d.getIndex() == index) {
-                vacancy = d.getVacancy();
-                if (vacancy > 0) {
-                    d.setVacancy();
-                    vacancy = d.getVacancy();
-                }
-            }
-
-        }
-        return vacancy;
-    }
 
     //Register students to their selected course
     public int insertToRegistration(Registration registration) {
@@ -224,7 +205,7 @@ public class RegistrationMgr {
         }
     }
 
-    //Print student name in the class
+
     //print all registration records
     public void printAllReg() {
         db.printAllReg();
@@ -237,6 +218,7 @@ public class RegistrationMgr {
         db.printRegByIndex(indexNum);
     }
 
+    //Print student name in the class
     private void printByC(int cid) {
         db.printByC(cid);
     }
@@ -271,6 +253,7 @@ public class RegistrationMgr {
 
     }
 
+    //switch 1
     private void registerS() {
         int sel = 0;
         int index = -1;
@@ -332,6 +315,8 @@ public class RegistrationMgr {
     }
 
 
+    //check exist
+    //used in registerS
     private boolean checkExist(Registration r) {
         return db.checkExist(r);
     }
@@ -339,6 +324,7 @@ public class RegistrationMgr {
 
 
 
+    //switch 2
     private void printReg() {
         int sel;
         int index;
@@ -371,5 +357,26 @@ public class RegistrationMgr {
                     break;
             }
             }while (sel<4) ;
+    }
+
+
+    //Check for vacancy
+    public int checkVacancy(int courseCode, int index) {
+        int vacancy = 0;
+        CourseIndex d;
+        Course course = CourseDB.getCourse(courseCode);
+        List b = course.getTutorialIndex();
+        for (int y = 0; y < b.size(); y++) {
+            d = (CourseIndex) b.get(y);
+            if (d.getIndex() == index) {
+                vacancy = d.getVacancy();
+                if (vacancy > 0) {
+                    d.setVacancy();
+                    vacancy = d.getVacancy();
+                }
+            }
+
+        }
+        return vacancy;
     }
 }

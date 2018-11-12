@@ -232,7 +232,8 @@ public class CourseDB {
     public static Course getCourse(int courseCode) {
         if (courseList.size() == 0) { //Return null if course list is empty
             return null;
-        } else {
+        }
+        else {
             for (int i = 0; i < courseList.size(); i++) {
                 if (courseList.get( i ).getCourseCode() == courseCode) {
                     return courseList.get( i );
