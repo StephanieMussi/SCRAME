@@ -97,7 +97,7 @@ public class Course implements Serializable {
     public void addLab(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {
-            CourseIndex index = new CourseIndex( i+courseCode*2000, capacity[i] );
+            CourseIndex index = new CourseIndex( i+courseCode*1000, capacity[i] );
             laboratory.add( index );
         }
     }
