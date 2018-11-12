@@ -144,9 +144,7 @@ public class Course implements Serializable {
     /*
      * Get lecture from Course
      */
-    public CourseIndex getLecture() {
-        return lecture;
-    }
+    public CourseIndex getLecture() { return lecture; }
 
     /*
      * Get tutorial groups(index) of Course
@@ -158,10 +156,7 @@ public class Course implements Serializable {
     /*
      * Get lab groups(index) of Course
      */
-    public ArrayList<CourseIndex> getLaboratoryIndex() {
-
-        return laboratory;
-    }
+    public ArrayList<CourseIndex> getLaboratoryIndex() { return laboratory; }
 
     /*
      * Get Component weightages of Course
@@ -216,9 +211,7 @@ public class Course implements Serializable {
     /*
      * Set Lecture to Course
      */
-    public void setLecture(CourseIndex lecture) {
-        this.lecture = lecture;
-    }
+    public void setLecture(CourseIndex lecture) { this.lecture = lecture; }
 
     /*
      * Set tutorial group to Course; assigned as an INDEX
@@ -230,9 +223,7 @@ public class Course implements Serializable {
     /*
      * Set tutorial group vacancy
      */
-    public void setTutVacancy(int index) {
-        tutorial.get( index ).setVacancy();
-    }
+    public void setTutVacancy(int index) { tutorial.get( index ).setVacancy(); }
 
     /*
      * Set lab group to Course; assigned an as INDEX
