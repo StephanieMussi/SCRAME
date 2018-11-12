@@ -32,9 +32,11 @@ public class AdminCtrl {
             switch (sel) {
                 case 1://1. add student
                     sMgr.addStudent();
+                    sMgr.printAll();
                     continue;
                 case 2://2. add course //6. set assessment weightage
                     cMgr.addCourse();
+                    cMgr.printCourseList();
                     continue;
                 case 3://3. register students to course //4. check vacancy can be implemented here
                     rMgr.registrationMenu();

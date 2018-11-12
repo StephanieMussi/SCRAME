@@ -9,9 +9,13 @@ public class MarkRecordMgr {
         int courseCode = -1, sid = -1;
         double examMark = -1, courseMark = -1;
         boolean success = false;
-        MarkRecord thisRecord = null;
-        Registration reg = null;
+        MarkRecord thisRecord;
+        Registration reg;
+        int counter = 0;
         do {
+            if(counter!=0)
+                System.out.println("Registration not exist, please register first.");
+            counter++;
             System.out.println( "Please enter the student ID:" );
             try {
                 sid = scan.nextInt();
@@ -128,9 +132,25 @@ public class MarkRecordMgr {
 
 
     public void printCourseStat() {
-        System.out.println( "Please enter the courseCode (int) :" );
-        int cid = scan.nextInt();
-        Course c = CourseDB.getCourse( cid );
+        int cid = -1, counter=0;
+        Course c = null;
+        boolean valid;
+        do{
+            valid = true;
+            if(counter != 0)
+                System.out.println("Invalid coursecode! Please enter again.");
+            counter++;
+            System.out.println( "Please enter the courseCode (int) :" );
+            try{
+                cid = scan.nextInt();
+            }catch (InputMismatchException e){
+                valid = false;
+                scan.nextLine();
+            }
+            c = CourseDB.getCourse( cid );
+            if(c == null)
+                valid = false;
+        }while (!valid);
         CourseWeight weight = c.getCourseWeightage();
         //all records related to that course
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByCourse( cid );

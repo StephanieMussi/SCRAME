@@ -68,11 +68,11 @@ public class CourseMgr {
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
 
-        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Professor ID", "AU", "Course Code", "Course Name" );
+        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Coordinator Name", "AU", "Course Code", "Course Name" );
 
         for (int i = 0; i < courseList.size(); i++) {
-            System.out.printf( "%12d\t%2d\t%15d\t\t%-20s\n",
-                    courseList.get( i ).getProfessorId(),
+            System.out.printf( "%12s\t%2d\t%15d\t\t%-20s\n",
+                    ProfessorMgr.findProfByPid(courseList.get( i ).getProfessorId()).getName(),
                     courseList.get( i ).getCourseAU(),
                     courseList.get( i ).getCourseCode(),
                     courseList.get( i ).getCourseName() );
@@ -288,24 +288,25 @@ public class CourseMgr {
 
     private void setAssessment(int courseCode, Course thisCourse) {
         Assessment exam;
-        ArrayList<Assessment> coursework = new ArrayList<>();
+        ArrayList<Assessment> coursework;
         int num;
         do {
             System.out.println( "Setting course assessment..." );
             System.out.println( "Please enter exam weightage(%):" );
             double examWeight = scan.nextDouble();
-            exam = new Assessment( "exam", examWeight / 100 );
-            if (examWeight != 1) {
+            exam = new Assessment( "exam", examWeight  );
+            coursework = new ArrayList<>();
+            if (examWeight != 100) {
                 System.out.println( "Enter number of CAs:" );
                 num = scan.nextInt();
                 for (int i = 0; i < num; i++) {
-                    System.out.println( "Please enter coursework description for ca " + (i + 1) + "(string):" );
+                    System.out.println( "Please enter coursework description for CA " + (i + 1) + "(string):" );
                     String descrip = scan.next();
                     scan.nextLine();
                     System.out.println( "Please enter coursework weightage(%):" );
                     double cwWeight = scan.nextDouble();
                     scan.nextLine();
-                    coursework.add( new Assessment( descrip, cwWeight / 100 ) );
+                    coursework.add( new Assessment( descrip, cwWeight ) );
                 }
             }
 

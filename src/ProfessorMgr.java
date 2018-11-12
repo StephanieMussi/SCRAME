@@ -29,7 +29,7 @@ public class ProfessorMgr {
 
 
 
-    public Professor findProfByPid(int id) {
+    public static Professor findProfByPid(int id) {
         Professor prof = null;
         for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)
