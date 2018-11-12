@@ -36,8 +36,8 @@ public class RegistrationDB {
 
 
     public void registerStudentForCourse(Registration x) {
-        System.out.println("student id: "+x.getStudent() +"course code:" +x.getCourse() + "index: "+ x.getIndex());
-        System.out.println("register successfully!");
+        System.out.println("Student ID: "+x.getStudent() +"\tCourse Code: " +x.getCourse() + "\tIndex: "+ x.getIndex());
+        System.out.println("Registered successfully!");
         registrations.add(x);
     }
 
@@ -60,7 +60,7 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+            System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
         }
 
     }
@@ -70,7 +70,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getIndex()==indexNum)
-                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+                System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
         }
     }
 
@@ -79,7 +79,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getStudent()==studentId)
-                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+                System.out.println("Student id:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
         }
     }
 
@@ -88,7 +88,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getCourse()==cid)
-                System.out.println("student id:  "+ r.getStudent()+ "\tcourseCode:  " + r.getCourse()+ "\tindex:  "+ r.getIndex());
+                System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
         }
     }
 
@@ -97,16 +97,15 @@ public class RegistrationDB {
         {
             Registration reginDB = registrations.get(i);
             if(r.getStudent()==reginDB.getStudent() && r.getCourse()==reginDB.getCourse()) {
-                System.out.println("cannot register one student to the same course again!");
+                System.out.println("Unable to register student to the same course again!");
                 return true;
             }
             else if(r.getStudent()==reginDB.getStudent() && r.getIndex()==reginDB.getIndex())
             {
-                System.out.println("duplicate index!");
+                System.out.println("Duplicate index!");
                 return true;
             }
         }
         return false;
     }
 }
-

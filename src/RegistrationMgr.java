@@ -47,8 +47,8 @@ public class RegistrationMgr {
         while (sel<3) {
             System.out.print("\nChoose:");
             System.out.print("\n1. Register student");
-            System.out.print("\n2. Print registration list");
-            System.out.println("\n3. Quit");
+            System.out.print("\n2. Print student registration list");
+            System.out.println("\n3. Quit to main menu");
             sel = sc.nextInt();
             switch (sel) {
                 case 1:
@@ -58,7 +58,7 @@ public class RegistrationMgr {
                     printReg();
                     continue;
                 case 3:
-                    System.out.println("exit registration menu...");
+                    System.out.println("Exit registration menu...");
                     break;
             }
         }
@@ -73,14 +73,20 @@ public class RegistrationMgr {
         int cid = -1;
         //check student exist
         do {
-            System.out.println("enter student id:");
+            System.out.println("Enter Student ID:");
             sid = sc.nextInt();
+            if (StudentDB.getSbySid(sid) == null) {
+                System.out.println("Invalid Student ID, please enter again!");
+            }
         } while (StudentDB.getSbySid(sid) == null);
 
         //check course exist
         do {
-            System.out.println("enter course code:");
+            System.out.println("Enter Course Code:");
             cid = sc.nextInt();
+            if (CourseDB.getCourse(cid) == null) {
+                System.out.println("Invalid Course, please enter again!");
+            }
         } while (CourseDB.getCourse(cid) == null);
 
         //get course info
@@ -94,7 +100,7 @@ public class RegistrationMgr {
             exist = checkExist(r);
             if (exist)
             {
-                System.out.println("registration already exist! added unsuccessfully!");
+                System.out.println("Registration already exist! Added unsuccessfully!");
             }
             else {
                 insertVacancy(r);
@@ -106,8 +112,11 @@ public class RegistrationMgr {
         {
             //check index exist
             do {
-                System.out.println("enter index:");
+                System.out.println("Enter Index:");
                 index = sc.nextInt();
+                if (!c.checkInExist(index)) {
+                    System.out.println("Invalid Index, please enter again!");
+                }
             } while (!c.checkInExist(index));
 
             boolean exist = false;
@@ -115,7 +124,7 @@ public class RegistrationMgr {
             exist = checkExist(r);
             if (exist)
             {
-                System.out.println("registration already exist! added unsuccessfully!");
+                System.out.println("Registration already exist! Added unsuccessfully!");
             }
             else {
                 insertVacancy(r);
@@ -139,20 +148,20 @@ public class RegistrationMgr {
         int cid;
         int sid;
         do {
-            System.out.println("\n1. Choose by Class Index (tut/lab)\n" +
-                    "2. Choose by lecture\n" +
-                    "3. Choose by Student\n" +
-                    "4. exit printing\n");
-            System.out.println("enter your choice:");
+            System.out.println("\n1. Print by Class Index (Tut/Lab)\n" +
+                    "2. Print by Lecture\n" +
+                    "3. Print by Student\n" +
+                    "4. Exit printing\n");
+            System.out.println("Enter your choice:");
             sel = sc.nextInt();
             switch (sel) {
                 case 1:
-                    System.out.println("Enter Class Index (print by lab/ tut): ");
+                    System.out.println("Enter Class Index (Print by Lab/Tut): ");
                     index = sc.nextInt();
                     printRegByIndex(index);
                     continue;
                 case 2:
-                    System.out.println("Enter course code (print by lec): ");
+                    System.out.println("Enter Course Code (Print by Lec): ");
                     cid = sc.nextInt();
                     printByC(cid);
                     continue;
@@ -164,7 +173,7 @@ public class RegistrationMgr {
                 default:
                     break;
             }
-            }while (sel<4) ;
+        }while (sel<4) ;
     }
 
 
@@ -209,7 +218,7 @@ public class RegistrationMgr {
             }
         }
 
-        System.out.println("added unsuccessfully! index: "+index+" is full!");
+        System.out.println("Added unsuccessfully! Index: "+index+" is full!");
         return false;
     }
 }

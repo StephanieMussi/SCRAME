@@ -1,19 +1,19 @@
 /***
  * Exception class to deal with invalid registration - Not found
  */
-/*public class isRegisterationException extends Exception {
+public class isRegisterationException extends Exception {
     public isRegisterationException(String object) {
 
         super(object + " not found!");
     }
 
-}*/
+}
 
 
 /*
  * Exception class to deal with invalid registration - Not found
  */
-public class isRegisterationException extends Exception {
+/*public class isRegisterationException extends Exception {
 
     int x;
     public isRegisterationException(String object, int x) {
@@ -36,4 +36,4 @@ public class isRegisterationException extends Exception {
     {
         return x;
     }
-}
+}*/
