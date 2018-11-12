@@ -36,7 +36,7 @@ public class RegistrationDB {
 
 
     public void registerStudentForCourse(Registration x) {
-        System.out.println("Student ID: "+x.getStudent() +"\tCourse Code: " +x.getCourse() + "\tIndex: "+ x.getIndex());
+        System.out.println("Student ID:  " + x.getStudent() + "\tCourse Code:  " + x.getCourse() + "\tIndex:  "+ x.getIndex());
         System.out.println("Registered successfully!");
         registrations.add(x);
     }
@@ -60,7 +60,7 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
+            System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse()+ "\tIndex:  " + r.getIndex());
         }
 
     }
@@ -70,7 +70,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getIndex()==indexNum)
-                System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
+                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
         }
     }
 
@@ -79,7 +79,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getStudent()==studentId)
-                System.out.println("Student id:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
+                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
         }
     }
 
@@ -88,7 +88,7 @@ public class RegistrationDB {
         {
             Registration r = registrations.get(i);
             if(r.getCourse()==cid)
-                System.out.println("Student ID:  "+ r.getStudent()+ "\tCourse Code:  " + r.getCourse()+ "\tIndex:  "+ r.getIndex());
+                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
         }
     }
 

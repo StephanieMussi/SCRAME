@@ -73,19 +73,27 @@ public class RegistrationMgr {
         int cid = -1;
         //check student exist
         do {
-            System.out.println("Enter Student ID:");
-            sid = sc.nextInt();
-            if (StudentDB.getSbySid(sid) == null) {
-                System.out.println("Invalid Student ID, please enter again!");
+            try {
+                System.out.println("Enter Student ID:");
+                sid = sc.nextInt();
+                if (StudentDB.getSbySid(sid) == null) {
+                    throw new isRecordNotFoundException( "Student ID" );
+                }
+            } catch (isRecordNotFoundException e) {
+                System.out.println( e.getMessage() );
             }
         } while (StudentDB.getSbySid(sid) == null);
 
         //check course exist
         do {
-            System.out.println("Enter Course Code:");
-            cid = sc.nextInt();
-            if (CourseDB.getCourse(cid) == null) {
-                System.out.println("Invalid Course, please enter again!");
+            try {
+                System.out.println("Enter Course Code:");
+                cid = sc.nextInt();
+                if (CourseDB.getCourse(cid) == null) {
+                    throw new isRecordNotFoundException( "Course Code" );
+                }
+            } catch (isRecordNotFoundException e) {
+                System.out.println(e.getMessage());
             }
         } while (CourseDB.getCourse(cid) == null);
 
@@ -112,10 +120,14 @@ public class RegistrationMgr {
         {
             //check index exist
             do {
-                System.out.println("Enter Index:");
-                index = sc.nextInt();
-                if (!c.checkInExist(index)) {
-                    System.out.println("Invalid Index, please enter again!");
+                try {
+                    System.out.println("Enter Index:");
+                    index = sc.nextInt();
+                    if (!c.checkInExist(index)) {
+                        throw new isInvalidIndexException( "again!" );
+                    }
+                } catch (isInvalidIndexException e) {
+                    System.out.println(e.getMessage());
                 }
             } while (!c.checkInExist(index));
 
