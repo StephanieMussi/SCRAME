@@ -159,12 +159,10 @@ public class MarkRecordMgr {
         if(ca!= null) {
             for (int i = 0; i < ca.size(); i++) {
                 double casum = 0;
-                int cacot = 0;
                 for (int j = 0; j < records.size(); j++) {
                     casum += records.get(j).getMarksCA()[j];
-                    cacot++;
                 }
-                System.out.println("Coursework [ " + i + 1 + " ] overall: " + casum / cacot);
+                System.out.println("Coursework [ " + i + 1 + " ] overall: " + casum / ca.size());
             }
         }
 

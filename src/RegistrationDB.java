@@ -36,6 +36,8 @@ public class RegistrationDB {
 
 
     public void registerStudentForCourse(Registration x) {
+        System.out.println("student id: "+x.getStudent() +"course code:" +x.getCourse() + "index: "+ x.getIndex());
+        System.out.println("register successfully!");
         registrations.add(x);
     }
 

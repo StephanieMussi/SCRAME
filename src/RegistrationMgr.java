@@ -176,30 +176,36 @@ public class RegistrationMgr {
         int cid = r.getCourse();
         int index = r.getIndex();
         Course course = CourseDB.getCourse(cid);
-        boolean success = false;
         if(cid==index)
         {
-            vacancy = course.getLecture().getVacancy();
+            CourseIndex lec =course.getLecture();
+            vacancy = lec.getVacancy();
             if(vacancy>0){
-                db.registerStudentForCourse(r);
-                success = true;
+                lec.setVacancy();//vacancy--
+                db.registerStudentForCourse(r);//register successful
+                return true;
             }
         }
         else if (course.getTutorialIndex()!=null){
-            vacancy = course.getTutinByIn(index).getVacancy();
+            CourseIndex tut =course.getTutinByIn(index);
+            vacancy = tut.getVacancy();
             if(vacancy>0){
+                tut.setVacancy();
                 db.registerStudentForCourse(r);
-                success = true;
+                return true;
             }
         }
         else if (course.getLaboratoryIndex()!= null)
         {
-            vacancy = course.getLabinByIn(index).getVacancy();
+            CourseIndex lab =course.getLabinByIn(index);
+            vacancy = lab.getVacancy();
             if(vacancy>0){
+                lab.setVacancy();
                 db.registerStudentForCourse(r);
-                success = true;
+                return true;
             }
         }
-        return success;
+        System.out.println("added unsuccessfully! index: "+index+" is full!");
+        return false;
     }
 }
