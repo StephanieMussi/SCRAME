@@ -288,4 +288,27 @@ public class Course implements Serializable {
 
         return false;
     }
+
+    public CourseIndex getTutinByIn(int index)
+    {
+        CourseIndex in = null;
+        for (int i = 0; i<tutorial.size(); i++)
+        {
+            in = tutorial.get(i);
+            if(in.getIndex()==index)
+                return in;
+        }
+        return in;
+    }
+
+    public CourseIndex getLabinByIn(int index) {
+        CourseIndex in = null;
+        for (int i = 0; i<laboratory.size(); i++)
+        {
+            in = laboratory.get(i);
+            if(in.getIndex()==index)
+                return in;
+        }
+        return in;
+    }
 }

@@ -271,6 +271,7 @@ public class CourseDB {
                 CourseIndex in = c.getTutorialIndex().get(i);
                 System.out.print("\t"+ in.getIndex());
             }
+            System.out.println("\n");
         }
         else if(c.getLaboratoryIndex()!=null)
         {
@@ -279,6 +280,7 @@ public class CourseDB {
                 CourseIndex in = c.getLaboratoryIndex().get(i);
                 System.out.print("\t"+ in.getIndex());
             }
+            System.out.println("\n");
         }
 
     }

@@ -125,4 +125,5 @@ public class CourseIndex implements Serializable {
         else
             return false;
     }
+
 }

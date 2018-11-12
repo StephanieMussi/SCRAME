@@ -20,12 +20,15 @@ public class RegistrationDB {
 
 
     private void initialize(){
-        Registration r1 = new Registration(0001,0001,1);
-        Registration r2 = new Registration(0002,0002,2);
-        Registration r3 = new Registration(0003,0003,3);
+        Registration r1 = new Registration(0001,0001,1001);
+        Registration r2 = new Registration(0002,0002,2001);
+        Registration r3 = new Registration(0003,0003,3001);
+        Registration r4 = new Registration(0001,0002,3001);
+
         registrations.add(r1);
         registrations.add(r2);
         registrations.add(r3);
+        registrations.add(r4);
         SerializeDB.writeSerializedObject( "registration.dat", registrations );
     }
 
