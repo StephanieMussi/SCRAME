@@ -186,26 +186,10 @@ public class CourseDB {
         courseList.add( s1 );
         courseList.add( s2 );
         courseList.add( s3 );
+    }
+    public static void saveData(){
         SerializeDB.writeSerializedObject( "course.dat", courseList );
     }
-
-/*    public CourseDB() {
-        initialize();
-    }
-
-    public void initialize() {
-        courseList = new ArrayList<Course>();
-        // if FileFound
-        loadCourse();
-        // else create course.txt
-    }
-
-    public void loadCourse() {
-        // retrieve courses from file
-        courseList = SerializeDB.readSerializedObject( "course.rtf" );
-    }
-*/
-
     /*
      * Parse a new "course" into the database
      */

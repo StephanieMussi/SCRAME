@@ -21,6 +21,9 @@ public class MarkRecordDB {
         markRecords.add( m1 );
         markRecords.add( m2 );
         markRecords.add( m3 );
+    }
+
+    public static void saveData(){
         SerializeDB.writeSerializedObject( "markRecords.dat", markRecords );
     }
 

@@ -119,6 +119,8 @@ public class RegistrationMgr {
         else
         {
             //check index exist
+            System.out.println("Current index of this course:");
+            c.printIndex();
             do {
                 try {
                     System.out.println("Enter Index:");

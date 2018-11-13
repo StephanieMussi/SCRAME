@@ -26,6 +26,9 @@ public class StudentDB {
         studentList.add( s1 );
         studentList.add( s2 );
         studentList.add( s3 );
+    }
+
+    public static void saveData(){
         SerializeDB.writeSerializedObject( "student.dat", studentList );
     }
 

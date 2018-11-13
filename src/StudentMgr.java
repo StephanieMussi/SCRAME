@@ -20,12 +20,12 @@ public class StudentMgr {
         //do some initialization here
     }
 
-
     /*
      * required functionality
      * add student into studentDB:
      * studentDB.addStudent(sid, sname);
      */
+
     public void addStudent() {
         int noOfStu = -1;
         System.out.println( "How many students do you want to add" );

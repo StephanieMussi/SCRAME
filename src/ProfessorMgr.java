@@ -22,11 +22,12 @@ public class ProfessorMgr {
         profList.add( p1 );
         profList.add( p2 );
         profList.add( p3 );
-        SerializeDB.writeSerializedObject( "prof.dat", profList );
     }
 
 
-
+    public static void saveData(){
+        SerializeDB.writeSerializedObject( "prof.dat", profList );
+    }
 
 
     public static Professor findProfByPid(int id) {

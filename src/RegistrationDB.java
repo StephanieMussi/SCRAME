@@ -69,8 +69,11 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            if(r.getIndex()==indexNum)
-                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
+            if(r.getIndex()==indexNum) {
+                int sid = r.getStudent();
+                int courseCode = r.getCourse();
+                System.out.println("Student ID:  " + sid+"\tStudent Name:  " + StudentDB.getSnamebySid(sid) + "\tCourse Code:  " + courseCode+ "\tCourse Name:  "+CourseDB.getCourse(courseCode).getCourseName()+ "\tIndex:  " + r.getIndex());
+            }
         }
     }
 
@@ -78,8 +81,11 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            if(r.getStudent()==studentId)
-                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
+            if(r.getStudent()==studentId){
+                int sid = r.getStudent();
+                int courseCode = r.getCourse();
+                System.out.println("Student ID:  " + sid+"\tStudent Name:  " + StudentDB.getSnamebySid(sid) + "\tCourse Code:  " + courseCode+ "\tCourse Name:  "+CourseDB.getCourse(courseCode).getCourseName()+ "\tIndex:  " + r.getIndex());
+            }
         }
     }
 
@@ -87,8 +93,11 @@ public class RegistrationDB {
         for(int i = 0; i<registrations.size(); i++)
         {
             Registration r = registrations.get(i);
-            if(r.getCourse()==cid)
-                System.out.println("Student ID:  " + r.getStudent() + "\tCourse Code:  " + r.getCourse() + "\tIndex:  " + r.getIndex());
+            if(r.getCourse()==cid){
+                int sid = r.getStudent();
+                int courseCode = r.getCourse();
+                System.out.println("Student ID:  " + sid+"\tStudent Name:  " + StudentDB.getSnamebySid(sid) + "\tCourse Code:  " + courseCode+ "\tCourse Name:  "+CourseDB.getCourse(courseCode).getCourseName()+ "\tIndex:  " + r.getIndex());
+            }
         }
     }
 

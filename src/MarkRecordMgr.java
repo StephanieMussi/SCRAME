@@ -4,6 +4,7 @@ public class MarkRecordMgr {
     Scanner scan = new Scanner( System.in );
     private MarkRecordDB markRecordDB = new MarkRecordDB();
 
+
     public void assignMarks() {
         //Registration registration;
         int courseCode = -1, sid = -1;
@@ -72,7 +73,7 @@ public class MarkRecordMgr {
             thisRecord.setMarkExam( examMark );
         } else if (choice == 2) {
             double[] marksCA = thisRecord.getMarksCA();
-            System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1) );
+            System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1)+")" );
             int index = scan.nextInt();
             System.out.println( "Enter coursework mark(100 marks based):" );
             try {
@@ -112,8 +113,8 @@ public class MarkRecordMgr {
 
             System.out.println( "Course info: " + iCourse.getCourseCode() + " " + iCourse.getCourseName() );
             System.out.println( "Exam mark: " + examGrades );
-            System.out.println( "Exam weightage: " + examWeightage.getTotalWeightage() );
-            mark += examGrades * examWeightage.getTotalWeightage();
+            System.out.println( "Exam weightage: " + examWeightage.getTotalWeightage()+"%" );
+            mark += examGrades * examWeightage.getTotalWeightage()/100;
 
             if(courseWorkGrades!=null)
             {
@@ -121,8 +122,8 @@ public class MarkRecordMgr {
                     double cw = courseWorkWeightage.get( j ).getTotalWeightage();
                     System.out.println( "Coursework " + j + " description: " + courseWorkWeightage.get( j ).getType() );
                     System.out.println( "Coursework  " + j + " mark: " + courseWorkGrades[j] );
-                    System.out.println( "Coursework " + j + " weightage: " + cw );
-                    mark += courseWorkGrades[j] * cw;
+                    System.out.println( "Coursework " + j + " weightage: " + cw +"%");
+                    mark += courseWorkGrades[j] * cw/100;
                 }
             }
 
@@ -155,36 +156,39 @@ public class MarkRecordMgr {
         //all records related to that course
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByCourse( cid );
 
-        System.out.println( "Course info: " + c.getCourseCode() + " " + c.getCourseName() );
+        System.out.println( "Course info: " + c.getCourseCode() + " " + c.getCourseName()+"%" );
 
         //exam assessment
         Assessment exam = weight.getExamination();
-        System.out.println( "Exam weightage: " + exam.getTotalWeightage() );
+        System.out.println( "Exam weightage: " + exam.getTotalWeightage() +"%");
         //coursework assessment
         ArrayList<Assessment> ca = weight.getCourseWork();
         if(ca!= null) {
             for (int i = 0; i < ca.size(); i++)
-                System.out.println("Coursework [ " + i + 1 + " ] weightage: " + ca.get(i).getTotalWeightage());
+                System.out.println("Coursework [ " + (i + 1 )+ " ] weightage: " + ca.get(i).getTotalWeightage()+"%");
         }
 
         System.out.println( "following are the overall performance:" );
         double sum = 0;
         int cot = 0;
+        double total = 0;
         for (int i = 0; i < records.size(); i++) {
             sum += records.get( i ).getMarkExam();
             cot++;
         }
-        System.out.println( "Exam overall: " + sum / cot );
+        System.out.println( "Exam overall: " + sum / cot +" marks");
+        total += sum/cot*exam.getTotalWeightage();
 
         if(ca!= null) {
             for (int i = 0; i < ca.size(); i++) {
                 double casum = 0;
                 for (int j = 0; j < records.size(); j++) {
-                    casum += records.get(j).getMarksCA()[j];
+                    casum += records.get(j).getMarksCA()[i];
                 }
-                System.out.println("Coursework [ " + i + 1 + " ] overall: " + casum / ca.size());
+                System.out.println("Coursework [ " + (i + 1) + " ] overall: " + casum / records.size()+" marks");
+                total += casum/records.size()*ca.get(i).getTotalWeightage();
             }
         }
-
+        System.out.println("Exam and Coursework overall together: "+total/100);
     }
 }

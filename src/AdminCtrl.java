@@ -32,10 +32,12 @@ public class AdminCtrl {
             switch (sel) {
                 case 1://1. add student
                     sMgr.addStudent();
+                    System.out.println("The current student list is:");
                     sMgr.printAll();
                     continue;
                 case 2://2. add course //6. set assessment weightage
                     cMgr.addCourse();
+                    System.out.println("The current course list is:");
                     cMgr.printCourseList();
                     continue;
                 case 3://3. register students to course //4. check vacancy can be implemented here
@@ -68,10 +70,15 @@ public class AdminCtrl {
                 default:
                     System.out.println("Wrong input selection, please enter again!");
             }
-        }while(sel>=0 && sel<11);
-
-
+        }while(sel>0 && sel<11);
+        saveData();
     }
 
+    public static void saveData(){
+        CourseDB.saveData();
+        StudentDB.saveData();
+        MarkRecordDB.saveData();
+        ProfessorMgr.saveData();
+    }
 
 }

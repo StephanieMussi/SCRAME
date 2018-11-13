@@ -311,4 +311,12 @@ public class Course implements Serializable {
         }
         return in;
     }
+
+    public void printIndex(){
+        System.out.println("The lecture index is: "+lecture.index);
+        System.out.println("The tutorial or lab indices are:");
+        for(int i =0; i<tutorial.size(); i++)
+            System.out.print(tutorial.get(i).index+" ");
+        System.out.println();
+    }
 }
