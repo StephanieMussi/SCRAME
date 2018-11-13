@@ -36,7 +36,11 @@ public class AdminCtrl {
                     sMgr.printAll();
                     continue;
                 case 2://2. add course //6. set assessment weightage
-                    cMgr.addCourse();
+                    try {
+                        cMgr.addCourse();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("The current course list is:");
                     cMgr.printCourseList();
                     continue;

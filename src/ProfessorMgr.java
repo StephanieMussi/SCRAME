@@ -38,6 +38,9 @@ public class ProfessorMgr {
         profList.add( p9 );
         profList.add( p10 );
 
+        ProfessorMgr.saveData();
+
+
     }
 
 
@@ -59,10 +62,11 @@ public class ProfessorMgr {
 
 
     public static void printAll() {
+        System.out.println( "List of Professors" );
         for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)
                 break;
-            else System.out.println( profList.get( i ).getPid() + "\tname: " + profList.get( i ).getName() );
+            else System.out.println( profList.get( i ).getPid() + "\tName: " + profList.get( i ).getName() );
         }
     }
 
@@ -70,6 +74,5 @@ public class ProfessorMgr {
     public static void main(String[] args) {
         ProfessorMgr pMgr = new ProfessorMgr();
         ProfessorMgr.printAll();
-
     }
 }

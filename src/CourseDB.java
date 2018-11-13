@@ -143,7 +143,6 @@ public class CourseDB {
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 /***
  * Course Database Class
@@ -186,6 +185,7 @@ public class CourseDB {
         courseList.add( s1 );
         courseList.add( s2 );
         courseList.add( s3 );
+
     }
     public static void saveData(){
         SerializeDB.writeSerializedObject( "course.dat", courseList );

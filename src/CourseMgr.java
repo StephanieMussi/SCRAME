@@ -72,7 +72,7 @@ public class CourseMgr {
 
         for (int i = 0; i < courseList.size(); i++) {
             System.out.printf( "%12s\t%2d\t%15d\t\t%-20s\n",
-                    ProfessorMgr.findProfByPid(courseList.get( i ).getProfessorId()).getName(),
+                    ProfessorMgr.findProfByPid( courseList.get( i ).getProfessorId() ).getName(),
                     courseList.get( i ).getCourseAU(),
                     courseList.get( i ).getCourseCode(),
                     courseList.get( i ).getCourseName() );
@@ -139,7 +139,7 @@ public class CourseMgr {
         }
     }
 
-    public void addCourse() {
+    public void addCourse() throws Exception {
         int courseCode = -1, professorId = -1, courseAU = -1;
         String courseName = null;
         boolean success = false, success2 = false;
@@ -229,7 +229,7 @@ public class CourseMgr {
 
         // add sessions for this course
         int courseType = -1;
-        int capLec, num;
+        int capLec, cap2 = -1, num = -1;
         int[] capacity;
         System.out.println( "What type of lessons does this course have?" );
         System.out.println( "1: Only Lectures\n2: Lecture and Tutorials\n3: Lecture and Tutorials and Labs" );
@@ -248,31 +248,61 @@ public class CourseMgr {
             }
         } while (!success3);
         success3 = false;
+        int i = 0;
 
         switch (courseType) {
             case 1:
                 System.out.println( "Enter the capacity for the lecture:" );
-                capLec = scan.nextInt();
-                newCourse.addLecture( newCourse.getCourseCode(), capLec );
-                break;
+                for (i = 0; i < 10; i++) {
+                    try {
+                        capLec = scan.nextInt();
+                        scan.nextLine();
+                        newCourse.addLecture( newCourse.getCourseCode(), capLec );
+                        break;
+                    } catch (InputMismatchException e) {
+                        scan.nextLine();
+                        System.out.println( "Please enter integer only" );
+                    }
+                }
+                if (i == 10) {
+                    throw new Exception( "Unable to process" );
+                }
+                return;
             case 2:
                 System.out.println( "Enter the number of tutorial sessions" );
                 num = scan.nextInt();
                 System.out.println( "Enter the capacity of each session:" );
                 int cap = scan.nextInt();
                 capacity = new int[num];
-                for (int i = 0; i < num; i++)
+                for (i = 0; i < num; i++)
                     capacity[i] = cap;
                 newCourse.addLecture( newCourse.getCourseCode(), cap * num );
                 newCourse.addTutorial( capacity );
                 break;
             case 3:
                 System.out.println( "Enter the number of tutorial/lab sessions" );
-                num = scan.nextInt();
+                for (i = 0; i < 10; i++) {
+                    try {
+                        num = scan.nextInt();
+                        scan.nextLine();
+                    } catch (InputMismatchException e) {
+                        scan.nextLine();
+                        System.out.println( "Please enter integer only" );
+
+                    }
+                }
                 System.out.println( "Enter the capacity of each session:" );
-                int cap2 = scan.nextInt();
+                for(i = 0; i < 10; i++){
+                    try{
+                        cap2 = scan.nextInt();
+                        scan.nextLine();
+                    } catch (InputMismatchException e1){
+                        scan.nextLine();
+                        System.out.println( "Please enter integer only" );
+                    }
+                }
                 capacity = new int[num];
-                for (int i = 0; i < num; i++)
+                for (i = 0; i < num; i++)
                     capacity[i] = cap2;
                 newCourse.addLecture( newCourse.getCourseCode(), cap2 * num );
                 newCourse.addTutorial( capacity );
@@ -294,7 +324,7 @@ public class CourseMgr {
             System.out.println( "Setting course assessment..." );
             System.out.println( "Please enter exam weightage(%):" );
             double examWeight = scan.nextDouble();
-            exam = new Assessment( "exam", examWeight  );
+            exam = new Assessment( "exam", examWeight );
             coursework = new ArrayList<>();
             if (examWeight != 100) {
                 System.out.println( "Enter number of CAs:" );
@@ -312,14 +342,14 @@ public class CourseMgr {
 
             thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
         } while (!thisCourse.isCourseValidatable());
-        System.out.println( "assessment is settled" );
+        System.out.println( "Assessment is settled" );
     }
 
 
     public void printIndex() {
         int cid;
         do {
-            System.out.println( "enter course code to check for its index" );
+            System.out.println( "Enter course code to check for its index" );
             cid = scan.nextInt();
         } while (CourseDB.getCourse( cid ) == null);
 
