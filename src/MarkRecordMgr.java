@@ -116,23 +116,21 @@ public class MarkRecordMgr {
                 }while (courseMark<0 || courseMark-100>0.000001);
                 thisRecord.setMarksCA( courseMark, index );
             }
-         System.out.println("Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):");
-            int ch;
-            boolean correct;
+
+            int ch = -1;
             do{
-                correct = true;
                 try{
+                    System.out.println("Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):");
                     ch = scan.nextInt();
                     if(!(ch ==0 || ch == 1))
-                        correct = false;
+                        throw new isInvalidInputException("please enter 0 or 1 only");
                     else if (ch == 0)
                         exit = true;
-                }catch (InputMismatchException e){
-                    correct = false;
+                }catch (isInvalidInputException e){
+                    System.out.println("Invalid input, please enter again (0 or 1):");
                 }
-                System.out.println("Invalid input, please enter again (0 or 1):");
                 scan.nextLine();
-            }while(!correct);
+            }while(!(ch==0 || ch==1));
 
         }while(!exit);
 
