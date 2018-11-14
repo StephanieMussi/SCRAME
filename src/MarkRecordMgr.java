@@ -15,7 +15,7 @@ public class MarkRecordMgr {
         int counter = 0;
         do {
             if(counter!=0)
-                System.out.println("Registration not exist, please register first.");
+                System.out.println("Registration does not exist, please register first.");
             counter++;
             System.out.println( "Please enter the student ID:" );
             try {
