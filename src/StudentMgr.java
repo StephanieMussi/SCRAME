@@ -36,7 +36,7 @@ public class StudentMgr {
             System.out.println( "Please enter integers." );
             sc.nextLine();
         }
-        System.out.println( "Please enter following information to add a student:" );
+        System.out.println( "Please enter the following information to add a student:" );
         for (int i = 0; i < noOfStu; i++) {
             String sname = null;
             int sid = 0;
