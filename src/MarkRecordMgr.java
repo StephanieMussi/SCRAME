@@ -101,7 +101,7 @@ public class MarkRecordMgr {
 
                 do {
                     try {
-                        System.out.println("Enter coursework mark(100 marks based):");
+                        System.out.println("Enter coursework mark (100 marks based):");
                         courseMark = scan.nextDouble();
                         if (courseMark < 0 || courseMark > 100) {
                             throw new isInvalidInputException("Course Marks");
@@ -144,7 +144,7 @@ public class MarkRecordMgr {
                 System.out.println("Please enter the student ID:");
                 sid = scan.nextInt();
                 if(StudentDB.getSbySid(sid)==null)
-                    throw new isRecordNotFoundException( "Course Code" );
+                    throw new isRecordNotFoundException( "Student ID" );
             }catch (isRecordNotFoundException e) {
                 System.out.println(e.getMessage());
             }
@@ -195,7 +195,7 @@ public class MarkRecordMgr {
             if(counter != 0)
                 System.out.println("Invalid coursecode! Please enter again.");
             counter++;
-            System.out.println( "Please enter the courseCode (int) :" );
+            System.out.println( "Please enter the course code (int):" );
             try{
                 cid = scan.nextInt();
             }catch (InputMismatchException e){
@@ -210,7 +210,7 @@ public class MarkRecordMgr {
         //all records related to that course
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByCourse( cid );
 
-        System.out.println( "Course info: " + c.getCourseCode() + " " + c.getCourseName()+"%" );
+        System.out.println( "Course info: " + c.getCourseCode() + " " + c.getCourseName() );
 
         //exam assessment
         Assessment exam = weight.getExamination();
@@ -222,7 +222,7 @@ public class MarkRecordMgr {
                 System.out.println("Coursework [ " + (i + 1 )+ " ] weightage: " + ca.get(i).getTotalWeightage()+"%");
         }
 
-        System.out.println( "following are the overall performance:" );
+        System.out.println( "Following are the overall performance:" );
         double sum = 0;
         int cot = 0;
         double total = 0;
