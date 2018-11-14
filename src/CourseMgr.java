@@ -71,7 +71,7 @@ public class CourseMgr {
         System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Coordinator Name", "AU", "Course Code", "Course Name" );
 
         for (int i = 0; i < courseList.size(); i++) {
-            System.out.printf( "%12s\t%2d\t%15d\t\t%-20s\n",
+            System.out.printf( "%16s\t%2d\t%15d\t\t%-20s\n",
                     ProfessorMgr.findProfByPid( courseList.get( i ).getProfessorId() ).getName(),
                     courseList.get( i ).getCourseAU(),
                     courseList.get( i ).getCourseCode(),

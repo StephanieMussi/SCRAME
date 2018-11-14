@@ -92,11 +92,6 @@ public class StudentMgr {
                 studentDB.addStudent( sid, sname );
                 sc.nextLine();
             }
-            /*
-            System.out.println( "Student added successfully!" );
-            studentDB.addStudent( sid, sname );
-            sc.nextLine();
-            */
         }
     }
 
