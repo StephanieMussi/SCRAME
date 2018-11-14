@@ -99,19 +99,21 @@ public class MarkRecordMgr {
                 }while(index < 0 || index >= marksCA.length);
 
 
-                System.out.println( "Enter coursework mark(100 marks based):" );
-                try {
-                    courseMark = scan.nextDouble();
-                    if (courseMark < 0 || courseMark > 100) {
-                        throw new isInvalidInputException( "Course Marks" );
+                do {
+                    try {
+                        System.out.println("Enter coursework mark(100 marks based):");
+                        courseMark = scan.nextDouble();
+                        if (courseMark < 0 || courseMark > 100) {
+                            throw new isInvalidInputException("Course Marks");
+                        }
+                    } catch (isInvalidInputException e) {
+                        System.out.println("Please enter values between 0 to 100");
+                        scan.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please enter a correct value");
+                        scan.nextLine();
                     }
-                } catch (isInvalidInputException e) {
-                    System.out.println( "Please enter values between 0 to 100" );
-                    scan.nextLine();
-                } catch (InputMismatchException e) {
-                    System.out.println( "Please enter a correct value" );
-                    scan.nextLine();
-                }
+                }while (courseMark<0 || courseMark-100>0.000001);
                 thisRecord.setMarksCA( courseMark, index );
             }
          System.out.println("Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):");
