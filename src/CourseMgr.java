@@ -352,7 +352,6 @@ public class CourseMgr {
             System.out.println( "Enter course code to check for its index" );
             cid = scan.nextInt();
         } while (CourseDB.getCourse( cid ) == null);
-
         courseDB.printAllIndex( cid );
 
     }

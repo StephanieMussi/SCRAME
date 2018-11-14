@@ -23,7 +23,7 @@ public class RegistrationDB {
         Registration r1 = new Registration(0001,0001,1001);
         Registration r2 = new Registration(0002,0002,2001);
         Registration r3 = new Registration(0003,0003,3001);
-        Registration r4 = new Registration(0001,0002,3001);
+        Registration r4 = new Registration(0001,0002,1002);
 
         registrations.add(r1);
         registrations.add(r2);
@@ -35,7 +35,28 @@ public class RegistrationDB {
 
 
 
-    public void registerStudentForCourse(Registration x) {
+    public void registerStudentForCourse(Registration x, int type) {
+        //only have lec
+        Course c = CourseDB.getCourse(x.getCourse());
+        //update vacancy here
+        if(type == 1)
+        {
+            c.getLecture().setVacancy();
+        }
+        else if(type == 2)
+        {
+            c.getLecture().setVacancy();
+            c.getIndexByIn(x.getIndex(),true).setVacancy();
+        }
+        else if(type == 3)
+        {
+            //update lec vacancy
+            c.getLecture().setVacancy();
+            //update tut vacancy
+            c.getIndexByIn(x.getIndex(), true).setVacancy();
+            //update lab vacancy
+            c.getIndexByIn(x.getIndex()).setVacancy();
+        }
         System.out.println("Student ID:  " + x.getStudent() + "\tCourse Code:  " + x.getCourse() + "\tIndex:  "+ x.getIndex());
         System.out.println("Registered successfully!");
         registrations.add(x);

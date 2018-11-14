@@ -101,7 +101,7 @@ public class RegistrationMgr {
         Course c = CourseDB.getCourse(cid);
 
         //if course only have lec
-        if (c.getTutorialIndex() == null && c.getLaboratoryIndex() == null)
+        if (c.getTutorialIndex() == null && c.getLaboratoryIndex().size() == 0)
         {
             boolean exist = false;
             Registration r = new Registration(cid, sid, c.getCourseCode());
@@ -111,7 +111,7 @@ public class RegistrationMgr {
                 System.out.println("Registration already exist! Added unsuccessfully!");
             }
             else {
-                insertVacancy(r);
+                insertReg(r);
             }
         }
 
@@ -141,7 +141,7 @@ public class RegistrationMgr {
                 System.out.println("Registration already exist! Added unsuccessfully!");
             }
             else {
-                insertVacancy(r);
+                insertReg(r);
             }
         }
 
@@ -194,45 +194,43 @@ public class RegistrationMgr {
 
     //Register students to their selected course
     //Check for vacancy
-    public boolean insertVacancy(Registration r) {
-        int vacancy = 0;
-        int cid = r.getCourse();
+    public void insertReg(Registration r) {
         int index = r.getIndex();
-        Course course = CourseDB.getCourse(cid);
-        if(cid==index)
+        int type = checkVacancyForReg(r);
+        if(type <  0)
         {
-            CourseIndex lec =course.getLecture();
-            vacancy = lec.getVacancy();
-            if(vacancy>0){
-                lec.setVacancy();//vacancy--
-                db.registerStudentForCourse(r);//register successful
-                return true;
-            }
+            System.out.println("Added unsuccessfully! Index: "+index+" is full!");
         }
-        else if (course.getLaboratoryIndex()!= null)
+        else
         {
-            CourseIndex lab =course.getLabinByIn(index);
-            CourseIndex tut =course.getTutinByIn(index);
-            vacancy = lab.getVacancy();
-            if(vacancy>0){
-                //if have lab, must have tut
-                lab.setVacancy();
-                tut.setVacancy();
-                db.registerStudentForCourse(r);
-                return true;
-            }
+            db.registerStudentForCourse(r,type);
         }
-        else if (course.getTutorialIndex()!=null){
-            CourseIndex tut =course.getTutinByIn(index);
-            vacancy = tut.getVacancy();
-            if(vacancy>0){
-                tut.setVacancy();
-                db.registerStudentForCourse(r);
-                return true;
-            }
-        }
-
-        System.out.println("Added unsuccessfully! Index: "+index+" is full!");
-        return false;
     }
+
+    private int checkVacancyForReg(Registration r) {
+        int cid = r.getCourse();
+        int in = r.getIndex();
+        Course c = CourseDB.getCourse(cid);
+        CourseIndex index = null;
+        if(r.getIndex() == c.getCourseCode())
+        {
+            //lec only
+            index = c.getLecture();
+            if(c.checkInVacancy(index)>0)
+            return 1;
+        }
+        else {
+            index = c.getIndexByIn(r.getIndex(),true);
+            if(c.checkInVacancy(index)>0)
+            {
+                if(c.getLaboratoryIndex().size()==0)
+                    return 2;
+                else
+                    return 3;
+            }
+        }
+        return -1;
+    }
+
+
 }

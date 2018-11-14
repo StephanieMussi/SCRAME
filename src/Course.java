@@ -314,9 +314,56 @@ public class Course implements Serializable {
 
     public void printIndex(){
         System.out.println("The lecture index is: "+lecture.index);
+        System.out.println("the lecture vacancy is: " + checkInVacancy(lecture));
         System.out.println("The tutorial or lab indices are:");
         for(int i =0; i<tutorial.size(); i++)
-            System.out.print(tutorial.get(i).index+" ");
-        System.out.println();
+        {
+            System.out.print(tutorial.get(i).index+"\t");
+            System.out.print(checkInVacancy(tutorial.get(i)));
+            System.out.println();
+        }
     }
+
+    public int checkInVacancy(CourseIndex index) {
+        if(index!=null)
+        {
+            return index.getVacancy();
+        }
+        else{
+            System.out.println("the index doesn't exist!");
+            return 0;
+        }
+    }
+
+    public CourseIndex getIndexByIn(int in, boolean isTut)
+    {
+        if(isTut){
+            CourseIndex index = null;
+            for(int i =0; i<tutorial.size(); i++)
+            {
+                index = tutorial.get(i);
+                if(index.getIndex() == in)
+                    return index;
+            }
+        }
+        return null;
+    }
+
+    public CourseIndex getIndexByIn(int in)
+    {
+        CourseIndex index = null;
+        for(int i =0; i<laboratory.size(); i++)
+        {
+            index = laboratory.get(i);
+            if(index.getIndex() == in)
+                return index;
+        }
+        return null;
+    }
+
+
+
+
+
+
 }
