@@ -29,30 +29,30 @@ public class StudentMgr {
     public void addStudent() {
         int choice = -1;
         int noOfStu = -1;
-        System.out.println( "How many students do you want to add" );
+        System.out.println( "How many students do you want to add?" );
         try {
             noOfStu = sc.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println( "Please enter integers" );
+            System.out.println( "Please enter integers." );
             sc.nextLine();
         }
-        System.out.println( "Please enter following information to add a student" );
+        System.out.println( "Please enter following information to add a student:" );
         for (int i = 0; i < noOfStu; i++) {
             String sname = null;
             int sid = 0;
             boolean success = false, success2 = false;
             do {
                 try {
-                    System.out.println( "Please enter student ID u want to add:" );
+                    System.out.println( "Please enter the student ID you want to add:" );
                     sid = sc.nextInt();
                     if (findSbySid( sid ) != null) {
-                        throw new isDuplicatesException( "Student ID" );
+                        throw new isDuplicatesException( "Student ID." );
                     }
                     success = true;
                 } catch (isDuplicatesException e) {
                     System.out.println( e.getMessage() );
                 } catch (InputMismatchException e) {
-                    System.out.println( "Please enter integer values only" );
+                    System.out.println( "Please enter integer values only." );
                     sc.nextLine();
                 }
             } while (!success);
@@ -60,7 +60,7 @@ public class StudentMgr {
 
             do {
                 try {
-                    System.out.println( "Please enter student name to be added" );
+                    System.out.println( "Please enter the student name to be added:" );
                     sname = sc.next();
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
                         throw new isInvalidInputException( "Alphabets only for Student Name!" );
@@ -82,7 +82,7 @@ public class StudentMgr {
                     System.out.println(  );
                 }
                 else if (choice == 2) {
-                    System.out.println( "Student not added. Returning to Main Menu\n" +
+                    System.out.println( "Student is not added. Returning to Main Menu...\n" +
                             "--------------------------------------------" );
                     return;
                 }
