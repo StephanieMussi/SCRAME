@@ -59,31 +59,46 @@ public class MarkRecordMgr {
             } while (!success);
             success = false;
             if (choice == 1) {
-                System.out.println( "Enter exam mark (100 marks based):" );
-                try {
-                    examMark = scan.nextInt();
-                    if (examMark < 0 || examMark > 100) {
-                        throw new isInvalidInputException( "Exam Marks" );
+                do {
+                    try {
+                        System.out.println( "Enter exam mark (100 marks based):" );
+                        examMark = scan.nextInt();
+                        if (examMark < 0 || examMark > 100) {
+                            throw new isInvalidInputException("Exam Marks");
+                        }
+                    } catch (isInvalidInputException e) {
+                        System.out.println("Please enter values between 0 to 100");
+                        scan.nextLine();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please enter a correct value.");
+                        scan.nextLine();
                     }
-                } catch (isInvalidInputException e) {
-                    System.out.println( "Please enter values between 0 to 100" );
-                    scan.nextLine();
-                } catch (InputMismatchException e) {
-                    System.out.println( "Please enter a correct value." );
-                    scan.nextLine();
-                }
+                }while (examMark<0 || examMark-100>0.000001);
                 thisRecord.setMarkExam( examMark );
             } else if (choice == 2) {
                 double[] marksCA;
                 try{
                     marksCA = thisRecord.getMarksCA();
-                    System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1)+")" );
                 }catch (NullPointerException e){
                     System.out.println("This course does not have coursework!");
                     continue;
                 }
 
-                int index = scan.nextInt();
+                int index = -1;
+                do {
+                    try {
+                        System.out.println("Mark for which coursework? ( 0-" + (marksCA.length - 1) + ")");
+                        index = scan.nextInt();
+                        if (index < 0 || index >= marksCA.length)
+                            throw new isRecordNotFoundException("This ca");
+                    }
+                    catch (isRecordNotFoundException e)
+                    {
+                        System.out.println(e.getMessage());
+                    }
+                }while(index < 0 || index >= marksCA.length);
+
+
                 System.out.println( "Enter coursework mark(100 marks based):" );
                 try {
                     courseMark = scan.nextDouble();
@@ -122,8 +137,19 @@ public class MarkRecordMgr {
     }
 
     public void printStudentTranscript() {
-        System.out.println( "Please enter the student ID:" );
-        int sid = scan.nextInt();
+        //valid student id
+        int sid = -1;
+        do{
+            try {
+                System.out.println("Please enter the student ID:");
+                sid = scan.nextInt();
+                if(StudentDB.getSbySid(sid)==null)
+                    throw new isRecordNotFoundException( "Course Code" );
+            }catch (isRecordNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }while(StudentDB.getSbySid(sid)==null);
+
         // get list of markrecords for the student
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByStudent( sid );
         StudentInfo student = StudentDB.getSbySid( sid );

@@ -315,12 +315,13 @@ public class Course implements Serializable {
     public void printIndex(){
         System.out.println("The lecture index is: "+lecture.index);
         System.out.println("the lecture vacancy is: " + checkInVacancy(lecture));
-        System.out.println("The tutorial or lab indices are:");
-        for(int i =0; i<tutorial.size(); i++)
-        {
-            System.out.print(tutorial.get(i).index+"\t");
-            System.out.print(checkInVacancy(tutorial.get(i)));
-            System.out.println();
+        if(tutorial.size()>0) {
+            System.out.println("The tutorial or lab indices are:");
+            for (int i = 0; i < tutorial.size(); i++) {
+                System.out.print(tutorial.get(i).index + "\t");
+                System.out.print(checkInVacancy(tutorial.get(i)));
+                System.out.println();
+            }
         }
     }
 
