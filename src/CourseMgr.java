@@ -147,7 +147,7 @@ public class CourseMgr {
         //enter sid, loop avoid collision
 
         do {
-            System.out.println( "Please enter Course code to be added (It should be unique):" );
+            System.out.println( "Please enter Course Code to be added (It should be unique):" );
             try {
                 courseCode = scan.nextInt();
                 if (courseCode < 0) {
@@ -162,7 +162,7 @@ public class CourseMgr {
             } catch (isDuplicatesException eID) {
                 System.out.println( eID.getMessage() );
             } catch (InputMismatchException e) {
-                System.out.println( "Please enter integer only" );
+                System.out.println( "Please enter integer only." );
                 scan.nextLine();
             }
         } while (!success);
@@ -202,9 +202,9 @@ public class CourseMgr {
                 }
                 success = true;
             } catch (isInvalidInputException e) {
-                System.out.println( "Please enter a valid Professor ID " );
+                System.out.println( "Please enter a valid Professor ID. " );
             } catch (InputMismatchException e) {
-                System.out.println( " Please enter interger only " );
+                System.out.println( " Please enter integer only. " );
                 scan.nextLine();
             }
         } while (!success);
@@ -218,9 +218,9 @@ public class CourseMgr {
                 }
                 success2 = true;
             } catch (isInvalidInputException e) {
-                System.out.println( "Please enter a valid AU number " );
+                System.out.println( "Please enter a valid AU number. " );
             } catch (InputMismatchException e) {
-                System.out.println( "Please enter integer" );
+                System.out.println( "Please enter integer." );
                 scan.nextLine();
             }
         } while (!success2);
@@ -237,13 +237,13 @@ public class CourseMgr {
             try {
                 courseType = scan.nextInt();
                 if (courseType < 1 || courseType > 3) {
-                    throw new isInvalidInputException( "Course Type" );
+                    throw new isInvalidInputException( "Course Type." );
                 }
                 success3 = true;
             } catch (isInvalidInputException e) {
                 System.out.println( "Please enter '1', '2' or '3' only" );
             } catch (InputMismatchException e) {
-                System.out.println( "Please enter integer only" );
+                System.out.println( "Please enter integer only." );
                 scan.nextLine();
             }
         } while (!success3);
@@ -259,7 +259,7 @@ public class CourseMgr {
                         capLec = scan.nextInt();
                     } catch (InputMismatchException e) {
                         correct = false;
-                        System.out.println( "Please enter integer only" );
+                        System.out.println( "Please enter integer only." );
                         scan.nextLine();
                     }
                 }while(!correct);
@@ -275,7 +275,7 @@ public class CourseMgr {
                         cap = scan.nextInt();
                     } catch (InputMismatchException e) {
                         correct = false;
-                        System.out.println("Please enter integer only");
+                        System.out.println("Please enter integer only.");
                         scan.nextLine();
 
                     }
@@ -290,13 +290,13 @@ public class CourseMgr {
                 do {
                     correct = true;
                     try {
-                        System.out.println( "Enter the number of tutorial/lab sessions" );
+                        System.out.println( "Enter the number of tutorial/lab sessions:" );
                         num = scan.nextInt();
                         System.out.println( "Enter the capacity of each session:" );
                         cap = scan.nextInt();
                     } catch (InputMismatchException e) {
                         correct = false;
-                        System.out.println("Please enter integer only");
+                        System.out.println("Please enter integer only.");
                         scan.nextLine();
                     }
                 }while(!correct);
@@ -332,7 +332,7 @@ public class CourseMgr {
                 if (examWeight != 100) {
                     System.out.println( "Enter number of CAs:" );
                     num = scan.nextInt();
-                    System.out.println( "Breaking down CA's weightage..enter each CA so they add up to 100% in total:" );
+                    System.out.println( "Breaking down CA's weightage.. Enter each CA so they add up to 100% in total:" );
 
                     double sumCaWe = -1;
                     String[] temdescrip = new String[num];
@@ -354,8 +354,8 @@ public class CourseMgr {
                                 sumCaWe+=cwWeight;
                             }
                             if(sumCaWe-100>0.00001 || 100-sumCaWe>0.00001)
-                                throw new isInvalidInputException("the total sum of ca weightage is 100.\n" +
-                                        "the current weitage sum is not 100");
+                                throw new isInvalidInputException("The total sum of CA weightage is 100.\n" +
+                                        "The current weightage sum is not 100.");
 
                         } catch (isInvalidInputException e)
                         {
@@ -378,14 +378,14 @@ public class CourseMgr {
                 scan.nextLine();
             }
         } while (!(success && thisCourse.isCourseValidatable()));
-        System.out.println( "Assessment is settled" );
+        System.out.println( "Assessment is settled." );
     }
 
 
     public void printIndex() {
         int cid;
         do {
-            System.out.println( "Enter course code to check for its index" );
+            System.out.println( "Enter course code to check for its index:" );
             cid = scan.nextInt();
         } while (CourseDB.getCourse( cid ) == null);
         courseDB.printAllIndex( cid );

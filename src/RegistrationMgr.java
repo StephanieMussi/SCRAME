@@ -23,7 +23,7 @@ public class RegistrationMgr {
 
     //Print student name in the class
     public void printRegByIndex(int indexNum) {
-        System.out.println("List of students in Index: " + indexNum);
+        System.out.println("List of students in index: " + indexNum);
         db.printRegByIndex(indexNum);
     }
 
@@ -121,7 +121,7 @@ public class RegistrationMgr {
             c.printIndex();
             do {
                 try {
-                    System.out.println("Enter Index:");
+                    System.out.println("Enter index:");
                     index = sc.nextInt();
                     if (!c.checkInExist(index)) {
                         throw new isInvalidIndexException( "again!" );
@@ -184,10 +184,10 @@ public class RegistrationMgr {
                     //enter index, check validation
                     do {
                         try {
-                            System.out.println("Enter index (print by tut / lab):");
+                            System.out.println("Enter index (print by tut/lab):");
                             index = sc.nextInt();
                             if (!CourseDB.getCourse(cid).checkInExist(index)) {
-                                throw new isRecordNotFoundException( "Index" );
+                                throw new isRecordNotFoundException( "index" );
                             }
                         } catch (isRecordNotFoundException e) {
                             System.out.println(e.getMessage());
@@ -200,7 +200,7 @@ public class RegistrationMgr {
                 case 2:
                     do {
                         try {
-                            System.out.println("Enter Course Code (Print by Lec):");
+                            System.out.println("Enter Course Code (print by lec):");
                             cid = sc.nextInt();
                             if (CourseDB.getCourse(cid) == null) {
                                 throw new isRecordNotFoundException( "Course Code" );
