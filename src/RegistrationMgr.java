@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -79,6 +80,9 @@ public class RegistrationMgr {
                 }
             } catch (isRecordNotFoundException e) {
                 System.out.println( e.getMessage() );
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter integer values only.");
+                sc.nextLine();
             }
         } while (StudentDB.getSbySid(sid) == null);
 
@@ -92,6 +96,9 @@ public class RegistrationMgr {
                 }
             } catch (isRecordNotFoundException e) {
                 System.out.println(e.getMessage());
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter integer values only.");
+                sc.nextLine();
             }
         } while (CourseDB.getCourse(cid) == null);
 
@@ -187,10 +194,11 @@ public class RegistrationMgr {
                             System.out.println("Enter index (print by tut/lab):");
                             index = sc.nextInt();
                             if (!CourseDB.getCourse(cid).checkInExist(index)) {
-                                throw new isRecordNotFoundException( "index" );
+                                throw new isRecordNotFoundException( "Index" );
                             }
                         } catch (isRecordNotFoundException e) {
                             System.out.println(e.getMessage());
+
                         }
                     } while (CourseDB.getCourse(cid) == null);
 

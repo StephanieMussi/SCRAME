@@ -1,7 +1,5 @@
 public class isDuplicatesException extends Exception{
 
-    public isDuplicatesException(String object){
-        super(object + " already exist in database!");
-    }
+    public isDuplicatesException(String object){ super(object + " already exist in database!"); }
 
 }

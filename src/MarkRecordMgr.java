@@ -139,6 +139,7 @@ public class MarkRecordMgr {
     public void printStudentTranscript() {
         //valid student id
         int sid = -1;
+
         do{
             try {
                 System.out.println("Please enter the student ID:");
@@ -147,6 +148,10 @@ public class MarkRecordMgr {
                     throw new isRecordNotFoundException( "Student ID" );
             }catch (isRecordNotFoundException e) {
                 System.out.println(e.getMessage());
+            }
+            catch (InputMismatchException e) {
+                System.out.println( "Please enter integer values only." );
+                scan.nextLine();
             }
         }while(StudentDB.getSbySid(sid)==null);
 
