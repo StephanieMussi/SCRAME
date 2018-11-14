@@ -333,18 +333,46 @@ public class CourseMgr {
                     System.out.println( "Enter number of CAs:" );
                     num = scan.nextInt();
                     System.out.println( "Breaking down CA's weightage..enter each CA so they add up to 100% in total:" );
-                    for (int i = 0; i < num; i++) {
-                        System.out.println( "Please enter coursework description for CA " + (i + 1) + "(string):" );
-                        String descrip = scan.next();
-                        scan.nextLine();
-                        System.out.println( "Please enter coursework weightage(%):" );
-                        double cwWeight = scan.nextDouble();
-                        scan.nextLine();
-                        coursework.add( new Assessment( descrip, cwWeight*(1-examWeight/100) ) );
+
+                    double sumCaWe = -1;
+                    String[] temdescrip = new String[num];
+                    Double[] temwei = new Double[num];
+                    do {
+                        try {
+                            sumCaWe = 0;
+                            for (int i = 0; i < num; i++) {
+                                System.out.println("Please enter coursework description for CA " + (i + 1) + "(string):");
+                                String descrip = scan.next();
+                                temdescrip[i] = descrip;
+                                scan.nextLine();
+
+                                System.out.println("Please enter coursework weightage(%):");
+                                double cwWeight = scan.nextDouble();
+                                temwei[i] = cwWeight;
+                                scan.nextLine();
+
+                                sumCaWe+=cwWeight;
+                            }
+                            if(sumCaWe-100>0.00001 || 100-sumCaWe>0.00001)
+                                throw new isInvalidInputException("the total sum of ca weightage is 100.\n" +
+                                        "the current weitage sum is not 100");
+
+                        } catch (isInvalidInputException e)
+                        {
+                            System.out.println(e.getMessage());
+                        }
+
+                    }while(sumCaWe-100>0.00001 || 100-sumCaWe>0.00001);
+
+                    for (int i = 0; i < num; i++)
+                    {
+                        coursework.add(new Assessment(temdescrip[i], temwei[i] * (1 - examWeight / 100)));
                     }
+
                 }
                 thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 success = false;
                 System.out.println("Please enter a valid input.");
                 scan.nextLine();
