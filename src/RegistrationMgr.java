@@ -72,7 +72,7 @@ public class RegistrationMgr {
         //check student exist
         do {
             try {
-                System.out.println("Enter Student ID:");
+                System.out.println("Enter student ID:");
                 sid = sc.nextInt();
                 if (StudentDB.getSbySid(sid) == null) {
                     throw new isRecordNotFoundException( "Student ID" );
@@ -85,7 +85,7 @@ public class RegistrationMgr {
         //check course exist
         do {
             try {
-                System.out.println("Enter Course Code:");
+                System.out.println("Enter course code:");
                 cid = sc.nextInt();
                 if (CourseDB.getCourse(cid) == null) {
                     throw new isRecordNotFoundException( "Course Code" );
@@ -160,9 +160,9 @@ public class RegistrationMgr {
         int cid = -1;
         int sid;
         do {
-            System.out.println("\n1. Print by Class Index (Tut/Lab)\n" +
-                    "2. Print by Lecture\n" +
-                    "3. Print by Student\n" +
+            System.out.println("\n1. Print by class index (tut/lab)\n" +
+                    "2. Print by lecture\n" +
+                    "3. Print by student\n" +
                     "4. Exit printing\n");
             System.out.println("Enter your choice:");
             sel = sc.nextInt();
@@ -171,7 +171,7 @@ public class RegistrationMgr {
                     //enter coursecode, check validation
                     do {
                         try {
-                            System.out.println("Enter Course Code (for further index entering):");
+                            System.out.println("Enter course code (for further index entering):");
                             cid = sc.nextInt();
                             if (CourseDB.getCourse(cid) == null) {
                                 throw new isRecordNotFoundException( "Course Code" );
@@ -200,7 +200,7 @@ public class RegistrationMgr {
                 case 2:
                     do {
                         try {
-                            System.out.println("Enter Course Code (print by lec):");
+                            System.out.println("Enter course code (print by lec):");
                             cid = sc.nextInt();
                             if (CourseDB.getCourse(cid) == null) {
                                 throw new isRecordNotFoundException( "Course Code" );
@@ -212,7 +212,7 @@ public class RegistrationMgr {
                     printByC(cid);
                     continue;
                 case 3:
-                    System.out.println("Enter Student ID: ");
+                    System.out.println("Enter student ID: ");
                     sid = sc.nextInt();
                     printByS(sid);
                     continue;
