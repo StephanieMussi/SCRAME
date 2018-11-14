@@ -23,7 +23,6 @@ public class RegistrationMgr {
 
     //Print student name in the class
     public void printRegByIndex(int indexNum) {
-        ArrayList<Registration> registrationList = new ArrayList<Registration>();
         System.out.println("List of students in Index: " + indexNum);
         db.printRegByIndex(indexNum);
     }
@@ -43,7 +42,6 @@ public class RegistrationMgr {
     //MENU
     public void registrationMenu() {
         int sel = 0;
-        int index = -1;
         while (sel<3) {
             System.out.print("\nChoose:");
             System.out.print("\n1. Register student");
@@ -158,8 +156,8 @@ public class RegistrationMgr {
     //switch 2
     private void printReg() {
         int sel;
-        int index;
-        int cid;
+        int index = -1;
+        int cid = -1;
         int sid;
         do {
             System.out.println("\n1. Print by Class Index (Tut/Lab)\n" +
@@ -170,13 +168,47 @@ public class RegistrationMgr {
             sel = sc.nextInt();
             switch (sel) {
                 case 1:
-                    System.out.println("Enter Class Index (Print by Lab/Tut): ");
-                    index = sc.nextInt();
+                    //enter coursecode, check validation
+                    do {
+                        try {
+                            System.out.println("Enter Course Code (for further index entering):");
+                            cid = sc.nextInt();
+                            if (CourseDB.getCourse(cid) == null) {
+                                throw new isRecordNotFoundException( "Course Code" );
+                            }
+                        } catch (isRecordNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } while (CourseDB.getCourse(cid) == null);
+
+                    //enter index, check validation
+                    do {
+                        try {
+                            System.out.println("Enter index (print by tut / lab):");
+                            index = sc.nextInt();
+                            if (!CourseDB.getCourse(cid).checkInExist(index)) {
+                                throw new isRecordNotFoundException( "Index" );
+                            }
+                        } catch (isRecordNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } while (CourseDB.getCourse(cid) == null);
+
+                    //print by tut / lab
                     printRegByIndex(index);
                     continue;
                 case 2:
-                    System.out.println("Enter Course Code (Print by Lec): ");
-                    cid = sc.nextInt();
+                    do {
+                        try {
+                            System.out.println("Enter Course Code (Print by Lec):");
+                            cid = sc.nextInt();
+                            if (CourseDB.getCourse(cid) == null) {
+                                throw new isRecordNotFoundException( "Course Code" );
+                            }
+                        } catch (isRecordNotFoundException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } while (CourseDB.getCourse(cid) == null);
                     printByC(cid);
                     continue;
                 case 3:

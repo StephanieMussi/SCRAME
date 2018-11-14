@@ -24,7 +24,7 @@ public class AdminCtrl {
                     "7 --- Print all students in DB\n" +
                     "8 --- Print all courses in DB\n" +
                     "9 --- Print all registration in DB\n" +
-                    "10 --- Print index by a course\n" +
+                    "10 --- Print index by a course, check vacancy \n" +
                     "0 --- Exit program...");
 
             System.out.println("Please enter your choice:");
