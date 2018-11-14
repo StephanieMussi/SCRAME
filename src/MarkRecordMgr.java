@@ -39,57 +39,85 @@ public class MarkRecordMgr {
             thisRecord = new MarkRecord( reg );
             markRecordDB.addRecord( thisRecord );
         }
-        System.out.println( "Choose:\n1: Enter exam mark\n2: Enter coursework marks" );
-        int choice = -1;
-        do {
-            try {
-                choice = scan.nextInt();
-                if (choice < 1 || choice > 2) {
-                    throw new isInvalidInputException( "Choice" );
+        boolean exit = false;
+        do{
+            System.out.println( "Choose:\n1: Enter exam mark\n2: Enter coursework marks" );
+            int choice = -1;
+            do {
+                try {
+                    choice = scan.nextInt();
+                    if (choice < 1 || choice > 2) {
+                        throw new isInvalidInputException( "Choice" );
+                    }
+                    success = true;
+                } catch (isInvalidInputException e) {
+                    System.out.println( "Please enter only '1' or '2'." );
+                } catch (InputMismatchException e) {
+                    System.out.println( "Please enter integers only." );
+                    scan.nextLine();
                 }
-                success = true;
-            } catch (isInvalidInputException e) {
-                System.out.println( "Please enter only '1' or '2'." );
-            } catch (InputMismatchException e) {
-                System.out.println( "Please enter integers only." );
-                scan.nextLine();
-            }
-        } while (!success);
-        success = false;
-        if (choice == 1) {
-            System.out.println( "Enter exam mark (100 marks based):" );
-            try {
-                examMark = scan.nextInt();
-                if (examMark < 0 || examMark > 100) {
-                    throw new isInvalidInputException( "Exam Marks" );
+            } while (!success);
+            success = false;
+            if (choice == 1) {
+                System.out.println( "Enter exam mark (100 marks based):" );
+                try {
+                    examMark = scan.nextInt();
+                    if (examMark < 0 || examMark > 100) {
+                        throw new isInvalidInputException( "Exam Marks" );
+                    }
+                } catch (isInvalidInputException e) {
+                    System.out.println( "Please enter values between 0 to 100" );
+                    scan.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println( "Please enter a correct value." );
+                    scan.nextLine();
                 }
-            } catch (isInvalidInputException e) {
-                System.out.println( "Please enter values between 0 to 100" );
-                scan.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println( "Please enter a correct value." );
-                scan.nextLine();
-            }
-            thisRecord.setMarkExam( examMark );
-        } else if (choice == 2) {
-            double[] marksCA = thisRecord.getMarksCA();
-            System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1)+")" );
-            int index = scan.nextInt();
-            System.out.println( "Enter coursework mark(100 marks based):" );
-            try {
-                courseMark = scan.nextDouble();
-                if (courseMark < 0 || courseMark > 100) {
-                    throw new isInvalidInputException( "Course Marks" );
+                thisRecord.setMarkExam( examMark );
+            } else if (choice == 2) {
+                double[] marksCA;
+                try{
+                    marksCA = thisRecord.getMarksCA();
+                    System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1)+")" );
+                }catch (NullPointerException e){
+                    System.out.println("This course does not have coursework!");
+                    continue;
                 }
-            } catch (isInvalidInputException e) {
-                System.out.println( "Please enter values between 0 to 100" );
-                scan.nextLine();
-            } catch (InputMismatchException e) {
-                System.out.println( "Please enter a correct value" );
-                scan.nextLine();
+
+                int index = scan.nextInt();
+                System.out.println( "Enter coursework mark(100 marks based):" );
+                try {
+                    courseMark = scan.nextDouble();
+                    if (courseMark < 0 || courseMark > 100) {
+                        throw new isInvalidInputException( "Course Marks" );
+                    }
+                } catch (isInvalidInputException e) {
+                    System.out.println( "Please enter values between 0 to 100" );
+                    scan.nextLine();
+                } catch (InputMismatchException e) {
+                    System.out.println( "Please enter a correct value" );
+                    scan.nextLine();
+                }
+                thisRecord.setMarksCA( courseMark, index );
             }
-            thisRecord.setMarksCA( courseMark, index );
-        }
+         System.out.println("Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):");
+            int ch;
+            boolean correct;
+            do{
+                correct = true;
+                try{
+                    ch = scan.nextInt();
+                    if(!(ch ==0 || ch == 1))
+                        correct = false;
+                    else if (ch == 0)
+                        exit = true;
+                }catch (InputMismatchException e){
+                    correct = false;
+                }
+                System.out.println("Invalid input, please enter again (0 or 1):");
+                scan.nextLine();
+            }while(!correct);
+
+        }while(!exit);
 
     }
 

@@ -38,9 +38,6 @@ public class ProfessorMgr {
         profList.add( p9 );
         profList.add( p10 );
 
-        ProfessorMgr.saveData();
-
-
     }
 
 
@@ -48,6 +45,13 @@ public class ProfessorMgr {
         SerializeDB.writeSerializedObject( "prof.dat", profList );
     }
 
+    public static boolean isProfInDB(int pid){
+        for(int i =0; i<profList.size(); i++){
+            if(profList.get(i).getPid() == pid)
+                return true;
+        }
+        return false;
+    }
 
     public static Professor findProfByPid(int id) {
         Professor prof = null;
