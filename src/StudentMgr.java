@@ -27,6 +27,7 @@ public class StudentMgr {
      */
 
     public void addStudent() {
+        int choice = -1;
         int noOfStu = -1;
         System.out.println( "How many students do you want to add" );
         try {
@@ -61,25 +62,41 @@ public class StudentMgr {
                 try {
                     System.out.println( "Please enter student name to be added" );
                     sname = sc.next();
-                    if (findSbySname( sname ) != null) {
-                        throw new isDuplicatesException( "Student Name" );
-                    }
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
                         throw new isInvalidInputException( "Alphabets only for Student Name!" );
                     }
                     success2 = true;
-                } catch (isDuplicatesException eName) {
-                    System.out.println( eName.getMessage() );
-                    sc.nextLine();
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
 
             } while (!success2);
             success2 = false;
+            if (findSbySname( sname ) != null) {
+                System.out.println("Student exist in Database already. Would you like to continue to add student?");
+                System.out.println("Enter Choice \n 1) Yes \n 2) No");
+                choice = sc.nextInt();
+                if(choice == 1){
+                    studentDB.addStudent( sid, sname );
+                    System.out.println( "Student added successfully!" );
+                    System.out.println(  );
+                }
+                else if (choice == 2) {
+                    System.out.println( "Student not added. Returning to Main Menu\n" +
+                            "--------------------------------------------" );
+                    return;
+                }
+            }
+            else{
+                System.out.println( "Student added successfully!" );
+                studentDB.addStudent( sid, sname );
+                sc.nextLine();
+            }
+            /*
             System.out.println( "Student added successfully!" );
             studentDB.addStudent( sid, sname );
             sc.nextLine();
+            */
         }
     }
 
