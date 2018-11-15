@@ -383,10 +383,18 @@ public class CourseMgr {
 
 
     public void printIndex() {
-        int cid;
+        int cid = -1;
         do {
-            System.out.println( "Enter course code to check for its index:" );
-            cid = scan.nextInt();
+            try {
+                System.out.println("Enter course code to check for its index:");
+                cid = scan.nextInt();
+                if(CourseDB.getCourse(cid) == null)
+                    throw new isRecordNotFoundException("This course code");
+            }
+            catch (isRecordNotFoundException e)
+            {
+                System.out.println(e.getMessage());
+            }
         } while (CourseDB.getCourse( cid ) == null);
         courseDB.printAllIndex( cid );
 

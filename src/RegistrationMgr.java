@@ -165,7 +165,7 @@ public class RegistrationMgr {
         int sel;
         int index = -1;
         int cid = -1;
-        int sid;
+        int sid = -1;
         do {
             System.out.println("\n1. Print by class index (tut/lab)\n" +
                     "2. Print by lecture\n" +
@@ -198,13 +198,13 @@ public class RegistrationMgr {
                             }
                         } catch (isRecordNotFoundException e) {
                             System.out.println(e.getMessage());
-
                         }
-                    } while (CourseDB.getCourse(cid) == null);
+                    } while (!CourseDB.getCourse(cid).checkInExist(index));
 
                     //print by tut / lab
                     printRegByIndex(index);
                     continue;
+
                 case 2:
                     do {
                         try {
@@ -220,8 +220,19 @@ public class RegistrationMgr {
                     printByC(cid);
                     continue;
                 case 3:
-                    System.out.println("Enter student ID: ");
-                    sid = sc.nextInt();
+                    do {
+                        try {
+                            System.out.println("Enter student ID: ");
+                            sid = sc.nextInt();
+                            if(StudentDB.getSbySid(sid)==null)
+                                throw new isRecordNotFoundException("Thise student");
+                        }
+                        catch (isRecordNotFoundException e)
+                        {
+                            System.out.println(e.getMessage());
+                        }
+                    }while(StudentDB.getSbySid(sid)==null);
+
                     printByS(sid);
                     continue;
                 default:
