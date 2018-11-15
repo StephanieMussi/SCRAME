@@ -1,16 +1,20 @@
-import java.util.ArrayList;
-
-/***
+/**
  * Course Database Class
  * Handles Course data of the Database
  */
+
+
+import java.util.ArrayList;
+
 public class CourseDB {
-    /*
-     * Create an ArrayList for Course
-     */
+
     private static ArrayList<Course> courseList = new ArrayList<Course>();
     private SerializeToDatabaseInterface serializeDb;
 
+    /**
+     * constructor
+     * @param serializeDb
+     */
     public CourseDB(SerializeToDatabaseInterface serializeDb) {
         this.serializeDb = serializeDb;
         //load markRecords
@@ -19,16 +23,13 @@ public class CourseDB {
             initialize();
         else courseList = listRead;
     }
-    /*
-    public CourseDB(){
-        // load course.dat
-        ArrayList<Course> listRead = SerializeDB.readSerializedObject( "course.dat" );
-        if(listRead == null)
-            initialize();
-        else courseList = listRead;
-    }
-    */
 
+
+
+
+    /**
+     * initialize pre-entered data
+     */
     private void initialize() {
         Course s1 = new Course( 001, 001, "Engineers and Society", 3 );
         CourseWeight cw1 = new CourseWeight( new Assessment( "exam", 100 ), null );
@@ -67,7 +68,7 @@ public class CourseDB {
         this.serializeDb.writeSerializedObject( courseList );
     }
 
-    /*
+    /**
      * Parse a new "course" into the database
      */
     public void addCourse(Course newCourse) {
@@ -78,16 +79,15 @@ public class CourseDB {
     /**
      * Getters for Course
      */
-
-    /*
-     * Get Course list
-     */
     public ArrayList<Course> getCourseList() {
         return this.courseList;
     }
 
-    /*
-     * Obtain a Object by courseCode - Course
+
+    /**
+     * getter
+     * @param courseCode
+     * @return
      */
     public static Course getCourse(int courseCode) {
         if (courseList.size() == 0) { //Return null if course list is empty
@@ -102,6 +102,12 @@ public class CourseDB {
         return null;
     }
 
+
+    /**
+     * print all index, including
+     * vacancy / capacity
+     * @param cid
+     */
     public void printAllIndex(int cid) {
         Course c = getCourse( cid );
         if (c.getTutorialIndex() == null && c.getLaboratoryIndex() == null)

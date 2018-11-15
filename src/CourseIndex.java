@@ -1,39 +1,29 @@
-import java.io.Serializable;
-
 /***
  * Class tagged index to Courses
  * Each Index consist of a Lecture, Tutorial, Lab
  * Handles information regarding Lectures, Tutorials and Lab works
  */
-public class CourseIndex implements Serializable {
-    /*
-     * Index of Course
-     */
-    protected int index;
-    /*
-     * Tagged Index to Course
-     */
-    protected Course course;
-    /*
-     * Lesson's Vacancies
-     */
-    protected int vacancy;
-    /*
-     * Lesson's Capacity
-     */
-    protected int capacity;
-    /*
-     * Student's Name tagged to Course (enrolled)
-     */
-    protected String name;
-    // Create a list for enrolled students to index?
 
-    /***
+import java.io.Serializable;
+
+public class CourseIndex implements Serializable {
+
+    protected int index;
+
+    protected Course course;
+
+    protected int vacancy;
+
+    protected int capacity;
+
+    protected String name;
+
+
+    /**
      * Constructor class for CourseIndex
      * @param index
      * @param capacity
      */
-
     public CourseIndex(int index, int capacity) {
         this.index = index;
         this.capacity = capacity;
@@ -44,56 +34,48 @@ public class CourseIndex implements Serializable {
 
     /***
      * Getters for Instances
-     * @return
-     */
-
-    /*
-     * Get index of Course
+     * @return index
      */
     public int getIndex() {
 
         return index;
     }
 
-    /*
-     * Get Course that belongs to current index
+
+    /**
+     * @return course
      */
     public Course getCourse() {
 
         return course;
     }
 
-    /*
-     * Get vacancies available of Index
+    /**
+     * @return vacancy
      */
     public int getVacancy() {
 
         return vacancy;
     }
 
-    /*
-     * Get capacity of Index
-     * Assuming capacity of a lesson is 20
+    /**
+     * @return capacity
      */
     public int getCapacity() {
 
         return capacity;
     }
 
-    /*
-     * Get student enrolled into this Index
+    /**
+     * @return name
      */
     public String getName() {
 
         return name;
     }
 
-    /***
+    /**
      * Setters for instances
-     */
-
-    /*
-     * Set Vacancy of Course
      * Whenever set, vacancy minus by 1
      */
     public void setVacancy() {

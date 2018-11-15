@@ -1,29 +1,21 @@
+/**
+ * Course manager class (Controller)
+ * Handles and manages information of Course
+ */
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-/***
- * Course manager class (Controller)
- * Handles and manages information of Course
- */
 public class CourseMgr {
-    /***
-     * Call
-     * Course class
-     * CourseDB class
-     * CourseWeight class
-     */
 
-    /*
-     * Initialise Course database; CourseDB
-     */
     Scanner scan;
     //Scanner scan = new Scanner( System.in );
     private SerializeToDatabaseInterface serializeDb;
     public CourseDB courseDB;
 
-    /***
+    /**
      * Constructor class for Course Manager
      * @param scan
      * @param serializeDb
@@ -34,11 +26,10 @@ public class CourseMgr {
         this.courseDB = new CourseDB(this.serializeDb);
     }
 
-    /***
-     * Getters
+
+    /**
+     * print all course exist in CourseDB
      */
-
-
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
 
@@ -54,16 +45,13 @@ public class CourseMgr {
 
     }
 
-    public void printCourseCodeList() {
-        List<Course> courseCodeList = courseDB.getCourseList();
 
-        System.out.printf( "%s\t\t%s\n", "AU", "Course code" );
-        for (int i = 0; i < courseCodeList.size(); i++) {
-            System.out.printf( "%2d\t\t%-11d\n", courseCodeList.get( i ).getCourseAU(),
-                    courseCodeList.get( i ).getCourseCode() );
-        }
-    }
 
+    /**
+     * check whether course exist In DB
+     * @param courseCode
+     * @return boolean true->exist  false->not exist
+     */
     public boolean isCourseExistInDB(int courseCode) {
 
         Course course = courseDB.getCourse( courseCode );
@@ -76,6 +64,12 @@ public class CourseMgr {
         }
     }
 
+    /**
+     * add course and initialize it, including
+     * 1. course basic info
+     * 2. type of course
+     * 3. assessment weightage
+     */
     public void addCourse() {
         int courseCode = -1, professorId = -1, courseAU = -1;
         String courseName = null;
@@ -245,6 +239,10 @@ public class CourseMgr {
 
     }
 
+    /**
+     * @param courseCode
+     * @param thisCourse
+     */
     private void setAssessment(int courseCode, Course thisCourse) {
         Assessment exam;
         ArrayList<Assessment> coursework;
@@ -308,6 +306,10 @@ public class CourseMgr {
     }
 
 
+    /**
+     * print all index of a course, including
+     * vacancy / capacity
+     */
     public void printIndex() {
         int cid = -1;
         do {
