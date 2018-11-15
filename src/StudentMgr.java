@@ -87,7 +87,6 @@ public class StudentMgr {
                 if(choice == 1){
                     studentDB.addStudent( sid, sname );
                     System.out.println( "Student added successfully!" );
-                    System.out.println(  );
                 }
                 else if (choice == 2) {
                     System.out.println( "Student is not added. Returning to Main Menu...\n" +
@@ -98,7 +97,6 @@ public class StudentMgr {
             else{
                 System.out.println( "Student added successfully!" );
                 studentDB.addStudent( sid, sname );
-                scan.nextLine();
             }
         }
     }

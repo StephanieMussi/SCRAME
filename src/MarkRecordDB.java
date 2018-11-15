@@ -20,9 +20,9 @@ public class MarkRecordDB {
         Registration r1 = new Registration(0001,0001,1);
         Registration r2 = new Registration(0002,0002,1);
         Registration r3 = new Registration(0003,0003,1);
-        MarkRecord m1 = new MarkRecord(r1, CourseDB.getCourse( 0001 ));
-        MarkRecord m2 = new MarkRecord(r2, CourseDB.getCourse( 2001 ));
-        MarkRecord m3 = new MarkRecord(r3, CourseDB.getCourse( 2002 ));
+        MarkRecord m1 = new MarkRecord(r1, CourseDB.getCourse( 001 ));
+        MarkRecord m2 = new MarkRecord(r2, CourseDB.getCourse( 002 ));
+        MarkRecord m3 = new MarkRecord(r3, CourseDB.getCourse( 003 ));
         markRecords.add( m1 );
         markRecords.add( m2 );
         markRecords.add( m3 );

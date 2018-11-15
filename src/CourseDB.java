@@ -30,21 +30,21 @@ public class CourseDB {
     */
 
     private void initialize() {
-        Course s1 = new Course( 001, 0001, "Engineers and Society", 3 );
+        Course s1 = new Course( 001, 001, "Engineers and Society", 3 );
         CourseWeight cw1 = new CourseWeight( new Assessment( "exam", 100 ), null );
         s1.addLecture( s1.getCourseCode(), 100 );
         int[] x = new int[]{20, 20, 20, 0};
         s1.addTutorial( x );
         s1.setCourseWeightage( cw1 );
 
-        Course s2 = new Course( 002, 2001, "Algorithms", 3 );
+        Course s2 = new Course( 002, 002, "Algorithms", 3 );
         CourseWeight cw2 = new CourseWeight( new Assessment( "exam", 100 ), null );
         s2.addLecture( s2.getCourseCode(), 100 );
         s2.addTutorial( x );
         s2.setCourseWeightage( cw2 );
 
 
-        Course s3 = new Course( 003, 2002, "Object Oriented Design and Programming", 3 );
+        Course s3 = new Course( 003, 003, "Object Oriented Design and Programming", 3 );
         CourseWeight cw3 = new CourseWeight( new Assessment( "exam", 100 ), null );
         s3.addLecture( s3.getCourseCode(), 100 );
         s3.addTutorial( x );
