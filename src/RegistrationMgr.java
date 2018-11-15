@@ -49,7 +49,7 @@ public class RegistrationMgr {
         while (sel<3) {
             System.out.print("\nChoose:");
             System.out.print("\n1. Register student");
-            System.out.print("\n2. Print student registration list");
+            System.out.print("\n\n2. Print student registration list, including:\na)print student by tut/lab\nb)print student by lecture\nc)print course by student\n");
             System.out.println("\n3. Quit to main menu");
             sel = scan.nextInt();
             switch (sel) {

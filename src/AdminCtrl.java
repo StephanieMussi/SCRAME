@@ -17,8 +17,8 @@ public class AdminCtrl {
         do {
             System.out.println("|---------------------- Welcome to SCRAME ----------------------|\n" +
                     "1 --- Add student to StudentDB\n" +
-                    "2 --- Add course to CourseDB, including set assessment weightage\n" +
-                    "3 --- Enter registration menu, including print student list\n" +
+                    "2 --- Add course to CourseDB, including set assessment weightage\n\n" +
+                    "3 --- Enter registration menu, including: \na)Register a student to a course \nb)print students by lecture/tut/lab\nc)print all courses registered by a student\n\n" +
                     "4 --- Enter mark, including coursework and exam mark\n" +
                     "5 --- Print course statistics\n" +
                     "6 --- Print student transcript\n" +
