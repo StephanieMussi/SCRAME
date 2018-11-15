@@ -86,6 +86,7 @@ public class RegistrationMgr {
             } catch (InputMismatchException e) {
                 System.out.println("Please enter integer values only.");
                 scan.nextLine();
+                continue;
             }
         } while (StudentDB.getSbySid(sid) == null);
 
