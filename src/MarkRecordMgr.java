@@ -5,6 +5,9 @@ public class MarkRecordMgr {
     private MarkRecordDB markRecordDB = new MarkRecordDB();
 
 
+    /**
+     *
+     */
     public void assignMarks() {
         //Registration registration;
         int courseCode = -1, sid = -1;

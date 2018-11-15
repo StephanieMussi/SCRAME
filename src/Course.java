@@ -11,7 +11,7 @@ public class Course implements Serializable {
     /*
      * Call CourseComponentWeight class
      */
-   // static CourseWeight weightage;
+
     /*
      * Professor ID in charged of Course
      */

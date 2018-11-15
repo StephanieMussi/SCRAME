@@ -1,3 +1,6 @@
+/***
+ * Exception class when dealing record not found
+ */
 public class isRecordNotFoundException extends Exception {
 
     public isRecordNotFoundException(String Object){

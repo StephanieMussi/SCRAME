@@ -1,17 +1,22 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class StudentMgr {
-    /*
+    /**
      * used for adding student
      * contain reference: StudentDB
      * don't support delete student
      */
 
+
     Scanner sc = new Scanner( System.in );
     private static StudentDB studentDB;
 
-    /*
+
+    /**
      * constructor
      * instantiate new StudentDB()
      */
@@ -20,8 +25,8 @@ public class StudentMgr {
         //do some initialization here
     }
 
-    /*
-     * required functionality
+
+    /**
      * add student into studentDB:
      * studentDB.addStudent(sid, sname);
      */
@@ -96,10 +101,10 @@ public class StudentMgr {
     }
 
 
-    /*
+    /**
      * sub functionality
-     * int findSidbySname(String name): get sid
-     * StudentInfo findSbySname(String name): get object StudentInfo
+     * @para
+     *
      */
     public int findSidbySname(String name) {
         return studentDB.getSidbySname( name );
@@ -115,8 +120,7 @@ public class StudentMgr {
     }
 
 
-    /*
-     * method for testing
+    /**
      * print all student info in student.dat
      */
     public void printAll() {

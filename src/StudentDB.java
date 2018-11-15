@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class StudentDB {
     /*
      * contain a list of StudentInfo
@@ -19,6 +20,9 @@ public class StudentDB {
     }
 
 
+    /**
+     * initialize pre-entered data when instantiate an object
+     */
     private void initialize(){
         StudentInfo s1 = new StudentInfo( 0001, "Lin" );
         StudentInfo s2 = new StudentInfo( 0002, "Bella" );
@@ -49,6 +53,7 @@ public class StudentDB {
     }
 
 
+
     /*
      * @return StudentInfo
      * @param name
@@ -63,6 +68,22 @@ public class StudentDB {
                 sinfo = studentList.get( i );
         }
         return sinfo;
+    }
+
+
+    /**
+     * @return sname
+     * @param sid
+     */
+    public static String getSnamebySid(int sid) {
+        String sname = null;
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get( i ) == null)
+                break;
+            if (studentList.get( i ).getSid() == sid)
+                sname = studentList.get( i).getSname();
+        }
+        return sname;
     }
 
 
@@ -94,20 +115,9 @@ public class StudentDB {
 
 
 
-    public static String getSnamebySid(int sid) {
-        String sname = null;
-        for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get( i ) == null)
-                break;
-            if (studentList.get( i ).getSid() == sid)
-                sname = studentList.get( i).getSname();
-        }
-        return sname;
-    }
-
 
     /*
-     * method for testing
+     * print all student info in student.dat
      */
     public void printAll() {
         for (int i = 0; i < studentList.size(); i++) {
