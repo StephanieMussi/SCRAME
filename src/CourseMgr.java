@@ -68,10 +68,10 @@ public class CourseMgr {
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
 
-        System.out.printf( "%s\t%s\t\t%s\t\t%s\n", "Coordinator Name", "AU", "Course Code", "Course Name" );
+        System.out.printf( "%s\t%s\t\t%s\t\t%-20s\n", "Coordinator Name", "AU", "Course Code", "Course Name" );
 
         for (int i = 0; i < courseList.size(); i++) {
-            System.out.printf( "%16s\t%2d\t%15d\t\t%-20s\n",
+            System.out.printf( "%16s\t%2d\t%15d\t\t%-25s\n",
                     ProfessorMgr.findProfByPid( courseList.get( i ).getProfessorId() ).getName(),
                     courseList.get( i ).getCourseAU(),
                     courseList.get( i ).getCourseCode(),
@@ -180,9 +180,10 @@ public class CourseMgr {
         //enter courseInfo
         System.out.println( "Adding Course " + courseCode + ", please enter following information:" );
         System.out.println( "Enter Course name:" );
+        scan.nextLine();
         do {
             try {
-                courseName = scan.next();
+                courseName = scan.nextLine();
                 if (!courseName.matches( "([a-zA-Z ]+)" )) {
                     throw new isInvalidInputException( "Alphabets only for Course Name!" );
                 }
@@ -192,12 +193,12 @@ public class CourseMgr {
             }
         } while (!success2);
         success2 = false;
-        scan.nextLine();
+
         System.out.println( "Enter Professor ID:" );
         do {
             try {
                 professorId = scan.nextInt();
-                if (!(professorId >= 0 && ProfessorMgr.isProfInDB(professorId))) {
+                if (!(professorId >= 0 && ProfessorMgr.isProfInDB( professorId ))) {
                     throw new isInvalidInputException( "Professor ID" );
                 }
                 success = true;
@@ -208,7 +209,7 @@ public class CourseMgr {
                 scan.nextLine();
             }
         } while (!success);
-       // success = false;
+        // success = false;
         System.out.println( "Enter Course AU:" );
         do {
             try {
@@ -249,11 +250,11 @@ public class CourseMgr {
         } while (!success3);
         int i = 0;
 
-       boolean correct;
+        boolean correct;
         switch (courseType) {
             case 1:
                 System.out.println( "Enter the capacity for the lecture:" );
-                do{
+                do {
                     correct = true;
                     try {
                         capLec = scan.nextInt();
@@ -262,7 +263,7 @@ public class CourseMgr {
                         System.out.println( "Please enter integer only." );
                         scan.nextLine();
                     }
-                }while(!correct);
+                } while (!correct);
                 newCourse.addLecture( newCourse.getCourseCode(), capLec );
                 break;
             case 2:
@@ -275,11 +276,11 @@ public class CourseMgr {
                         cap = scan.nextInt();
                     } catch (InputMismatchException e) {
                         correct = false;
-                        System.out.println("Please enter integer only.");
+                        System.out.println( "Please enter integer only." );
                         scan.nextLine();
 
                     }
-                }while(!correct);
+                } while (!correct);
                 capacity = new int[num];
                 for (i = 0; i < num; i++)
                     capacity[i] = cap;
@@ -296,10 +297,10 @@ public class CourseMgr {
                         cap = scan.nextInt();
                     } catch (InputMismatchException e) {
                         correct = false;
-                        System.out.println("Please enter integer only.");
+                        System.out.println( "Please enter integer only." );
                         scan.nextLine();
                     }
-                }while(!correct);
+                } while (!correct);
 
                 capacity = new int[num];
                 for (i = 0; i < num; i++)
@@ -323,7 +324,7 @@ public class CourseMgr {
         boolean success;
         do {
             success = true;
-            try{
+            try {
                 System.out.println( "Setting course assessment..." );
                 System.out.println( "Please enter exam weightage(%):" );
                 double examWeight = scan.nextDouble();
@@ -341,40 +342,37 @@ public class CourseMgr {
                         try {
                             sumCaWe = 0;
                             for (int i = 0; i < num; i++) {
-                                System.out.println("Please enter coursework description for CA " + (i + 1) + "(string):");
+                                System.out.println( "Please enter coursework description for CA " + (i + 1) + "(string):" );
                                 String descrip = scan.next();
                                 temdescrip[i] = descrip;
                                 scan.nextLine();
 
-                                System.out.println("Please enter coursework weightage(%):");
+                                System.out.println( "Please enter coursework weightage(%):" );
                                 double cwWeight = scan.nextDouble();
                                 temwei[i] = cwWeight;
                                 scan.nextLine();
 
-                                sumCaWe+=cwWeight;
+                                sumCaWe += cwWeight;
                             }
-                            if(sumCaWe-100>0.00001 || 100-sumCaWe>0.00001)
-                                throw new isInvalidInputException("The total sum of CA weightage is 100.\n" +
-                                        "The current weightage sum is not 100.");
+                            if (sumCaWe - 100 > 0.00001 || 100 - sumCaWe > 0.00001)
+                                throw new isInvalidInputException( "The total sum of CA weightage is 100.\n" +
+                                        "The current weightage sum is not 100." );
 
-                        } catch (isInvalidInputException e)
-                        {
-                            System.out.println(e.getMessage());
+                        } catch (isInvalidInputException e) {
+                            System.out.println( e.getMessage() );
                         }
 
-                    }while(sumCaWe-100>0.00001 || 100-sumCaWe>0.00001);
+                    } while (sumCaWe - 100 > 0.00001 || 100 - sumCaWe > 0.00001);
 
-                    for (int i = 0; i < num; i++)
-                    {
-                        coursework.add(new Assessment(temdescrip[i], temwei[i] * (1 - examWeight / 100)));
+                    for (int i = 0; i < num; i++) {
+                        coursework.add( new Assessment( temdescrip[i], temwei[i] * (1 - examWeight / 100) ) );
                     }
 
                 }
                 thisCourse.setCourseWeightage( new CourseWeight( exam, coursework ) );
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 success = false;
-                System.out.println("Please enter a valid input.");
+                System.out.println( "Please enter a valid input." );
                 scan.nextLine();
             }
         } while (!(success && thisCourse.isCourseValidatable()));
@@ -386,14 +384,12 @@ public class CourseMgr {
         int cid = -1;
         do {
             try {
-                System.out.println("Enter course code to check for its index:");
+                System.out.println( "Enter course code to check for its index:" );
                 cid = scan.nextInt();
-                if(CourseDB.getCourse(cid) == null)
-                    throw new isRecordNotFoundException("This course code");
-            }
-            catch (isRecordNotFoundException e)
-            {
-                System.out.println(e.getMessage());
+                if (CourseDB.getCourse( cid ) == null)
+                    throw new isRecordNotFoundException( "This course code" );
+            } catch (isRecordNotFoundException e) {
+                System.out.println( e.getMessage() );
             }
         } while (CourseDB.getCourse( cid ) == null);
         courseDB.printAllIndex( cid );

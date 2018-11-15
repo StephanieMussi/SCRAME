@@ -66,7 +66,8 @@ public class StudentMgr {
             do {
                 try {
                     System.out.println( "Please enter the student name to be added:" );
-                    sname = sc.next();
+                    sc.nextLine();
+                    sname = sc.nextLine();
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
                         throw new isInvalidInputException( "Alphabets only for Student Name!" );
                     }
