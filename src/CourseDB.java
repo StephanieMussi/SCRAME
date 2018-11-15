@@ -125,25 +125,12 @@ public class CourseDB {
             System.out.println( "No tutorial and lab session for this course." );
         if (c.getTutorialIndex().size() > 0) {
             //System.out.print("Course Code"+ "\t\tVacancy" + "\n");
-            System.out.printf( "%s\t\t%s\n", "Index", "Vacancy" );
-            for (int i = 0; i < c.getTutorialIndex().size(); i++) {
-                CourseIndex in = c.getTutorialIndex().get( i );
-                System.out.print( in.getIndex() );
-                System.out.print( "\t\t" + in.getVacancy() + " / " + in.getCapacity() );
-                System.out.println( "\n" );
-            }
-            System.out.println( "\n" );
-        } else if (c.getLaboratoryIndex().size() > 0) {
-            System.out.printf( "%s\t\t%s\n", "Index", "Vacancy" );
-            for (int i = 0; i < c.getLaboratoryIndex().size(); i++) {
-                CourseIndex in = c.getLaboratoryIndex().get( i );
-                System.out.print( in.getIndex() );
-                System.out.print( "\t\t" + in.getVacancy() + " / " + in.getCapacity() );
-                System.out.println( "\n" );
-            }
-            System.out.println( "\n" );
+            System.out.printf("%s\t\t%s\n", "Index", "Vacancy");
+            c.printIndex();
+            System.out.println("\n");
+        }
         }
 
     }
-}
+
 
