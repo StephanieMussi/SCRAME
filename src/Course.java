@@ -1,53 +1,33 @@
-import java.io.Serializable;
-import java.util.ArrayList;
-
-/***
+/**
  * Course class (Model)
  * Stores and Retrieves Course Information - Adding Lectures, Tutorials and Lab into a Course
  * Manages Course assessments and enrolled students
  */
+
+import java.io.Serializable;
+import java.util.ArrayList;
 public class Course implements Serializable {
 
-    /*
-     * Call CourseComponentWeight class
-     */
-
-    /*
-     * Professor ID in charged of Course
-     */
     private int professorId;
-    /*
-     * Course code: CZ2002 -> 2002
-     */
+
     private int courseCode;
-    /*
-     * Course name: Objected Oriented Design Programming
-     */
+
     private String courseName;
-    /*
-     * Course Credits: AUs
-     */
+
     private int courseAU;
-    /*
-     * Total capacity of created Course
-     */
-    private int maxCapacity;
-    /*
-     * Lecture session of Course
-     * There can only be one lecture per course
-     */
+
     private CourseIndex lecture;
-    /*
+    /**
      * Tutorial session of a course; number of tutorial is based on Indexes of Course
      * i.e Index Tutorial group SS1(Index 1101), SS2(Index 1102)
      */
     private ArrayList<CourseIndex> tutorial;
-    /*
+    /**
      * Lab session of a course; number of lab is based on Indexes of Course
      * i.e Index lab group SS1(Index 1101), SS2(Index 1102)
      */
     private ArrayList<CourseIndex> laboratory;
-    /*
+    /**
      * Weightages of Course's Components
      */
     private CourseWeight courseWeightage;
@@ -70,11 +50,8 @@ public class Course implements Serializable {
     }
 
 
-    /***
-     * Adders
-     */
 
-    /*
+    /**
      * Adding tutorial indexes into Course
      * capacity parameter stores total number of students in each group
      */
@@ -90,7 +67,7 @@ public class Course implements Serializable {
         }
     }
 
-    /*
+    /**
      * Adding lecture indexes into Course
      * capacity parameter stores total number of students
      */
@@ -102,60 +79,57 @@ public class Course implements Serializable {
         }
     }
 
-    /**
-     * Get methods for Instances
-     */
 
-    /*
+    /**
      * get Professor ID in charged of Course
      */
     public int getProfessorId() {
         return professorId;
     }
 
-    /*
+    /**
      * Get Course code; CZ2002 -> 2002
      */
     public int getCourseCode() {
         return courseCode;
     }
 
-    /*
+    /**
      * Get Course Name; Object Oriented and Design Programming
      */
     public String getCourseName() {
         return courseName;
     }
 
-    /*
+    /**
      * Get Course AU
      */
     public int getCourseAU() {
         return courseAU;
     }
 
-    /*
+    /**
      * Get lecture from Course
      */
     public CourseIndex getLecture() {
         return lecture;
     }
 
-    /*
+    /**
      * Get tutorial groups(index) of Course
      */
     public ArrayList<CourseIndex> getTutorialIndex() {
         return tutorial;
     }
 
-    /*
+    /**
      * Get lab groups(index) of Course
      */
     public ArrayList<CourseIndex> getLaboratoryIndex() {
         return laboratory;
     }
 
-    /*
+    /**
      * Get Component weightages of Course
      */
     public CourseWeight getCourseWeightage() {
@@ -165,18 +139,21 @@ public class Course implements Serializable {
     /**
      * Set methods for Instances
      */
-    /*
+
+    /**
      * Set Course weightages of Course
      */
     public void setCourseWeightage(CourseWeight courseWeightage) {
         this.courseWeightage = courseWeightage;
     }
 
-    /***
+
+
+    /**
      * Checkers for Course class
      */
 
-    /*
+    /**
      * Check if Course is valid
      * Course is valid iff total weightage of Exam + Couse work + total number if course work is not equals to 0
      */
@@ -200,6 +177,11 @@ public class Course implements Serializable {
         }
     }
 
+    /**
+     * Check if index exist
+     * @param index
+     * @return boolean true->exist false->not
+     */
     public boolean checkInExist(int index) {
         for (int i = 0; i < tutorial.size(); i++) {
             CourseIndex in = tutorial.get( i );
@@ -212,6 +194,9 @@ public class Course implements Serializable {
         return false;
     }
 
+    /**
+     * print all index
+     */
     public void printIndex() {
         System.out.println( "The lecture index is: " + lecture.index );
         System.out.println( "the lecture vacancy is: " + checkInVacancy( lecture ) );
@@ -225,6 +210,11 @@ public class Course implements Serializable {
         }
     }
 
+    /**
+     * check vacancy
+     * @param index
+     * @return
+     */
     public int checkInVacancy(CourseIndex index) {
         if (index != null) {
             return index.getVacancy();
@@ -234,6 +224,12 @@ public class Course implements Serializable {
         }
     }
 
+    /**
+     * getter
+     * @param in
+     * @param isTut
+     * @return CourseIndex
+     */
     public CourseIndex getIndexByIn(int in, boolean isTut) {
         if (isTut) {
             CourseIndex index = null;
@@ -246,6 +242,11 @@ public class Course implements Serializable {
         return null;
     }
 
+    /**
+     * getter
+     * @param in
+     * @return
+     */
     public CourseIndex getIndexByIn(int in) {
         CourseIndex index = null;
         for (int i = 0; i < laboratory.size(); i++) {

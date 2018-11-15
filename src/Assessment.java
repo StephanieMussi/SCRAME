@@ -1,17 +1,14 @@
-import java.io.Serializable;
-
-/***
+/**
  * Course Assessment class
  * Handles Course components (Course work and Exam)
  */
+
+import java.io.Serializable;
+
 public class Assessment implements Serializable {
-    /*
-     * Type of Assessment (Exam or Coursework)
-     */
+
     private String type;
-    /*
-     * Total Weightage of assessment
-     */
+
     private double totalWeightage;
 
     /**
@@ -25,15 +22,15 @@ public class Assessment implements Serializable {
     }
 
 
-    /*
-     * Gets type of assessment
+    /**
+     * @return String
      */
     public String getType() {
         return type;
     }
 
-    /*
-     * Gets weightage of assessment
+    /**
+     * @return double
      */
     public double getTotalWeightage() {
         return totalWeightage;

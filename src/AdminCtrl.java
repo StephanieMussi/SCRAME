@@ -1,3 +1,7 @@
+/**
+ * boundary class
+ */
+
 import java.util.Scanner;
 
 public class AdminCtrl {
