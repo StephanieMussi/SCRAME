@@ -4,11 +4,12 @@ public class AdminCtrl {
     public static void main(String [] args)
     {
         Scanner sc = new Scanner(System.in);
-        ProfessorMgr pMgr = new ProfessorMgr();
-        CourseMgr cMgr = new CourseMgr();
-        StudentMgr sMgr = new StudentMgr();
-        RegistrationMgr rMgr = new RegistrationMgr();
-        MarkRecordMgr mMgr = new MarkRecordMgr();
+
+        ProfessorMgr pMgr = new ProfessorMgr(sc, new SerializeDB( "prof" ));
+        CourseMgr cMgr = new CourseMgr(sc, new SerializeDB( "course" ));
+        StudentMgr sMgr = new StudentMgr(sc, new SerializeDB( "student" ));
+        RegistrationMgr rMgr = new RegistrationMgr(sc, new SerializeDB( "registration" ));
+        MarkRecordMgr mMgr = new MarkRecordMgr(sc, new SerializeDB( "markRecords" ));
 
 
 
@@ -75,14 +76,11 @@ public class AdminCtrl {
                     System.out.println("Wrong input selection, please enter again!");
             }
         }while(sel>0 && sel<11);
-        saveData();
-    }
-
-    public static void saveData(){
-        CourseDB.saveData();
-        StudentDB.saveData();
-        MarkRecordDB.saveData();
-        ProfessorMgr.saveData();
+        mMgr.markRecordDB.saveData();
+        pMgr.saveData();
+        sMgr.studentDB.saveData();
+        cMgr.courseDB.saveData();
+        rMgr.registrationDB.saveData();
     }
 
 }

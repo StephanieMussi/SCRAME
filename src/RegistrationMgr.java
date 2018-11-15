@@ -1,41 +1,44 @@
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class RegistrationMgr {
 
+    Scanner scan;
+    private SerializeToDatabaseInterface serializeDb;
+    public RegistrationDB registrationDB;
+
+    public RegistrationMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
+        this.scan = scan;
+        this.serializeDb = serializeDb;
+        this.registrationDB = new RegistrationDB( this.serializeDb );
+    }
+
+    /*
     RegistrationMgr() {
         db = new RegistrationDB();
 
     }
-
-
-    RegistrationDB db;
-    Scanner sc = new Scanner(System.in);
-
-
+    */
 
     //print all registration records
     public void printAllReg() {
-        db.printAllReg();
+        registrationDB.printAllReg();
     }
 
     //Print student name in the class
     public void printRegByIndex(int indexNum) {
         System.out.println("List of students in index: " + indexNum);
-        db.printRegByIndex(indexNum);
+        registrationDB.printRegByIndex(indexNum);
     }
 
     //Print student name in the class
     private void printByC(int cid) {
-        db.printByC(cid);
+        registrationDB.printByC(cid);
     }
 
 
     public void printByS(int studentId) {
-        db.printByS(studentId);
+        registrationDB.printByS(studentId);
     }
 
 
@@ -48,7 +51,7 @@ public class RegistrationMgr {
             System.out.print("\n1. Register student");
             System.out.print("\n2. Print student registration list");
             System.out.println("\n3. Quit to main menu");
-            sel = sc.nextInt();
+            sel = scan.nextInt();
             switch (sel) {
                 case 1:
                     registerS();
@@ -74,7 +77,7 @@ public class RegistrationMgr {
         do {
             try {
                 System.out.println("Enter student ID:");
-                sid = sc.nextInt();
+                sid = scan.nextInt();
                 if (StudentDB.getSbySid(sid) == null) {
                     throw new isRecordNotFoundException( "Student ID" );
                 }
@@ -82,7 +85,7 @@ public class RegistrationMgr {
                 System.out.println( e.getMessage() );
             } catch (InputMismatchException e) {
                 System.out.println("Please enter integer values only.");
-                sc.nextLine();
+                scan.nextLine();
             }
         } while (StudentDB.getSbySid(sid) == null);
 
@@ -90,7 +93,7 @@ public class RegistrationMgr {
         do {
             try {
                 System.out.println("Enter course code:");
-                cid = sc.nextInt();
+                cid = scan.nextInt();
                 if (CourseDB.getCourse(cid) == null) {
                     throw new isRecordNotFoundException( "Course Code" );
                 }
@@ -98,7 +101,7 @@ public class RegistrationMgr {
                 System.out.println(e.getMessage());
             } catch (InputMismatchException e) {
                 System.out.println("Please enter integer values only.");
-                sc.nextLine();
+                scan.nextLine();
             }
         } while (CourseDB.getCourse(cid) == null);
 
@@ -129,7 +132,7 @@ public class RegistrationMgr {
             do {
                 try {
                     System.out.println("Enter index:");
-                    index = sc.nextInt();
+                    index = scan.nextInt();
                     if (!c.checkInExist(index)) {
                         throw new isInvalidIndexException( "again!" );
                     }
@@ -156,7 +159,7 @@ public class RegistrationMgr {
     //check exist
     //used in registerS
     private boolean checkExist(Registration r) {
-        return db.checkExist(r);
+        return registrationDB.checkExist(r);
     }
 
 
@@ -172,14 +175,14 @@ public class RegistrationMgr {
                     "3. Print by student\n" +
                     "4. Exit printing\n");
             System.out.println("Enter your choice:");
-            sel = sc.nextInt();
+            sel = scan.nextInt();
             switch (sel) {
                 case 1:
                     //enter coursecode, check validation
                     do {
                         try {
                             System.out.println("Enter course code (for further index entering):");
-                            cid = sc.nextInt();
+                            cid = scan.nextInt();
                             if (CourseDB.getCourse(cid) == null) {
                                 throw new isRecordNotFoundException( "Course Code" );
                             }
@@ -192,7 +195,7 @@ public class RegistrationMgr {
                     do {
                         try {
                             System.out.println("Enter index (print by tut/lab):");
-                            index = sc.nextInt();
+                            index = scan.nextInt();
                             if (!CourseDB.getCourse(cid).checkInExist(index)) {
                                 throw new isRecordNotFoundException( "Index" );
                             }
@@ -209,7 +212,7 @@ public class RegistrationMgr {
                     do {
                         try {
                             System.out.println("Enter course code (print by lec):");
-                            cid = sc.nextInt();
+                            cid = scan.nextInt();
                             if (CourseDB.getCourse(cid) == null) {
                                 throw new isRecordNotFoundException( "Course Code" );
                             }
@@ -223,7 +226,7 @@ public class RegistrationMgr {
                     do {
                         try {
                             System.out.println("Enter student ID: ");
-                            sid = sc.nextInt();
+                            sid = scan.nextInt();
                             if(StudentDB.getSbySid(sid)==null)
                                 throw new isRecordNotFoundException("Thise student");
                         }
@@ -254,7 +257,7 @@ public class RegistrationMgr {
         }
         else
         {
-            db.registerStudentForCourse(r,type);
+            registrationDB.registerStudentForCourse(r,type);
         }
     }
 

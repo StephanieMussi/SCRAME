@@ -18,9 +18,21 @@ public class CourseMgr {
     /*
      * Initialise Course database; CourseDB
      */
-    Scanner scan = new Scanner( System.in );
-    private CourseDB courseDB = new CourseDB();
+    Scanner scan;
+    //Scanner scan = new Scanner( System.in );
+    private SerializeToDatabaseInterface serializeDb;
+    public CourseDB courseDB;
 
+    /***
+     * Constructor class for Course Manager
+     * @param scan
+     * @param serializeDb
+     */
+    public CourseMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
+        this.scan = scan;
+        this.serializeDb = serializeDb;
+        this.courseDB = new CourseDB(this.serializeDb);
+    }
 
     /***
      * Getters

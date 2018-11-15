@@ -1,9 +1,15 @@
 import java.util.*;
 
 public class MarkRecordMgr {
-    Scanner scan = new Scanner( System.in );
-    private MarkRecordDB markRecordDB = new MarkRecordDB();
+    Scanner scan;
+    private SerializeToDatabaseInterface serializeDb;
+    public MarkRecordDB markRecordDB;
 
+    public MarkRecordMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
+        this.scan = scan;
+        this.serializeDb = serializeDb;
+        this.markRecordDB = new MarkRecordDB(this.serializeDb);
+    }
 
     /**
      *
@@ -39,7 +45,7 @@ public class MarkRecordMgr {
         } while (reg == null);
         // if the record haven't been initialized
         if (thisRecord == null) {
-            thisRecord = new MarkRecord( reg );
+            thisRecord = new MarkRecord( reg, CourseDB.getCourse( courseCode ) );
             markRecordDB.addRecord( thisRecord );
         }
         boolean exit = false;

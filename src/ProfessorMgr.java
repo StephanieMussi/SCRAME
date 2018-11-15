@@ -1,14 +1,17 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ProfessorMgr {
     /*
     mix of professorDB and ProfMgr
      */
     private static ArrayList<Professor> profList = new ArrayList<Professor>();
+    private SerializeToDatabaseInterface serializeDb;
 
-    ProfessorMgr() {
-        //load prof
-        ArrayList<Professor> listRead = SerializeDB.readSerializedObject( "prof.dat" );
+    public ProfessorMgr(Scanner sc, SerializeToDatabaseInterface serializeDb) {
+        this.serializeDb = serializeDb;
+        //load profRecords
+        ArrayList<Professor> listRead = (ArrayList<Professor>) serializeDb.readSerializedObject();
         if (listRead == null)
             initialize();
         else profList = listRead;
@@ -41,19 +44,19 @@ public class ProfessorMgr {
     }
 
 
-    public static void saveData() {
-        SerializeDB.writeSerializedObject( "prof.dat", profList );
+    void saveData() {
+        this.serializeDb.writeSerializedObject( profList );
     }
 
-    public static boolean isProfInDB(int pid){
-        for(int i =0; i<profList.size(); i++){
-            if(profList.get(i).getPid() == pid)
+    static boolean isProfInDB(int pid) {
+        for (int i = 0; i < profList.size(); i++) {
+            if (profList.get( i ).getPid() == pid)
                 return true;
         }
         return false;
     }
 
-    public static Professor findProfByPid(int id) {
+    static Professor findProfByPid(int id) {
         Professor prof = null;
         for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ) == null)

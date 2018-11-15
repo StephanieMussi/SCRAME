@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class StudentDB {
@@ -9,12 +8,16 @@ public class StudentDB {
      * don't contain other reference
      */
     private static ArrayList<StudentInfo> studentList = new ArrayList<StudentInfo>();
+    private SerializeToDatabaseInterface serializeDb;
 
-
-    //load student.dat
-    public StudentDB() {
-        ArrayList<StudentInfo> listRead = SerializeDB.readSerializedObject( "student.dat" );
-        if(listRead == null)
+    /*
+     * load student.dat
+     */
+    public StudentDB(SerializeToDatabaseInterface serializeDb) {
+        this.serializeDb = serializeDb;
+        //load Student Records
+        ArrayList<StudentInfo> listRead = (ArrayList<StudentInfo>) serializeDb.readSerializedObject();
+        if (listRead == null)
             initialize();
         else studentList = listRead;
     }
@@ -23,7 +26,7 @@ public class StudentDB {
     /**
      * initialize pre-entered data when instantiate an object
      */
-    private void initialize(){
+    private void initialize() {
         StudentInfo s1 = new StudentInfo( 0001, "Lin" );
         StudentInfo s2 = new StudentInfo( 0002, "Bella" );
         StudentInfo s3 = new StudentInfo( 0003, "Mike" );
@@ -32,8 +35,8 @@ public class StudentDB {
         studentList.add( s3 );
     }
 
-    public static void saveData(){
-        SerializeDB.writeSerializedObject( "student.dat", studentList );
+    void saveData() {
+        this.serializeDb.writeSerializedObject( studentList );
     }
 
     /*
@@ -51,7 +54,6 @@ public class StudentDB {
         }
         return sid;
     }
-
 
 
     /*
@@ -72,8 +74,8 @@ public class StudentDB {
 
 
     /**
-     * @return sname
      * @param sid
+     * @return sname
      */
     public static String getSnamebySid(int sid) {
         String sname = null;
@@ -81,7 +83,7 @@ public class StudentDB {
             if (studentList.get( i ) == null)
                 break;
             if (studentList.get( i ).getSid() == sid)
-                sname = studentList.get( i).getSname();
+                sname = studentList.get( i ).getSname();
         }
         return sname;
     }
@@ -112,8 +114,6 @@ public class StudentDB {
         StudentInfo newStudent = new StudentInfo( sid, sname );
         studentList.add( newStudent );
     }
-
-
 
 
     /*

@@ -12,19 +12,21 @@ public class StudentMgr {
      */
 
 
-    Scanner sc = new Scanner( System.in );
-    private static StudentDB studentDB;
-
+    //Scanner sc = new Scanner( System.in );
+    Scanner scan;
+    private SerializeToDatabaseInterface serializeDb;
+    public StudentDB studentDB;
 
     /**
      * constructor
      * instantiate new StudentDB()
      */
-    StudentMgr() {
-        studentDB = new StudentDB();
-        //do some initialization here
-    }
+    public StudentMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
+        this.scan = scan;
+        this.serializeDb = serializeDb;
+        this.studentDB = new StudentDB(this.serializeDb);
 
+    }
 
     /**
      * add student into studentDB:
@@ -36,10 +38,10 @@ public class StudentMgr {
         int noOfStu = -1;
         System.out.println( "How many students do you want to add?" );
         try {
-            noOfStu = sc.nextInt();
+            noOfStu = scan.nextInt();
         } catch (InputMismatchException e) {
             System.out.println( "Please enter integers." );
-            sc.nextLine();
+            scan.nextLine();
         }
         System.out.println( "Please enter the following information to add a student:" );
         for (int i = 0; i < noOfStu; i++) {
@@ -49,7 +51,7 @@ public class StudentMgr {
             do {
                 try {
                     System.out.println( "Please enter the student ID you want to add:" );
-                    sid = sc.nextInt();
+                    sid = scan.nextInt();
                     if (findSbySid( sid ) != null) {
                         throw new isDuplicatesException( "Student ID." );
                     }
@@ -58,7 +60,7 @@ public class StudentMgr {
                     System.out.println( e.getMessage() );
                 } catch (InputMismatchException e) {
                     System.out.println( "Please enter integer values only." );
-                    sc.nextLine();
+                    scan.nextLine();
                 }
             } while (!success);
             success = false;
@@ -66,8 +68,8 @@ public class StudentMgr {
             do {
                 try {
                     System.out.println( "Please enter the student name to be added:" );
-                    sc.nextLine();
-                    sname = sc.nextLine();
+                    scan.nextLine();
+                    sname = scan.nextLine();
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
                         throw new isInvalidInputException( "Alphabets only for Student Name!" );
                     }
@@ -81,7 +83,7 @@ public class StudentMgr {
             if (findSbySname( sname ) != null) {
                 System.out.println("Student exist in Database already. Would you like to continue to add student?");
                 System.out.println("Enter Choice \n 1) Yes \n 2) No");
-                choice = sc.nextInt();
+                choice = scan.nextInt();
                 if(choice == 1){
                     studentDB.addStudent( sid, sname );
                     System.out.println( "Student added successfully!" );
@@ -96,7 +98,7 @@ public class StudentMgr {
             else{
                 System.out.println( "Student added successfully!" );
                 studentDB.addStudent( sid, sname );
-                sc.nextLine();
+                scan.nextLine();
             }
         }
     }
@@ -108,16 +110,16 @@ public class StudentMgr {
      *
      */
     public int findSidbySname(String name) {
-        return studentDB.getSidbySname( name );
+        return StudentDB.getSidbySname( name );
     }
 
     public StudentInfo findSbySname(String name) {
-        return studentDB.getSbySname( name );
+        return StudentDB.getSbySname( name );
     }
 
 
     public StudentInfo findSbySid(int id) {
-        return studentDB.getSbySid( id );
+        return StudentDB.getSbySid( id );
     }
 
 

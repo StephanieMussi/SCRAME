@@ -1,21 +1,16 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegistrationDB {
     private static ArrayList<Registration> registrations = new ArrayList<Registration>();
+    private SerializeToDatabaseInterface serializeDb;
 
-    public RegistrationDB() {
-        //load registration
-        ArrayList<Registration> listRead = SerializeDB.readSerializedObject("registrations.dat");
-        if(listRead == null)
+    public RegistrationDB(SerializeToDatabaseInterface serializeDb) {
+        this.serializeDb = serializeDb;
+        //load markRecords
+        ArrayList<Registration> listRead = (ArrayList<Registration>) serializeDb.readSerializedObject();
+        if (listRead == null)
             initialize();
+        else registrations = listRead;
     }
 
 
@@ -29,11 +24,12 @@ public class RegistrationDB {
         registrations.add(r2);
         registrations.add(r3);
         registrations.add(r4);
-        SerializeDB.writeSerializedObject( "registration.dat", registrations );
+
     }
 
-
-
+    void saveData() {
+        this.serializeDb.writeSerializedObject( registrations );
+    }
 
     public void registerStudentForCourse(Registration x, int type) {
         //only have lec

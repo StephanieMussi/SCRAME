@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class MarkRecord implements Serializable {
 
     private Registration registration;
+    private Course course;
     //private boolean graded = false;
     private double [] marksCA;
-
     private double markExam;
 
 
@@ -19,15 +19,14 @@ public class MarkRecord implements Serializable {
         this.markExam = markExam;
     }*/
 
-    MarkRecord(Registration registration){
+    MarkRecord(Registration registration, Course course){
         this.registration = registration;
+        this.course = course;
         initialize();
     }
 
     private void initialize(){
         markExam = 0;
-        int cid = registration.getCourse();
-        Course course = CourseDB.getCourse(cid);
         ArrayList<Assessment> courseWorkList = course.getCourseWeightage().getCourseWork();
         if(courseWorkList != null)
             marksCA = new double[courseWorkList.size()];
