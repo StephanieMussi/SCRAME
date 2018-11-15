@@ -38,23 +38,4 @@ public class Assessment implements Serializable {
     public double getTotalWeightage() {
         return totalWeightage;
     }
-
-    /*
-     * Sets type of assessment (Exam or Assignment or Class participation etc)
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /*
-     * Sets weightage of type of assessment
-     */
-    public void setTotalWeightage(double totalWeightage) {
-        if (totalWeightage < 0 || totalWeightage == 0) {
-            totalWeightage = 0; // Min weightage of an assessment
-        } else if (totalWeightage > 100) {
-            totalWeightage = 100; // Max weightage of an assessment
-        }
-        this.totalWeightage = totalWeightage;
-    }
 }

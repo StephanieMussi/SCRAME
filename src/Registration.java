@@ -13,10 +13,6 @@ public class Registration implements Serializable {
         this.index = index;
     }
 
-    public void setStudent(int student) {
-        this.student = student;
-    }
-
     public int getStudent() {
         return student;
     }

@@ -93,37 +93,12 @@ public class CourseIndex implements Serializable {
      */
 
     /*
-     * Set Max capacity of current index
-     */
-    public void setCapacity() {
-        if (capacity < 0) {
-            capacity = 0;
-        } else {
-            this.capacity = 20;
-        }
-    }
-
-    /*
      * Set Vacancy of Course
      * Whenever set, vacancy minus by 1
      */
     public void setVacancy() {
 
         vacancy--;
-    }
-
-    /***
-     * Verifiers
-     * @return
-     */
-    /*
-     * Check for Vacancy of Course
-     */
-    public boolean hasCapacity() {
-        if (vacancy > 0)
-            return true;
-        else
-            return false;
     }
 
 }

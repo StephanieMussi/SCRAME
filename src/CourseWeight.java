@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /***
  * Weightage class
@@ -9,10 +8,6 @@ import java.util.HashMap;
  */
 public class CourseWeight implements Serializable {
 
-    /*
-     * Call Assessment class
-     */
-    static Assessment assessment;
     /*
      * Course's Examination
      */
@@ -47,45 +42,5 @@ public class CourseWeight implements Serializable {
      */
     public ArrayList<Assessment> getCourseWork() {
         return courseWork;
-    }
-
-    /*
-     * Get particular student's mark records of his/her registered Course
-     */
-
-
-
-    /***
-     * Setters for Instances
-     */
-
-    /*
-     * Set Examination weightage for Course
-     */
-    public void setExamination(Assessment examination) {
-        this.examination = examination;
-    }
-
-    /*
-     * Set Coursework weightage for Course
-     */
-    public void setCourseWork(ArrayList<Assessment> courseWork) {
-        this.courseWork = courseWork;
-    }
-
-
-    /***
-     * Add methods
-     */
-
-    /*
-     * Add Coursework into Course
-     * (Sub-components of Coursework)
-     * i.e Assignment, Class participation, Lab assessments
-     */
-    public void addCoursework(Assessment coursework) {
-        if (!courseWork.contains( coursework )) {
-            courseWork.add( coursework );
-        }
     }
 }

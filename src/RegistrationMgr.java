@@ -13,13 +13,6 @@ public class RegistrationMgr {
         this.registrationDB = new RegistrationDB( this.serializeDb );
     }
 
-    /*
-    RegistrationMgr() {
-        db = new RegistrationDB();
-
-    }
-    */
-
     //print all registration records
     public void printAllReg() {
         registrationDB.printAllReg();

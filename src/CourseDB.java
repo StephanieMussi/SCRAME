@@ -58,9 +58,6 @@ public class CourseDB {
         this.saveData();
 
 
-
-
-
     }
 
     void saveData() {
@@ -102,35 +99,18 @@ public class CourseDB {
         return null;
     }
 
-    /*
-     * Obtain a Object by courseName - Course
-     */
-    public static Course getCourseByName(String courseName) {
-        if (courseList.size() == 0) {
-            return null;
-        } else {
-            for (int i = 0; i < courseList.size(); i++) {
-                if (courseList.get( i ).getCourseName() == courseName) {
-                    return courseList.get( i );
-                }
-            }
-        }
-        return null;
-    }
-
-
     public void printAllIndex(int cid) {
         Course c = getCourse( cid );
         if (c.getTutorialIndex() == null && c.getLaboratoryIndex() == null)
             System.out.println( "No tutorial and lab session for this course." );
         if (c.getTutorialIndex().size() > 0) {
             //System.out.print("Course Code"+ "\t\tVacancy" + "\n");
-            System.out.printf("%s\t\t%s\n", "Index", "Vacancy");
+            System.out.printf( "%s\t\t%s\n", "Index", "Vacancy" );
             c.printIndex();
-            System.out.println("\n");
+            System.out.println( "\n" );
         }
-        }
-
     }
+
+}
 
 

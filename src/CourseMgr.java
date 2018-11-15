@@ -38,44 +38,6 @@ public class CourseMgr {
      * Getters
      */
 
-    /*
-     * Retrieves all course by their code i.e CZ2002 - Objected Oriented Design and Programming
-     * Obtain 2002 from course list
-     * Stores 2002 into an int array list
-     */
-    public int[] getCourseByCode() {
-        List<Course> courseList = courseDB.getCourseList();
-        int[] courseCodeList = new int[courseList.size()];
-        if (courseList.size() == 0) {
-            return null;
-        } else {
-            for (int i = 0; i < courseList.size(); i++) {
-                courseCodeList[i] = courseList.get( i ).getCourseCode();
-            }
-        }
-        return courseCodeList;
-    }
-
-
-    /*
-     * Retrieves all course by their Name i.e CZ2002 - Objected Oriented Design and Programming
-     * Obtain Objected Oriented Design and Programming from course list
-     * Stores  Objected Oriented Design and Programming into an String array list
-     */
-    public String[] getCourseByName() {
-
-        List<Course> courseList = courseDB.getCourseList();
-        String[] courseNameList = new String[courseList.size()];
-        if (courseList.size() == 0) {
-            return null;
-        } else {
-            for (int i = 0; i < courseList.size(); i++) {
-                courseNameList[i] = courseList.get( i ).getCourseName();
-            }
-            return courseNameList;
-        }
-    }
-
 
     public void printCourseList() {
         List<Course> courseList = courseDB.getCourseList();
@@ -102,31 +64,6 @@ public class CourseMgr {
         }
     }
 
-    public void printCourseNameList() {
-        List<Course> courseNameList = courseDB.getCourseList();
-
-        System.out.printf( "%s\t\t%s\n", "AU", "Course name" );
-        for (int i = 0; i < courseNameList.size(); i++) {
-            System.out.printf( "%2d\t\t%-20s\n", courseNameList.get( i ).getCourseAU(),
-                    courseNameList.get( i ).getCourseName() );
-        }
-    }
-
-    // Get Exam weightage by Course code
-
-    public Assessment getExamWeight(int courseCode) {
-        Course course = courseDB.getCourse( courseCode );
-        return course.getCourseWeightage().getExamination();
-    }
-
-
-    //Get Course work weightage by Course code
-    public ArrayList<Assessment> getCourseworkWeight(int courseCode) {
-        Course course = courseDB.getCourse( courseCode );
-        return course.getCourseWeightage().getCourseWork();
-    }
-
-
     public boolean isCourseExistInDB(int courseCode) {
 
         Course course = courseDB.getCourse( courseCode );
@@ -139,19 +76,7 @@ public class CourseMgr {
         }
     }
 
-    public boolean isCourseReadyForRegistration(int courseCode) {
-
-        Course course = courseDB.getCourse( courseCode );
-        if (courseDB.getCourseList().size() == 0) { //Course list is empty
-            return false;
-        } else if (course.isCourseValidatable() && isCourseExistInDB( courseCode )) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void addCourse() throws Exception {
+    public void addCourse() {
         int courseCode = -1, professorId = -1, courseAU = -1;
         String courseName = null;
         boolean success = false, success2 = false;
@@ -179,15 +104,6 @@ public class CourseMgr {
             }
         } while (!success);
         success = false;
-        /*
-            courseCode = scan.nextInt();
-            if (isCourseExistInDB( courseCode ))
-                break;
-            else {
-                System.out.print( "course ID alr exists, please enter another one" );
-                continue;
-            }
-        } while (true);*/
 
         //enter courseInfo
         System.out.println( "Adding Course " + courseCode + ", please enter following information:" );

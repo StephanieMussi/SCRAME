@@ -53,7 +53,6 @@ public class Course implements Serializable {
     private CourseWeight courseWeightage;
 
 
-
     /***
      * Constructor for Course
      * @param professorId
@@ -79,14 +78,14 @@ public class Course implements Serializable {
      * Adding tutorial indexes into Course
      * capacity parameter stores total number of students in each group
      */
-    public void addLecture(int index, int capacity){
-        lecture = new CourseIndex(index, capacity);
+    public void addLecture(int index, int capacity) {
+        lecture = new CourseIndex( index, capacity );
     }
 
     public void addTutorial(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {
-            CourseIndex index = new CourseIndex( i+courseCode*1000, capacity[i] );
+            CourseIndex index = new CourseIndex( i + courseCode * 1000, capacity[i] );
             tutorial.add( index );
         }
     }
@@ -98,7 +97,7 @@ public class Course implements Serializable {
     public void addLab(int[] capacity) {
         int i = 0;
         for (i = 0; i < capacity.length; i++) {
-            CourseIndex index = new CourseIndex( i+courseCode*1000, capacity[i] );
+            CourseIndex index = new CourseIndex( i + courseCode * 1000, capacity[i] );
             laboratory.add( index );
         }
     }
@@ -129,13 +128,6 @@ public class Course implements Serializable {
     }
 
     /*
-     * Get Max capacity of Course
-     */
-    public int getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    /*
      * Get Course AU
      */
     public int getCourseAU() {
@@ -145,7 +137,9 @@ public class Course implements Serializable {
     /*
      * Get lecture from Course
      */
-    public CourseIndex getLecture() { return lecture; }
+    public CourseIndex getLecture() {
+        return lecture;
+    }
 
     /*
      * Get tutorial groups(index) of Course
@@ -157,7 +151,9 @@ public class Course implements Serializable {
     /*
      * Get lab groups(index) of Course
      */
-    public ArrayList<CourseIndex> getLaboratoryIndex() { return laboratory; }
+    public ArrayList<CourseIndex> getLaboratoryIndex() {
+        return laboratory;
+    }
 
     /*
      * Get Component weightages of Course
@@ -169,77 +165,6 @@ public class Course implements Serializable {
     /**
      * Set methods for Instances
      */
-
-    /*
-     * Set Professor ID of Course
-     */
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
-    }
-
-    /*
-     * Set Course code
-     */
-    public void setCourseCode(int courseCode) {
-        this.courseCode = courseCode;
-    }
-
-    /*
-     * Set Course name
-     */
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    /*
-     * Set max capacity of Course
-     */
-    public void setMaxCapacity(int maxCapacity) {
-        if (maxCapacity < 0 || maxCapacity == 0) {
-            maxCapacity = 0;
-        } else {
-            this.maxCapacity = maxCapacity;
-        }
-    }
-
-    /*
-     * Set Course AU
-     */
-    public void setCourseAU(int courseAU) {
-        this.courseAU = courseAU;
-    }
-
-    /*
-     * Set Lecture to Course
-     */
-    public void setLecture(CourseIndex lecture) { this.lecture = lecture; }
-
-    /*
-     * Set tutorial group to Course; assigned as an INDEX
-     */
-    public void setTutorialIndexes(ArrayList<CourseIndex> tutorialIndexes) {
-        this.tutorial = tutorialIndexes;
-    }
-
-    /*
-     * Set tutorial group vacancy
-     */
-    public void setTutVacancy(int index) { tutorial.get( index ).setVacancy(); }
-
-    /*
-     * Set lab group to Course; assigned an as INDEX
-     */
-    public void setLaboratoryIndexes(ArrayList<CourseIndex> laboratoryIndexes) {
-        this.laboratory = laboratoryIndexes;
-    }
-
-    /*
-     * Set lab group vacancy
-     */
-    public void setLabVacancy(int index) {
-        laboratory.get( index ).setVacancy();
-    }
-
     /*
      * Set Course weightages of Course
      */
@@ -259,112 +184,77 @@ public class Course implements Serializable {
         double examWeight;
         try {
             examWeight = courseWeightage.getExamination().getTotalWeightage();
-        }catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             return false;
         }
         ArrayList<Assessment> courseworkWeight = courseWeightage.getCourseWork();
         double totalCourseWorkW = 0;
-        for(int i =0; i< courseworkWeight.size(); i++){
-            totalCourseWorkW += courseworkWeight.get(i).getTotalWeightage();
+        for (int i = 0; i < courseworkWeight.size(); i++) {
+            totalCourseWorkW += courseworkWeight.get( i ).getTotalWeightage();
         }
-        if( totalCourseWorkW + examWeight - 100 < 0.000000001)
+        if (totalCourseWorkW + examWeight - 100 < 0.000000001)
             return true;
-        else
-        {
-            System.out.println("assessment weightage assignment encountered error, please enter again!");
+        else {
+            System.out.println( "assessment weightage assignment encountered error, please enter again!" );
             return false;
         }
     }
 
     public boolean checkInExist(int index) {
-        for(int i = 0; i<tutorial.size(); i++)
-        {
-            CourseIndex in = tutorial.get(i);
-            if(in.getIndex()==index)
+        for (int i = 0; i < tutorial.size(); i++) {
+            CourseIndex in = tutorial.get( i );
+            if (in.getIndex() == index)
                 return true;
         }
-        if(lecture.getIndex()==index)
+        if (lecture.getIndex() == index)
             return true;
 
         return false;
     }
 
-    public CourseIndex getTutinByIn(int index)
-    {
-        CourseIndex in = null;
-        for (int i = 0; i<tutorial.size(); i++)
-        {
-            in = tutorial.get(i);
-            if(in.getIndex()==index)
-                return in;
-        }
-        return in;
-    }
-
-    public CourseIndex getLabinByIn(int index) {
-        CourseIndex in = null;
-        for (int i = 0; i<laboratory.size(); i++)
-        {
-            in = laboratory.get(i);
-            if(in.getIndex()==index)
-                return in;
-        }
-        return in;
-    }
-
-    public void printIndex(){
-        System.out.println("The lecture index is: "+lecture.index);
-        System.out.println("the lecture vacancy is: " + checkInVacancy(lecture));
-        if(tutorial.size()>0) {
-            System.out.println("The tutorial or lab indices are:");
+    public void printIndex() {
+        System.out.println( "The lecture index is: " + lecture.index );
+        System.out.println( "the lecture vacancy is: " + checkInVacancy( lecture ) );
+        if (tutorial.size() > 0) {
+            System.out.println( "The tutorial or lab indices are:" );
             for (int i = 0; i < tutorial.size(); i++) {
-                System.out.print(tutorial.get(i).index + "\t");
-                System.out.print(checkInVacancy(tutorial.get(i)) + " / " + tutorial.get(i).getCapacity());
+                System.out.print( tutorial.get( i ).index + "\t" );
+                System.out.print( checkInVacancy( tutorial.get( i ) ) + " / " + tutorial.get( i ).getCapacity() );
                 System.out.println();
             }
         }
     }
 
     public int checkInVacancy(CourseIndex index) {
-        if(index!=null)
-        {
+        if (index != null) {
             return index.getVacancy();
-        }
-        else{
-            System.out.println("the index doesn't exist!");
+        } else {
+            System.out.println( "the index doesn't exist!" );
             return 0;
         }
     }
 
-    public CourseIndex getIndexByIn(int in, boolean isTut)
-    {
-        if(isTut){
+    public CourseIndex getIndexByIn(int in, boolean isTut) {
+        if (isTut) {
             CourseIndex index = null;
-            for(int i =0; i<tutorial.size(); i++)
-            {
-                index = tutorial.get(i);
-                if(index.getIndex() == in)
+            for (int i = 0; i < tutorial.size(); i++) {
+                index = tutorial.get( i );
+                if (index.getIndex() == in)
                     return index;
             }
         }
         return null;
     }
 
-    public CourseIndex getIndexByIn(int in)
-    {
+    public CourseIndex getIndexByIn(int in) {
         CourseIndex index = null;
-        for(int i =0; i<laboratory.size(); i++)
-        {
-            index = laboratory.get(i);
-            if(index.getIndex() == in)
+        for (int i = 0; i < laboratory.size(); i++) {
+            index = laboratory.get( i );
+            if (index.getIndex() == in)
                 return index;
         }
         return null;
     }
-
-
-
-
 
 
 }

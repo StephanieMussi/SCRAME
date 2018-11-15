@@ -8,12 +8,6 @@ public class StudentInfo implements Serializable {
     int sid;
     String sname;
 
-
-    public StudentInfo() {
-        sid = -1;
-        sname = "anonymous";
-    }
-
     public StudentInfo(int id, String name) {
         sid = id;
         sname = name;

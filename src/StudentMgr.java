@@ -24,7 +24,7 @@ public class StudentMgr {
     public StudentMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
         this.scan = scan;
         this.serializeDb = serializeDb;
-        this.studentDB = new StudentDB(this.serializeDb);
+        this.studentDB = new StudentDB( this.serializeDb );
 
     }
 
@@ -77,24 +77,22 @@ public class StudentMgr {
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
-
             } while (!success2);
             success2 = false;
+
             if (findSbySname( sname ) != null) {
-                System.out.println("Student exist in Database already. Would you like to continue to add student?");
-                System.out.println("Enter Choice \n 1) Yes \n 2) No");
+                System.out.println( "Student exist in Database already. Would you like to continue to add student?" );
+                System.out.println( "Enter Choice \n 1) Yes \n 2) No" );
                 choice = scan.nextInt();
-                if(choice == 1){
+                if (choice == 1) {
                     studentDB.addStudent( sid, sname );
                     System.out.println( "Student added successfully!" );
-                }
-                else if (choice == 2) {
+                } else if (choice == 2) {
                     System.out.println( "Student is not added. Returning to Main Menu...\n" +
                             "--------------------------------------------" );
                     return;
                 }
-            }
-            else{
+            } else {
                 System.out.println( "Student added successfully!" );
                 studentDB.addStudent( sid, sname );
             }
@@ -104,12 +102,9 @@ public class StudentMgr {
 
     /**
      * sub functionality
-     * @para
      *
+     * @para
      */
-    public int findSidbySname(String name) {
-        return StudentDB.getSidbySname( name );
-    }
 
     public StudentInfo findSbySname(String name) {
         return StudentDB.getSbySname( name );

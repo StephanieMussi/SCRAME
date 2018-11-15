@@ -8,7 +8,7 @@ public class MarkRecordMgr {
     public MarkRecordMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
         this.scan = scan;
         this.serializeDb = serializeDb;
-        this.markRecordDB = new MarkRecordDB(this.serializeDb);
+        this.markRecordDB = new MarkRecordDB( this.serializeDb );
     }
 
     /**
@@ -23,8 +23,8 @@ public class MarkRecordMgr {
         Registration reg;
         int counter = 0;
         do {
-            if(counter!=0)
-                System.out.println("Registration does not exist, please register first.");
+            if (counter != 0)
+                System.out.println( "Registration does not exist, please register first." );
             counter++;
             System.out.println( "Please enter the student ID:" );
             try {
@@ -49,7 +49,7 @@ public class MarkRecordMgr {
             markRecordDB.addRecord( thisRecord );
         }
         boolean exit = false;
-        do{
+        do {
             System.out.println( "Choose:\n1: Enter exam mark\n2: Enter coursework marks" );
             int choice = -1;
             do {
@@ -73,75 +73,73 @@ public class MarkRecordMgr {
                         System.out.println( "Enter exam mark (100 marks based):" );
                         examMark = scan.nextInt();
                         if (examMark < 0 || examMark > 100) {
-                            throw new isInvalidInputException("Exam Marks");
+                            throw new isInvalidInputException( "Exam Marks" );
                         }
                     } catch (isInvalidInputException e) {
-                        System.out.println("Please enter values between 0 to 100");
+                        System.out.println( "Please enter values between 0 to 100" );
                         scan.nextLine();
                     } catch (InputMismatchException e) {
-                        System.out.println("Please enter a correct value.");
+                        System.out.println( "Please enter a correct value." );
                         scan.nextLine();
                     }
-                }while (examMark<0 || examMark-100>0.000001);
+                } while (examMark < 0 || examMark - 100 > 0.000001);
                 thisRecord.setMarkExam( examMark );
             } else if (choice == 2) {
                 double[] marksCA;
-                try{
+                try {
                     marksCA = thisRecord.getMarksCA();
-                }catch (NullPointerException e){
-                    System.out.println("This course does not have coursework!");
+                } catch (NullPointerException e) {
+                    System.out.println( "This course does not have coursework!" );
                     continue;
                 }
 
                 int index = -1;
                 do {
                     try {
-                        System.out.println("Mark for which coursework? ( 0-" + (marksCA.length - 1) + ")");
+                        System.out.println( "Mark for which coursework? ( 0-" + (marksCA.length - 1) + ")" );
                         index = scan.nextInt();
                         if (index < 0 || index >= marksCA.length)
-                            throw new isRecordNotFoundException("This ca");
+                            throw new isRecordNotFoundException( "This ca" );
+                    } catch (isRecordNotFoundException e) {
+                        System.out.println( e.getMessage() );
                     }
-                    catch (isRecordNotFoundException e)
-                    {
-                        System.out.println(e.getMessage());
-                    }
-                }while(index < 0 || index >= marksCA.length);
+                } while (index < 0 || index >= marksCA.length);
 
 
                 do {
                     try {
-                        System.out.println("Enter coursework mark (100 marks based):");
+                        System.out.println( "Enter coursework mark (100 marks based):" );
                         courseMark = scan.nextDouble();
                         if (courseMark < 0 || courseMark > 100) {
-                            throw new isInvalidInputException("Course Marks");
+                            throw new isInvalidInputException( "Course Marks" );
                         }
                     } catch (isInvalidInputException e) {
-                        System.out.println("Please enter values between 0 to 100");
+                        System.out.println( "Please enter values between 0 to 100" );
                         scan.nextLine();
                     } catch (InputMismatchException e) {
-                        System.out.println("Please enter a correct value");
+                        System.out.println( "Please enter a correct value" );
                         scan.nextLine();
                     }
-                }while (courseMark<0 || courseMark-100>0.000001);
+                } while (courseMark < 0 || courseMark - 100 > 0.000001);
                 thisRecord.setMarksCA( courseMark, index );
             }
 
             int ch = -1;
-            do{
-                try{
-                    System.out.println("Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):");
+            do {
+                try {
+                    System.out.println( "Do you want to continue setting marks for this student and course? (0 for no, 1 for yes):" );
                     ch = scan.nextInt();
-                    if(!(ch ==0 || ch == 1))
-                        throw new isInvalidInputException("please enter 0 or 1 only");
+                    if (!(ch == 0 || ch == 1))
+                        throw new isInvalidInputException( "please enter 0 or 1 only" );
                     else if (ch == 0)
                         exit = true;
-                }catch (isInvalidInputException e){
-                    System.out.println("Invalid input, please enter again (0 or 1):");
+                } catch (isInvalidInputException e) {
+                    System.out.println( "Invalid input, please enter again (0 or 1):" );
                 }
                 scan.nextLine();
-            }while(!(ch==0 || ch==1));
+            } while (!(ch == 0 || ch == 1));
 
-        }while(!exit);
+        } while (!exit);
 
     }
 
@@ -149,20 +147,19 @@ public class MarkRecordMgr {
         //valid student id
         int sid = -1;
 
-        do{
+        do {
             try {
-                System.out.println("Please enter the student ID:");
+                System.out.println( "Please enter the student ID:" );
                 sid = scan.nextInt();
-                if(StudentDB.getSbySid(sid)==null)
+                if (StudentDB.getSbySid( sid ) == null)
                     throw new isRecordNotFoundException( "Student ID" );
-            }catch (isRecordNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
-            catch (InputMismatchException e) {
+            } catch (isRecordNotFoundException e) {
+                System.out.println( e.getMessage() );
+            } catch (InputMismatchException e) {
                 System.out.println( "Please enter integer values only." );
                 scan.nextLine();
             }
-        }while(StudentDB.getSbySid(sid)==null);
+        } while (StudentDB.getSbySid( sid ) == null);
 
         // get list of markrecords for the student
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByStudent( sid );
@@ -181,17 +178,16 @@ public class MarkRecordMgr {
 
             System.out.println( "Course info: " + iCourse.getCourseCode() + " " + iCourse.getCourseName() );
             System.out.println( "Exam mark: " + examGrades );
-            System.out.println( "Exam weightage: " + examWeightage.getTotalWeightage()+"%" );
-            mark += examGrades * examWeightage.getTotalWeightage()/100;
+            System.out.println( "Exam weightage: " + examWeightage.getTotalWeightage() + "%" );
+            mark += examGrades * examWeightage.getTotalWeightage() / 100;
 
-            if(courseWorkGrades!=null)
-            {
+            if (courseWorkGrades != null) {
                 for (int j = 0; j < courseWorkWeightage.size(); j++) {
                     double cw = courseWorkWeightage.get( j ).getTotalWeightage();
                     System.out.println( "Coursework " + j + " description: " + courseWorkWeightage.get( j ).getType() );
                     System.out.println( "Coursework  " + j + " mark: " + courseWorkGrades[j] );
-                    System.out.println( "Coursework " + j + " weightage: " + cw +"%");
-                    mark += courseWorkGrades[j] * cw/100;
+                    System.out.println( "Coursework " + j + " weightage: " + cw + "%" );
+                    mark += courseWorkGrades[j] * cw / 100;
                 }
             }
 
@@ -201,25 +197,25 @@ public class MarkRecordMgr {
 
 
     public void printCourseStat() {
-        int cid = -1, counter=0;
+        int cid = -1, counter = 0;
         Course c = null;
         boolean valid;
-        do{
+        do {
             valid = true;
-            if(counter != 0)
-                System.out.println("Invalid coursecode! Please enter again.");
+            if (counter != 0)
+                System.out.println( "Invalid coursecode! Please enter again." );
             counter++;
             System.out.println( "Please enter the course code (int):" );
-            try{
+            try {
                 cid = scan.nextInt();
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 valid = false;
                 scan.nextLine();
             }
             c = CourseDB.getCourse( cid );
-            if(c == null)
+            if (c == null)
                 valid = false;
-        }while (!valid);
+        } while (!valid);
         CourseWeight weight = c.getCourseWeightage();
         //all records related to that course
         ArrayList<MarkRecord> records = markRecordDB.getRecordListByCourse( cid );
@@ -228,12 +224,12 @@ public class MarkRecordMgr {
 
         //exam assessment
         Assessment exam = weight.getExamination();
-        System.out.println( "Exam weightage: " + exam.getTotalWeightage() +"%");
+        System.out.println( "Exam weightage: " + exam.getTotalWeightage() + "%" );
         //coursework assessment
         ArrayList<Assessment> ca = weight.getCourseWork();
-        if(ca!= null) {
+        if (ca != null) {
             for (int i = 0; i < ca.size(); i++)
-                System.out.println("Coursework [ " + (i + 1 )+ " ] weightage: " + ca.get(i).getTotalWeightage()+"%");
+                System.out.println( "Coursework [ " + (i + 1) + " ] weightage: " + ca.get( i ).getTotalWeightage() + "%" );
         }
 
         System.out.println( "Following are the overall performance:" );
@@ -244,19 +240,19 @@ public class MarkRecordMgr {
             sum += records.get( i ).getMarkExam();
             cot++;
         }
-        System.out.println( "Exam overall: " + sum / cot +" marks");
-        total += sum/cot*exam.getTotalWeightage();
+        System.out.println( "Exam overall: " + sum / cot + " marks" );
+        total += sum / cot * exam.getTotalWeightage();
 
-        if(ca!= null) {
+        if (ca != null) {
             for (int i = 0; i < ca.size(); i++) {
                 double casum = 0;
                 for (int j = 0; j < records.size(); j++) {
-                    casum += records.get(j).getMarksCA()[i];
+                    casum += records.get( j ).getMarksCA()[i];
                 }
-                System.out.println("Coursework [ " + (i + 1) + " ] overall: " + casum / records.size()+" marks");
-                total += casum/records.size()*ca.get(i).getTotalWeightage();
+                System.out.println( "Coursework [ " + (i + 1) + " ] overall: " + casum / records.size() + " marks" );
+                total += casum / records.size() * ca.get( i ).getTotalWeightage();
             }
         }
-        System.out.println("Exam and Coursework overall together: "+total/100);
+        System.out.println( "Exam and Coursework overall together: " + total / 100 );
     }
 }

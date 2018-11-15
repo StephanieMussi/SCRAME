@@ -10,25 +10,19 @@ public class MarkRecord implements Serializable {
     private Registration registration;
     private Course course;
     //private boolean graded = false;
-    private double [] marksCA;
+    private double[] marksCA;
     private double markExam;
 
-
-    /*MarkRecord(Registration registration, double markExam){
-        this.registration = registration;
-        this.markExam = markExam;
-    }*/
-
-    MarkRecord(Registration registration, Course course){
+    MarkRecord(Registration registration, Course course) {
         this.registration = registration;
         this.course = course;
         initialize();
     }
 
-    private void initialize(){
+    private void initialize() {
         markExam = 0;
         ArrayList<Assessment> courseWorkList = course.getCourseWeightage().getCourseWork();
-        if(courseWorkList != null)
+        if (courseWorkList != null)
             marksCA = new double[courseWorkList.size()];
     }
 
