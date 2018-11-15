@@ -7,6 +7,10 @@ public class RegistrationMgr {
     private SerializeToDatabaseInterface serializeDb;
     public RegistrationDB registrationDB;
 
+    /**
+     * constructor
+     * instantiate new RegistrationDB()
+     */
     public RegistrationMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
         this.scan = scan;
         this.serializeDb = serializeDb;
@@ -157,6 +161,9 @@ public class RegistrationMgr {
     }
 
 
+    /**
+     *
+     */
     //switch 2
     private void printReg() {
         int sel;

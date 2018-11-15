@@ -1,13 +1,20 @@
+/**
+ * include ProfessorDB as an attribute
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProfessorMgr {
-    /*
-    mix of professorDB and ProfMgr
-     */
+
     private static ArrayList<Professor> profList = new ArrayList<Professor>();
     private SerializeToDatabaseInterface serializeDb;
 
+    /**
+     * constructor
+     * @param sc
+     * @param serializeDb
+     */
     public ProfessorMgr(Scanner sc, SerializeToDatabaseInterface serializeDb) {
         this.serializeDb = serializeDb;
         //load profRecords
@@ -17,6 +24,9 @@ public class ProfessorMgr {
         else profList = listRead;
     }
 
+    /**
+     * initialize the pre-entered data
+     */
     private void initialize() {
         Professor p1 = new Professor( 1, "Tan wei", "Twei.ntu.edu.com", 91330111 );
         Professor p2 = new Professor( 2, "Chen mi", "Cmi.ntu.edu.com", 91330222 );
@@ -44,6 +54,9 @@ public class ProfessorMgr {
     }
 
 
+    /**
+     * save data after program terminates
+     */
     void saveData() {
         this.serializeDb.writeSerializedObject( profList );
     }

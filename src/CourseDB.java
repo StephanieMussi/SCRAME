@@ -60,6 +60,9 @@ public class CourseDB {
 
     }
 
+    /**
+     * save data after program terminates
+     */
     void saveData() {
         this.serializeDb.writeSerializedObject( courseList );
     }
@@ -72,7 +75,7 @@ public class CourseDB {
     }
 
 
-    /***
+    /**
      * Getters for Course
      */
 

@@ -1,18 +1,13 @@
+/**
+ * used for adding student
+ * contain reference: StudentDB
+ * don't support delete student
+ */
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-/**
- *
- */
 public class StudentMgr {
-    /**
-     * used for adding student
-     * contain reference: StudentDB
-     * don't support delete student
-     */
 
-
-    //Scanner sc = new Scanner( System.in );
     Scanner scan;
     private SerializeToDatabaseInterface serializeDb;
     public StudentDB studentDB;
@@ -99,9 +94,9 @@ public class StudentMgr {
 
 
     /**
-     * sub functionality
-     *
-     * @para
+     * getter
+     * @return StudentInfo
+     * @para name
      */
 
     public StudentInfo findSbySname(String name) {
@@ -109,6 +104,11 @@ public class StudentMgr {
     }
 
 
+    /**
+     * getter
+     * @return StudentInfo
+     * @para id
+     */
     public StudentInfo findSbySid(int id) {
         return StudentDB.getSbySid( id );
     }

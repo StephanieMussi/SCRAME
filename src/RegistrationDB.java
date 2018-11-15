@@ -1,9 +1,16 @@
-import java.util.ArrayList;
+/**
+ * manipulate all registration records
+ */
 
+import java.util.ArrayList;
 public class RegistrationDB {
     private static ArrayList<Registration> registrations = new ArrayList<Registration>();
     private SerializeToDatabaseInterface serializeDb;
 
+    /**
+     * constructor
+     * @param serializeDb
+     */
     public RegistrationDB(SerializeToDatabaseInterface serializeDb) {
         this.serializeDb = serializeDb;
         //load markRecords
@@ -14,6 +21,9 @@ public class RegistrationDB {
     }
 
 
+    /**
+     * initialize pre-entered data
+     */
     private void initialize(){
         Registration r1 = new Registration(0001,0001,1001);
         Registration r2 = new Registration(0002,0002,2001);
@@ -27,10 +37,19 @@ public class RegistrationDB {
 
     }
 
+    /**
+     * save data after program terminates
+     */
     void saveData() {
         this.serializeDb.writeSerializedObject( registrations );
     }
 
+
+    /**
+     * register a valid student to a valid course
+     * @param x
+     * @param type
+     */
     public void registerStudentForCourse(Registration x, int type) {
         //only have lec
         Course c = CourseDB.getCourse(x.getCourse());
@@ -59,7 +78,12 @@ public class RegistrationDB {
     }
 
 
-    //get reg via sid and courseCode
+    /**
+     * getter
+     * @param sid
+     * @param courseCode
+     * @return Registration
+     */
     public static Registration getRegViaSidCourseCode(int sid, int courseCode){
         for(int i = 0; i< registrations.size(); i++){
             Registration thisReg = registrations.get(i);
@@ -70,8 +94,9 @@ public class RegistrationDB {
     }
 
 
-
-    //print student registration list
+    /**
+     * print all registration records
+     */
     public void printAllReg() {
 
         for(int i = 0; i<registrations.size(); i++)
@@ -82,6 +107,11 @@ public class RegistrationDB {
 
     }
 
+
+    /**
+     * for displaying registration records by index
+     * @param indexNum
+     */
     public void printRegByIndex(int indexNum) {
         for(int i = 0; i<registrations.size(); i++)
         {
@@ -94,6 +124,11 @@ public class RegistrationDB {
         }
     }
 
+
+    /**
+     * for displaying registration records by student id
+     * @param studentId
+     */
     public void printByS(int studentId) {
         for(int i = 0; i<registrations.size(); i++)
         {
@@ -106,6 +141,11 @@ public class RegistrationDB {
         }
     }
 
+
+    /**
+     * for displaying registration records by course code
+     * @param cid
+     */
     public void printByC(int cid) {
         for(int i = 0; i<registrations.size(); i++)
         {
@@ -118,6 +158,13 @@ public class RegistrationDB {
         }
     }
 
+
+
+    /**
+     * check whether a record exist in RegistrationDB
+     * @param r
+     * @return boolean  true->exist  false->not exist
+     */
     public boolean checkExist(Registration r) {
         for(int i = 0; i<registrations.size(); i++)
         {

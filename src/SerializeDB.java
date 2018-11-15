@@ -1,13 +1,19 @@
+/**
+ * SerializeDB implements SerializeToDatabaseInterface
+ */
+
 import java.io.*;
 import java.util.ArrayList;
 
-// Note : When structure of the Object type (the class file) in the list changed
-// the Serialized file may fail.
 public class SerializeDB implements SerializeToDatabaseInterface
 {
     private String fileName;
 
 
+    /**
+     * constructor
+     * @param fileName
+     */
     public SerializeDB(String fileName) {
         this.fileName = fileName;
     }
@@ -34,6 +40,9 @@ public class SerializeDB implements SerializeToDatabaseInterface
         return pDetails;
     }
 
+    /**
+     * @param list
+     */
     public void writeSerializedObject(ArrayList list) {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;

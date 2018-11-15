@@ -1,17 +1,20 @@
+/**
+ * contain a list of StudentInfo
+ * loading and adding students info between programs and file
+ * don't contain other reference
+ */
+
 import java.util.ArrayList;
 
 
 public class StudentDB {
-    /*
-     * contain a list of StudentInfo
-     * loading and adding students info between programs and file
-     * don't contain other reference
-     */
+
     private static ArrayList<StudentInfo> studentList = new ArrayList<StudentInfo>();
     private SerializeToDatabaseInterface serializeDb;
 
-    /*
+    /**
      * load student.dat
+     * @param serializeDb
      */
     public StudentDB(SerializeToDatabaseInterface serializeDb) {
         this.serializeDb = serializeDb;
@@ -39,24 +42,9 @@ public class StudentDB {
         this.serializeDb.writeSerializedObject( studentList );
     }
 
-    /*
-     * sub functionality
-     * @return sid
-     * @param name
-     */
-    public static int getSidbySname(String name) {
-        int sid = -1;
-        for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get( i ) == null)
-                break;
-            if (studentList.get( i ).getSname().compareTo( name ) == 0)
-                sid = studentList.get( i ).getSid();
-        }
-        return sid;
-    }
 
-
-    /*
+    /**
+     * getter
      * @return StudentInfo
      * @param name
      * can also check for double entering
@@ -74,6 +62,7 @@ public class StudentDB {
 
 
     /**
+     * getter
      * @param sid
      * @return sname
      */
@@ -89,7 +78,8 @@ public class StudentDB {
     }
 
 
-    /*
+    /**
+     * getter
      * @return StudentInfo
      * @param sid
      */
@@ -105,10 +95,10 @@ public class StudentDB {
     }
 
 
-    /*
-     * add student
-     * using List method add()
-     * required functionality
+    /**
+     * add student to StudentDB
+     * @param sid
+     * @param sname
      */
     public static void addStudent(int sid, String sname) {
         StudentInfo newStudent = new StudentInfo( sid, sname );
@@ -116,7 +106,7 @@ public class StudentDB {
     }
 
 
-    /*
+    /**
      * print all student info in student.dat
      */
     public void printAll() {

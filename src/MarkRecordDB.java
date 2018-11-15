@@ -28,6 +28,9 @@ public class MarkRecordDB {
         markRecords.add( m3 );
     }
 
+    /**
+     * save data after program terminates
+     */
     void saveData() {
         this.serializeDb.writeSerializedObject( markRecords );
     }

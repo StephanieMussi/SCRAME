@@ -1,10 +1,11 @@
-import java.io.Serializable;
+/**
+ * used to store individual student info
+ * if sid = -1, it's invalid
+ */
 
+import java.io.Serializable;
 public class StudentInfo implements Serializable {
-    /**
-     * used to store individual student info
-     * if sid = -1, it's invalid
-     */
+
     int sid;
     String sname;
 
