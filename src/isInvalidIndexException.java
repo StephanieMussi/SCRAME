@@ -1,4 +1,4 @@
-/***
+/**
  * Exception class dealing with invalid indexes
  */
 public class isInvalidIndexException extends Exception{

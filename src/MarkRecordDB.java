@@ -1,8 +1,11 @@
+/**
+ * contain a list of MarkRecord
+ * assigning marks for exams and cas
+ */
+
 import java.util.*;
 
-/**
- *
- */
+
 public class MarkRecordDB {
     private static ArrayList<MarkRecord> markRecords = new ArrayList<MarkRecord>();
     private SerializeToDatabaseInterface serializeDb;
@@ -16,6 +19,10 @@ public class MarkRecordDB {
         else markRecords = listRead;
     }
 
+
+    /**
+     * initialize pre-entered data
+     */
     private void initialize() {
         Registration r1 = new Registration( 0001, 0001, 1 );
         Registration r2 = new Registration( 0002, 0002, 1 );

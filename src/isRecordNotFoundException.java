@@ -1,4 +1,4 @@
-/***
+/**
  * Exception class when dealing record not found
  */
 public class isRecordNotFoundException extends Exception {

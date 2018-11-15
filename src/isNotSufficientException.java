@@ -1,4 +1,4 @@
-/***
+/**
  * Exception class dealing with insufficient input values
  */
 public class isNotSufficientException extends Exception {

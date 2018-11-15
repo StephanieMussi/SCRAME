@@ -61,6 +61,10 @@ public class ProfessorMgr {
         this.serializeDb.writeSerializedObject( profList );
     }
 
+    /**getter
+     * @param pid
+     * @return
+     */
     static boolean isProfInDB(int pid) {
         for (int i = 0; i < profList.size(); i++) {
             if (profList.get( i ).getPid() == pid)
@@ -69,6 +73,11 @@ public class ProfessorMgr {
         return false;
     }
 
+    /**
+     * getter
+     * @param id
+     * @return
+     */
     static Professor findProfByPid(int id) {
         Professor prof = null;
         for (int i = 0; i < profList.size(); i++) {
@@ -78,16 +87,6 @@ public class ProfessorMgr {
                 prof = profList.get( i );
         }
         return prof;
-    }
-
-
-    public static void printAll() {
-        System.out.println( "List of Professors" );
-        for (int i = 0; i < profList.size(); i++) {
-            if (profList.get( i ) == null)
-                break;
-            else System.out.println( profList.get( i ).getPid() + "\tName: " + profList.get( i ).getName() );
-        }
     }
 
 }

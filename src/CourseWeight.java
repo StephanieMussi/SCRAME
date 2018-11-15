@@ -1,24 +1,19 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/***
+/**
  * Weightage class
  * Handles and manages Course Components and Weightages
  * Tagged to student enrolled to Course
  */
 public class CourseWeight implements Serializable {
 
-    /*
-     * Course's Examination
-     */
     private Assessment examination;
-    /*
-     * List of Coursework for the Course
-     */
+
     private ArrayList<Assessment> courseWork;
 
 
-    /***
+    /**
      * Constructor for CourseWeight
      */
     public CourseWeight(Assessment exam, ArrayList<Assessment> courseWork) {
@@ -26,19 +21,17 @@ public class CourseWeight implements Serializable {
         this.courseWork = courseWork;
     }
 
-    /***
-     * Getters for Instances
-     */
-
-    /*
-     * Get examination of Course
+    /**
+     * getters for Instances
+     * @return
      */
     public Assessment getExamination() {
         return examination;
     }
 
-    /*
-     * Get list of Coursework (sub components) of Course
+    /**
+     * getter
+     * @return ArrayList<Assessment>
      */
     public ArrayList<Assessment> getCourseWork() {
         return courseWork;

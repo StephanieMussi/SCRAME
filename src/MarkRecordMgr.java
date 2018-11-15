@@ -1,3 +1,7 @@
+/**
+ * manipulate MarkRecordDB records
+ */
+
 import java.util.*;
 
 public class MarkRecordMgr {
@@ -5,6 +9,11 @@ public class MarkRecordMgr {
     private SerializeToDatabaseInterface serializeDb;
     public MarkRecordDB markRecordDB;
 
+    /**
+     * constructor
+     * @param scan
+     * @param serializeDb
+     */
     public MarkRecordMgr(Scanner scan, SerializeToDatabaseInterface serializeDb) {
         this.scan = scan;
         this.serializeDb = serializeDb;
@@ -12,7 +21,8 @@ public class MarkRecordMgr {
     }
 
     /**
-     *
+     * assign marks, including
+     * checking all input are valid
      */
     public void assignMarks() {
         //Registration registration;
@@ -143,6 +153,10 @@ public class MarkRecordMgr {
 
     }
 
+    /**
+     * print one student transcript, including
+     * checking all input are valid
+     */
     public void printStudentTranscript() {
         //valid student id
         int sid = -1;
@@ -196,6 +210,12 @@ public class MarkRecordMgr {
     }
 
 
+    /**
+     * print course statistics, including
+     * 1. course information
+     * 2. course assessment weightage
+     * 3. overall students' performance for exam/ cas
+     */
     public void printCourseStat() {
         int cid = -1, counter = 0;
         Course c = null;

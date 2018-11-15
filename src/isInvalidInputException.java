@@ -1,4 +1,4 @@
-/***
+/**
  * Exception class for incorrect input (String) values
  */
 public class isInvalidInputException extends Exception {
