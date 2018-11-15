@@ -159,10 +159,10 @@ public class CourseMgr {
         //enter sid, loop avoid collision
 
         do {
-            System.out.println( "Please enter Course Code to be added (It should be unique):" );
+            System.out.println( "Please enter Course Code (digits from 0 - 999):" );
             try {
                 courseCode = scan.nextInt();
-                if (courseCode < 0) {
+                if (courseCode < 0 || courseCode > 999) {
                     throw new isInvalidInputException( "Course Code" );
                 }
                 if (isCourseExistInDB( courseCode )) {
