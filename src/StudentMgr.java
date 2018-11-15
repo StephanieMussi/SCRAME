@@ -63,22 +63,20 @@ public class StudentMgr {
                     scan.nextLine();
                 }
             } while (!success);
-            success = false;
 
+            System.out.println( "Please enter the student name to be added:" );
+            scan.nextLine();
             do {
                 try {
-                    System.out.println( "Please enter the student name to be added:" );
-                    scan.nextLine();
                     sname = scan.nextLine();
                     if (!sname.matches( "([a-zA-Z ]+)" )) {
-                        throw new isInvalidInputException( "Alphabets only for Student Name!" );
+                        throw new isInvalidInputException( "alphabets only for Student Name!" );
                     }
                     success2 = true;
                 } catch (isInvalidInputException e) {
                     System.out.println( e.getMessage() );
                 }
             } while (!success2);
-            success2 = false;
 
             if (findSbySname( sname ) != null) {
                 System.out.println( "Student exist in Database already. Would you like to continue to add student?" );
