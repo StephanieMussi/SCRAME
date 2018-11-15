@@ -319,7 +319,7 @@ public class Course implements Serializable {
             System.out.println("The tutorial or lab indices are:");
             for (int i = 0; i < tutorial.size(); i++) {
                 System.out.print(tutorial.get(i).index + "\t");
-                System.out.print(checkInVacancy(tutorial.get(i)));
+                System.out.print(checkInVacancy(tutorial.get(i)) + " / " + tutorial.get(i).getCapacity());
                 System.out.println();
             }
         }
