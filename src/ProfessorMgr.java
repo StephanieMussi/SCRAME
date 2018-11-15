@@ -74,9 +74,4 @@ public class ProfessorMgr {
         }
     }
 
-
-    public static void main(String[] args) {
-        ProfessorMgr pMgr = new ProfessorMgr();
-        ProfessorMgr.printAll();
-    }
 }
